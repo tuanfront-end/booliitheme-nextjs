@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
-import { type CaseStudy, type MDXEntry, loadCaseStudies } from '@/lib/mdx'
 import { RootLayout } from '@/components/RootLayout'
 import productImage from '@/images/meeting.jpg'
+import { Border } from '@/components/Border'
 
 const TailwindcssIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -134,9 +134,26 @@ const Typescript01Icon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
+const ArrowUpRightIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1}
+    stroke="currentColor"
+    className="size-6"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+    />
+  </svg>
+)
+
 export const metadata: Metadata = {
-  description:
-    'We are a design and development agancy. We create beautiful, high quality websites and applications.',
+  description: 'We are Booliitheme. We design high-quality website templates.',
 }
 
 export default async function Home() {
@@ -145,7 +162,7 @@ export default async function Home() {
       <Container className="mt-24 sm:mt-32 md:mt-56">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-balance text-neutral-950 sm:text-7xl">
-            Hi, we are Booliitheme. We make websites and applications.
+            We are Booliitheme. We design high-quality website templates.
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
             Enthusiast of designing websites from sketch to implementation into
@@ -160,9 +177,40 @@ export default async function Home() {
   )
 }
 
-const products = [
+const projects = [
   {
     id: 1,
+    name: 'Bitpan',
+    shortDescription: 'Multi-purpose E-commerce Next.js template',
+    price: '$29',
+    rating: 5,
+    reviewCount: 14,
+    image: productImage,
+    imageAlt: 'Bitpan - Multi-purpose E-commerce Next.js template',
+    description:
+      'Bitpan is a modern and responsive Next.js template designed for multi-purpose e-commerce websites. It features a clean and user-friendly interface, making it easy for users to browse and purchase products online.',
+    href: '#',
+    features: [
+      {
+        name: 'Next.js 15',
+        icon: NextIcon,
+      },
+      {
+        name: 'Tailwind CSS 4',
+        icon: TailwindcssIcon,
+      },
+      {
+        name: 'React 19',
+        icon: ReactIcon,
+      },
+      {
+        name: 'TypeScript 5',
+        icon: Typescript01Icon,
+      },
+    ],
+  },
+  {
+    id: 2,
     name: 'Chisfis',
     shortDescription: 'Booking online Next.js template',
     price: '$29',
@@ -194,7 +242,7 @@ const products = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     name: 'Ciseco',
     shortDescription: 'E-commerce Next.js template',
     price: '$29',
@@ -226,7 +274,7 @@ const products = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     name: 'Ncmaz',
     shortDescription: 'Blog, News and Magazine Next.js template',
     price: '$29',
@@ -236,6 +284,130 @@ const products = [
     imageAlt: 'Ncmaz - Blog, News and Magazine Next.js template',
     description:
       'Ncmaz is a modern and responsive Next.js template designed for blogs, news, and magazine websites. It features a clean and user-friendly interface, making it easy for users to read and share articles.',
+    href: '#',
+    features: [
+      {
+        name: 'Next.js 15',
+        icon: NextIcon,
+      },
+      {
+        name: 'Tailwind CSS 4',
+        icon: TailwindcssIcon,
+      },
+      {
+        name: 'React 19',
+        icon: ReactIcon,
+      },
+      {
+        name: 'TypeScript 5',
+        icon: Typescript01Icon,
+      },
+    ],
+  },
+  {
+    id: 8,
+    name: 'Ciscryp',
+    shortDescription: 'NFT Marketplace NextJs React Template',
+    price: '$29',
+    rating: 5,
+    reviewCount: 14,
+    image: productImage,
+    imageAlt: 'Ciscryp - NFT Marketplace NextJs React Template',
+    description:
+      'Ciscryp is a modern and responsive Next.js template designed for NFT marketplaces. It features a clean and user-friendly interface, making it easy for users to browse, buy, and sell NFTs online.',
+    href: '#',
+    features: [
+      {
+        name: 'Next.js 15',
+        icon: NextIcon,
+      },
+      {
+        name: 'Tailwind CSS 4',
+        icon: TailwindcssIcon,
+      },
+      {
+        name: 'React 19',
+        icon: ReactIcon,
+      },
+      {
+        name: 'TypeScript 5',
+        icon: Typescript01Icon,
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: 'Ciseco Hydrogen',
+    shortDescription: "Hydrogen Shopify's Headless Store theme",
+    price: '$29',
+    rating: 5,
+    reviewCount: 14,
+    image: productImage,
+    imageAlt: "Ciseco - Hydrogen Shopify's Headless Store theme",
+    description:
+      "Ciseco Hydrogen is a modern and responsive Next.js template designed for Shopify's headless store. It features a clean and user-friendly interface, making it easy for users to browse and purchase products online.",
+    href: '#',
+    features: [
+      {
+        name: 'Next.js 15',
+        icon: NextIcon,
+      },
+      {
+        name: 'Tailwind CSS 4',
+        icon: TailwindcssIcon,
+      },
+      {
+        name: 'React 19',
+        icon: ReactIcon,
+      },
+      {
+        name: 'TypeScript 5',
+        icon: Typescript01Icon,
+      },
+    ],
+  },
+  {
+    id: 6,
+    name: 'Ncmaz Headless WP',
+    shortDescription: 'Next.js Headless WordPress Blog Magazine template',
+    price: '$29',
+    rating: 5,
+    reviewCount: 14,
+    image: productImage,
+    imageAlt: 'Ncmaz - NextJs Headless WordPress Blog Magazine template',
+    description:
+      'Ncmaz Headless WordPress is a modern and responsive Next.js template designed for headless WordPress blogs and magazines. It features a clean and user-friendly interface, making it easy for users to read and share articles.',
+    href: '#',
+    features: [
+      {
+        name: 'Next.js 15',
+        icon: NextIcon,
+      },
+      {
+        name: 'Tailwind CSS 4',
+        icon: TailwindcssIcon,
+      },
+      {
+        name: 'React 19',
+        icon: ReactIcon,
+      },
+      {
+        name: 'TypeScript 5',
+        icon: Typescript01Icon,
+      },
+    ],
+  },
+  {
+    id: 7,
+    name: 'Ncmaz WordPress FSE',
+    shortDescription: 'Ncmaz WordPress Full Site Editing Block Theme',
+    price: '$29',
+    rating: 5,
+    reviewCount: 14,
+    image: productImage,
+    imageAlt: 'Ncmaz - News Magazine Full Site Editing WordPress Block Theme',
+    description:
+      'Ncmaz WordPress FSE is a modern and responsive WordPress block theme designed for news and magazine websites. It features a clean and user-friendly interface, making it easy for users to read and share articles.',
     href: '#',
     features: [
       {
@@ -266,99 +438,105 @@ function classNames(...classes: (string | boolean | undefined)[]) {
 
 function Grid() {
   return (
-    <div className="mt-24 sm:mt-32 lg:mt-56">
+    <div className="mt-24 sm:mt-32 lg:mt-40">
       <Container>
-        <FadeInStagger>
-          <h2 className="sr-only">Products</h2>
-          <div className="grid flex-1 grid-cols-1 border-t border-l border-gray-200 sm:mx-0 md:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
-              <FadeIn
-                key={product.id}
-                className="group relative flex flex-col border-r border-b border-gray-200 p-4 sm:p-6"
-              >
-                <div className="relative aspect-3/4">
-                  <Image
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 33vw"
-                    priority
-                    alt={product.imageAlt}
-                    src={product.image}
-                    className="rounded-2xl object-cover brightness-100 transition-[filter] duration-300 ease-in-out group-hover:brightness-75"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col gap-y-6 pt-8 pb-2">
-                  <dl className="flex flex-wrap">
-                    <div className="flex w-full flex-none justify-between gap-x-6">
-                      <dt className="text-xl font-semibold text-gray-900">
-                        {product.name}
-                        <p className="text-sm/6 font-normal text-gray-500">
-                          {product.shortDescription}
-                        </p>
-                      </dt>
-                      {product.isNew && (
-                        <div className="flex-none">
-                          <dt className="sr-only">type</dt>
-                          <dd className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">
-                            New
-                          </dd>
-                        </div>
-                      )}
-                    </div>
+        <FadeIn>
+          <Border className="pt-16">
+            <div className="max-w-3xl">
+              <p className="block font-display text-base font-semibold text-neutral-950">
+                Our work
+              </p>
+              <h2 className="mt-6 block font-display text-4xl font-medium tracking-tight text-balance text-neutral-950 sm:text-5xl">
+                Featured projects
+              </h2>
+              <p className="mt-6 text-xl text-neutral-600">
+                Explore our latest projects, showcasing our design and
+                development expertise. Each is crafted with attention to detail
+                and a focus on user experience.
+              </p>
+            </div>
+          </Border>
+        </FadeIn>
 
-                    {product?.features?.map((feature, index) => (
-                      <div
-                        className={classNames(
-                          'flex w-full flex-none gap-x-4',
-                          index === 0
-                            ? 'mt-6 border-t border-gray-900/5 pt-6'
-                            : 'mt-4',
-                        )}
-                        key={feature.name}
-                      >
-                        <dt className="flex-none">
-                          <span className="sr-only">{feature.name}</span>
-                          <feature.icon
-                            aria-hidden="true"
-                            className="size-8 text-gray-400"
-                          />
-                        </dt>
-                        <dd className="self-center text-base/none font-medium text-gray-900">
-                          {feature.name}
+        <FadeInStagger className="mt-14 grid flex-1 grid-cols-1 border-t border-l border-gray-200 sm:mx-0 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <FadeIn
+              key={project.id}
+              className="group relative flex flex-col border-r border-b border-gray-200 p-4 sm:p-6"
+            >
+              <div className="relative aspect-square">
+                <Image
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 33vw"
+                  priority
+                  alt={project.imageAlt}
+                  src={project.image}
+                  className="rounded-xs object-cover brightness-100 transition-[filter] duration-300 ease-in-out group-hover:brightness-75"
+                />
+              </div>
+              <div className="flex flex-1 flex-col gap-y-6 pt-8 pb-2">
+                <dl className="flex flex-wrap">
+                  <div className="flex w-full flex-none justify-between gap-x-6">
+                    <dt>
+                      <h3 className="font-display text-2xl font-semibold text-gray-900">
+                        <span className="text-3xl font-light">/</span>
+                        <span>{project.name}</span>
+                      </h3>
+                      <p className="mt-1 text-sm/6 font-normal text-gray-500">
+                        {project.shortDescription}
+                      </p>
+                    </dt>
+                    {project.isNew && (
+                      <div className="flex-none">
+                        <dt className="sr-only">type</dt>
+                        <dd className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">
+                          New
                         </dd>
                       </div>
-                    ))}
-                  </dl>
+                    )}
+                  </div>
 
-                  <div className="mt-auto flex items-end justify-between gap-x-2 border-t border-gray-900/5 px-0 py-6 text-base/6 font-medium text-gray-900 hover:text-gray-700">
-                    {/* <Link
+                  {project?.features?.map((feature, index) => (
+                    <div
+                      className={classNames(
+                        'flex w-full flex-none gap-x-4',
+                        index === 0
+                          ? 'mt-6 border-t border-gray-900/5 pt-6'
+                          : 'mt-4',
+                      )}
+                      key={feature.name}
+                    >
+                      <dt className="flex-none">
+                        <span className="sr-only">{feature.name}</span>
+                        <feature.icon
+                          aria-hidden="true"
+                          className="size-8 text-gray-400"
+                        />
+                      </dt>
+                      <dd className="self-center text-base/none font-medium text-gray-900">
+                        {feature.name}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <div className="mt-auto flex items-end justify-between gap-x-2 border-t border-gray-900/5 px-0 py-6 text-base/6 font-medium text-gray-900 hover:text-gray-700">
+                  {/* <Link
                       target="_blank"
                       rel="noopener noreferrer"
                       href="#"
                       className="absolute inset-0"
                       aria-label="Visit site"
                     /> */}
-                    <p className="relative before:absolute before:top-full before:left-0 before:mt-2 before:block before:h-1 before:w-24 before:rounded-full before:bg-yellow-100">
-                      Visit site
-                    </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                      />
-                    </svg>
-                  </div>
+                  <p className="relative before:absolute before:top-full before:left-0 before:mt-2 before:block before:h-1 before:w-20 before:rounded-full before:bg-yellow-100">
+                    Visit site
+                  </p>
+
+                  <ArrowUpRightIcon className="size-6" />
                 </div>
-              </FadeIn>
-            ))}
-          </div>
+              </div>
+            </FadeIn>
+          ))}
         </FadeInStagger>
       </Container>
     </div>
