@@ -1,11 +1,10 @@
 import { type Metadata } from 'next'
-
 import '@/styles/tailwind.css'
 
 export const metadata: Metadata = {
   title: {
     template: '%s - Booliitheme',
-    default: 'Booliitheme - Next.js and Tailwind CSS agency templates',
+    default: 'Booliitheme - Next.js and Tailwind CSS templates agency',
   },
 }
 
