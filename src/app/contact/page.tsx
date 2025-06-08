@@ -1,12 +1,10 @@
 import { useId } from 'react'
 import { type Metadata } from 'next'
 import Link from 'next/link'
-
 import { Border } from '@/components/Border'
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
-import { Offices } from '@/components/Offices'
 import { PageIntro } from '@/components/PageIntro'
 import { SocialMedia } from '@/components/SocialMedia'
 import { RootLayout } from '@/components/RootLayout'
@@ -98,14 +96,11 @@ function ContactDetails() {
   return (
     <FadeIn>
       <h2 className="font-display text-base font-semibold text-neutral-950">
-        Our offices
+        Contact us
       </h2>
       <p className="mt-6 text-base text-neutral-600">
-        Prefer doing things in person? We don’t but we have to list our
-        addresses here for legal reasons.
+        Prefer doing things in person? Please message us with your requirements.
       </p>
-
-      <Offices className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2" />
 
       <Border className="mt-16 pt-16">
         <h2 className="font-display text-base font-semibold text-neutral-950">
@@ -113,10 +108,10 @@ function ContactDetails() {
         </h2>
         <dl className="mt-6 grid grid-cols-1 gap-8 text-sm sm:grid-cols-2">
           {[
-            ['Careers', 'careers@studioagency.com'],
-            ['Press', 'press@studioagency.com'],
+            ['Careers', 'booliitheme@gmail.com'],
+            ['Press', 'booliitheme@gmail.com'],
           ].map(([label, email]) => (
-            <div key={email}>
+            <div key={label}>
               <dt className="font-semibold text-neutral-950">{label}</dt>
               <dd>
                 <Link

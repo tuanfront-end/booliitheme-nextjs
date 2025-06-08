@@ -9,26 +9,55 @@ const navigation = [
   {
     title: 'Work',
     links: [
-      { title: 'FamilyFund', href: '/work/family-fund' },
-      { title: 'Unseal', href: '/work/unseal' },
-      { title: 'Phobia', href: '/work/phobia' },
+      {
+        title: 'Bitpan',
+        href: 'https://bitpan-ecommerce-nextjs-template.vercel.app/',
+        target: '_blank',
+      },
+      {
+        title: 'Chisfis',
+        href: 'https://chisfis-nextjs.vercel.app/',
+        target: '_blank',
+      },
+      {
+        title: 'Ciseco',
+        href: 'https://ciseco-nextjs.vercel.app/',
+        target: '_blank',
+      },
       {
         title: (
           <>
             See all <span aria-hidden="true">&rarr;</span>
           </>
         ),
-        href: '/work',
+        href: '/#work',
+        target: '_self',
       },
     ],
   },
   {
     title: 'Company',
     links: [
-      { title: 'About', href: '/about' },
-      { title: 'Process', href: '/process' },
-      { title: 'Blog', href: '/blog' },
-      { title: 'Contact us', href: '/contact' },
+      {
+        title: 'About',
+        href: '#',
+        target: '_self',
+      },
+      {
+        title: 'Process',
+        href: '#',
+        target: '_self',
+      },
+      {
+        title: 'Blog',
+        href: '#',
+        target: '_self',
+      },
+      {
+        title: 'Contact us',
+        href: '/contact',
+        target: '_self',
+      },
     ],
   },
   {
@@ -51,6 +80,12 @@ function Navigation() {
                 <li key={linkIndex} className="mt-4">
                   <Link
                     href={link.href}
+                    target={link.target}
+                    rel={
+                      link.target === '_blank'
+                        ? 'noopener noreferrer'
+                        : undefined
+                    }
                     className="transition hover:text-neutral-950"
                   >
                     {link.title}
@@ -122,10 +157,10 @@ export function Footer() {
         </div>
         <div className="mt-24 mb-20 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 border-t border-neutral-950/10 pt-12">
           <Link href="/" aria-label="Home">
-            <Logo className="h-8" />
+            <Logo />
           </Link>
           <p className="text-sm text-neutral-700">
-            © Studio Agency Inc. {new Date().getFullYear()}
+            © Booliitheme Agency Inc. {new Date().getFullYear()}
           </p>
         </div>
       </FadeIn>

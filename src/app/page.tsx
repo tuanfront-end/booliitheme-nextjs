@@ -5,8 +5,24 @@ import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import { RootLayout } from '@/components/RootLayout'
-import productImage from '@/images/meeting.jpg'
 import { Border } from '@/components/Border'
+import productImage from '@/images/bitpan.png'
+import bitpanImage from '@/images/bitpan.png'
+import bitpanImage2 from '@/images/bitpan2.png'
+import chisfisImage from '@/images/chisfis.png'
+import chisfisImage2 from '@/images/chisfis2.png'
+import cisecoImage from '@/images/ciseco.png'
+import cisecoImage2 from '@/images/ciseco2.png'
+import ncmazImage from '@/images/ncmaz.png'
+import ncmazImage2 from '@/images/ncmaz2.png'
+import ciscrypImage from '@/images/ciscryp.png'
+import ciscrypImage2 from '@/images/ciscryp2.png'
+import ncmazfaustImage from '@/images/ncmazfaust.png'
+import ncmazfaustImage2 from '@/images/ncmazfaust2.png'
+import ncmazfseImage from '@/images/ncmazfse.png'
+import ncmazfseImage2 from '@/images/ncmazfse2.png'
+import cisecoh2Image from '@/images/cisecoh2.png'
+import cisecoh2Image2 from '@/images/cisecoh2-2.png'
 import clsx from 'clsx'
 
 const CleanIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -390,7 +406,7 @@ export default async function Home() {
           </p>
         </FadeIn>
       </Container>
-      <Grid />
+      <GridProjects />
       <ContactSection />
     </RootLayout>
   )
@@ -404,8 +420,10 @@ const projects = [
     price: '$29',
     rating: 5,
     reviewCount: 14,
-    image: productImage,
+    image: bitpanImage,
+    image2: bitpanImage2,
     imageAlt: 'Bitpan - Multipurpose eCommerce Next.js Template',
+    isNew: true,
     description:
       'Bitpan is a modern and responsive Next.js template designed for multi-purpose e-commerce websites. It features a clean and user-friendly interface, making it easy for users to browse and purchase products online.',
     href: 'https://bitpan-ecommerce-nextjs-template.vercel.app',
@@ -435,10 +453,10 @@ const projects = [
     price: '$29',
     rating: 5,
     reviewCount: 380,
-    image: productImage,
+    image: chisfisImage,
+    image2: chisfisImage2,
     imageAlt: 'Chisfis - Online Booking Next.js Template',
     href: 'https://chisfis-nextjs.vercel.app',
-    isNew: true,
     description:
       'Chisfis is a modern and responsive Next.js template designed for booking online services. It features a clean and user-friendly interface, making it easy for users to navigate and book services online.',
     features: [
@@ -467,10 +485,10 @@ const projects = [
     price: '$29',
     rating: 5,
     reviewCount: 18,
-    image: productImage,
+    image: cisecoImage,
+    image2: cisecoImage2,
     imageAlt: 'Ciseco - E-commerce Next.js template',
     href: 'https://ciseco-nextjs.vercel.app',
-    isNew: true,
     description:
       'Ciseco is a modern and responsive Next.js template designed for e-commerce websites. It features a clean and user-friendly interface, making it easy for users to browse and purchase products online.',
     features: [
@@ -499,7 +517,8 @@ const projects = [
     price: '$29',
     rating: 5,
     reviewCount: 14,
-    image: productImage,
+    image: ncmazImage,
+    image2: ncmazImage2,
     imageAlt: 'Ncmaz - Blog, News and Magazine Next.js template',
     description:
       'Ncmaz is a modern and responsive Next.js template designed for blogs, news, and magazine websites. It features a clean and user-friendly interface, making it easy for users to read and share articles.',
@@ -530,7 +549,8 @@ const projects = [
     price: '$29',
     rating: 5,
     reviewCount: 14,
-    image: productImage,
+    image: ciscrypImage,
+    image2: ciscrypImage2,
     imageAlt: 'Ciscryp - NFT Marketplace NextJs React Template',
     description:
       'Ciscryp is a modern and responsive Next.js template designed for NFT marketplaces. It features a clean and user-friendly interface, making it easy for users to browse, buy, and sell NFTs online.',
@@ -561,7 +581,8 @@ const projects = [
     price: '$49',
     rating: 5,
     reviewCount: 14,
-    image: productImage,
+    image: cisecoh2Image,
+    image2: cisecoh2Image2,
     imageAlt: "Ciseco - Hydrogen Shopify's Headless Store theme",
     description:
       "Ciseco Hydrogen is a modern and responsive Next.js template designed for Shopify's headless store. It features a clean and user-friendly interface, making it easy for users to browse and purchase products online.",
@@ -592,12 +613,17 @@ const projects = [
     price: '$49',
     rating: 5,
     reviewCount: 14,
-    image: productImage,
+    image: ncmazfaustImage,
+    image2: ncmazfaustImage2,
     imageAlt: 'Ncmaz - NextJs Headless WordPress Blog Magazine template',
     description:
       'Ncmaz Headless WordPress is a modern and responsive Next.js template designed for headless WordPress blogs and magazines. It features a clean and user-friendly interface, making it easy for users to read and share articles.',
     href: 'https://ncmaz-faust-delta.vercel.app',
     features: [
+      {
+        name: 'WordPress 6.8',
+        icon: WordpressIcon,
+      },
       {
         name: 'Next.js 14',
         icon: NextIcon,
@@ -607,16 +633,8 @@ const projects = [
         icon: TailwindcssIcon,
       },
       {
-        name: 'React 18',
-        icon: ReactIcon,
-      },
-      {
         name: 'TypeScript 5',
         icon: Typescript01Icon,
-      },
-      {
-        name: 'WordPress GraphQL',
-        icon: WordpressIcon,
       },
     ],
   },
@@ -627,7 +645,8 @@ const projects = [
     price: '$49',
     rating: 5,
     reviewCount: 14,
-    image: productImage,
+    image: ncmazfseImage,
+    image2: ncmazfseImage2,
     imageAlt: 'Ncmaz - News Magazine Full Site Editing WordPress Block Theme',
     description:
       'Ncmaz WordPress FSE is a modern and responsive WordPress block theme designed for news and magazine websites. It features a clean and user-friendly interface, making it easy for users to read and share articles.',
@@ -653,14 +672,17 @@ const projects = [
   },
 ]
 
-function Grid() {
+function GridProjects() {
   return (
     <div className="mt-24 sm:mt-32 lg:mt-40">
       <Container>
         <FadeIn>
           <Border className="pt-16">
             <div className="max-w-3xl">
-              <p className="block font-display text-base font-semibold text-neutral-950">
+              <p
+                className="block scroll-mt-8 font-display text-base font-semibold text-neutral-950"
+                id="work"
+              >
                 Our work
               </p>
               <h2 className="mt-6 block font-display text-4xl font-medium tracking-tight text-balance text-neutral-950 sm:text-5xl">
@@ -679,19 +701,27 @@ function Grid() {
           {projects.map((project) => (
             <FadeIn
               key={project.id}
-              className="group relative flex flex-col border-r border-b border-gray-200 p-4 sm:p-6"
+              className="group/prd relative flex flex-col border-r border-b border-gray-200 p-4 sm:p-6"
             >
-              <div className="relative aspect-square">
+              <div className="relative aspect-2118/1984 ring-8 ring-neutral-100 ring-offset-8">
                 <Image
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 33vw"
                   priority
                   alt={project.imageAlt}
                   src={project.image}
-                  className="rounded-xl object-cover brightness-100 transition-[filter] duration-300 ease-in-out group-hover:brightness-75"
+                  className="z-0 object-cover"
+                />
+                <Image
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 33vw"
+                  priority
+                  alt={project.imageAlt}
+                  src={project.image2 || project.image}
+                  className="z-0 object-cover opacity-0 transition-opacity duration-300 group-hover/prd:opacity-100"
                 />
               </div>
-              <div className="flex flex-1 flex-col gap-y-6 pt-8 pb-2">
+              <div className="flex flex-1 flex-col gap-y-6 pt-10 pb-2">
                 <dl className="flex flex-wrap">
                   <div className="flex w-full flex-none justify-between gap-x-6">
                     <dt>
@@ -701,8 +731,8 @@ function Grid() {
                         <Link
                           target="_blank"
                           rel="noopener noreferrer"
-                          href="#"
-                          className="absolute inset-0"
+                          href={project.href}
+                          className="absolute inset-0 z-10"
                           aria-label="Visit site"
                         />
                       </h3>
