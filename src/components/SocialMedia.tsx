@@ -69,7 +69,7 @@ function DribbbleIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 export const socialMediaProfiles = [
   {
     title: 'Facebook',
-    href: 'https://facebook.com',
+    href: 'https://www.facebook.com/people/Booliitheme/61577223687643/',
     icon: FacebookIcon,
     target: '_blank',
   },
@@ -87,7 +87,7 @@ export const socialMediaProfiles = [
   },
   {
     title: 'Dribbble',
-    href: 'https://dribbble.com',
+    href: 'https://dribbble.com/booliitheme/',
     icon: DribbbleIcon,
     target: '_blank',
   },
