@@ -13,6 +13,8 @@ import chisfisImage from '@/images/chisfis.png'
 import chisfisImage2 from '@/images/chisfis2.png'
 import cisecoImage from '@/images/ciseco.png'
 import cisecoImage2 from '@/images/ciseco2.png'
+import cisecoImageFSE1 from '@/images/cisecoFSE1.png'
+import cisecoImageFSE2 from '@/images/cisecoFSE2.png'
 import ncmazImage from '@/images/ncmaz.png'
 import ncmazImage2 from '@/images/ncmaz2.png'
 import ciscrypImage from '@/images/ciscryp.png'
@@ -387,19 +389,41 @@ const ArrowUpRightIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
+const CartIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    color="#000000"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    strokeWidth={1.1}
+    stroke="currentColor"
+    className="size-6"
+    {...props}
+  >
+    <path d="M8 7H16C17.8856 7 18.8284 7 19.4142 7.58579C20 8.17157 20 9.11438 20 11V15C20 18.2998 20 19.9497 18.9749 20.9749C17.9497 22 16.2998 22 13 22H11C7.70017 22 6.05025 22 5.02513 20.9749C4 19.9497 4 18.2998 4 15V11C4 9.11438 4 8.17157 4.58579 7.58579C5.17157 7 6.11438 7 8 7Z" />
+    <path d="M16 9.5C16 5.63401 14.2091 2 12 2C9.79086 2 8 5.63401 8 9.5" />
+  </svg>
+)
+
 export const metadata: Metadata = {
-  description: 'We are Booliitheme. We design high-quality website templates.',
+  description:
+    'We are Booliitheme. We design high-quality website templates and WordPress FSE block themes.',
 }
 
 export default async function Home() {
   return (
     <RootLayout>
       <Container className="mt-24 sm:mt-32 md:mt-56">
-        <FadeIn className="max-w-3xl">
+        <FadeIn className="max-w-6xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-balance text-neutral-950 sm:text-7xl">
-            We are Booliitheme. We design high-quality website templates.
+            We design high-quality website templates and WordPress FSE block
+            themes.
           </h1>
-          <p className="mt-6 text-xl text-neutral-600">
+          <p className="mt-6 max-w-3xl text-xl text-neutral-600">
             Enthusiast of designing websites from sketch to implementation into
             live versions. Ready to meet client expectations as a freelancer or
             full-time project manager.
@@ -412,7 +436,39 @@ export default async function Home() {
   )
 }
 
-const projects = [
+const _projects = [
+  {
+    id: 999,
+    name: 'Ciscryp',
+    shortDescription: 'NFT Marketplace NextJs React Template',
+    price: '$29',
+    rating: 5,
+    reviewCount: 14,
+    image: ciscrypImage,
+    image2: ciscrypImage2,
+    imageAlt: 'Ciscryp - NFT Marketplace NextJs React Template',
+    description:
+      'Ciscryp is a modern and responsive Next.js template designed for NFT marketplaces. It features a clean and user-friendly interface, making it easy for users to browse, buy, and sell NFTs online.',
+    href: 'https://ciscryp-nextjs.vercel.app',
+    features: [
+      {
+        name: 'Next.js 14',
+        icon: NextIcon,
+      },
+      {
+        name: 'Tailwind CSS 3',
+        icon: TailwindcssIcon,
+      },
+      {
+        name: 'React 18',
+        icon: ReactIcon,
+      },
+      {
+        name: 'TypeScript 5',
+        icon: Typescript01Icon,
+      },
+    ],
+  },
   {
     id: 1,
     name: 'Bitpan',
@@ -543,38 +599,6 @@ const projects = [
     ],
   },
   {
-    id: 8,
-    name: 'Ciscryp',
-    shortDescription: 'NFT Marketplace NextJs React Template',
-    price: '$29',
-    rating: 5,
-    reviewCount: 14,
-    image: ciscrypImage,
-    image2: ciscrypImage2,
-    imageAlt: 'Ciscryp - NFT Marketplace NextJs React Template',
-    description:
-      'Ciscryp is a modern and responsive Next.js template designed for NFT marketplaces. It features a clean and user-friendly interface, making it easy for users to browse, buy, and sell NFTs online.',
-    href: 'https://ciscryp-nextjs.vercel.app',
-    features: [
-      {
-        name: 'Next.js 14',
-        icon: NextIcon,
-      },
-      {
-        name: 'Tailwind CSS 3',
-        icon: TailwindcssIcon,
-      },
-      {
-        name: 'React 18',
-        icon: ReactIcon,
-      },
-      {
-        name: 'TypeScript 5',
-        icon: Typescript01Icon,
-      },
-    ],
-  },
-  {
     id: 5,
     name: 'Ciseco Hydrogen',
     shortDescription: "Hydrogen Shopify's Headless Store theme",
@@ -641,7 +665,7 @@ const projects = [
   {
     id: 7,
     name: 'Ncmaz WordPress FSE',
-    shortDescription: 'Ncmaz WordPress Full Site Editing Block Theme',
+    shortDescription: 'Blog, News & Magazine WordPress FSE Block Theme',
     price: '$49',
     rating: 5,
     reviewCount: 14,
@@ -670,7 +694,72 @@ const projects = [
       },
     ],
   },
+  {
+    id: 8,
+    name: 'Ciseco WooCommerce',
+    shortDescription: 'Multipurpose WooCommerce FSE block theme',
+    price: '$39',
+    rating: 5,
+    reviewCount: 14,
+    image: cisecoImageFSE1,
+    image2: cisecoImageFSE2,
+    imageAlt: 'Ciseco - Multipurpose WooCommerce FSE block theme',
+    description:
+      'Ciseco WooCommerce FSE is a modern and responsive WooCommerce block theme designed for WooCommerce websites.',
+    href: 'https://ciseco-fse.booliitheme.com',
+    features: [
+      {
+        name: 'WordPress 6.9',
+        icon: WordpressIcon,
+      },
+      {
+        name: 'Full Site Editing',
+        icon: CleanIcon,
+      },
+      {
+        name: 'WooCommerce 10.4',
+        icon: CartIcon,
+      },
+      {
+        name: 'WordPress Interactive API',
+        icon: ApiIcon,
+      },
+    ],
+  },
+  {
+    id: 9,
+    name: 'Bitpan WooCommerce',
+    shortDescription: 'Multipurpose WooCommerce FSE block theme',
+    price: '$39',
+    rating: 5,
+    reviewCount: 14,
+    image: bitpanImage,
+    image2: bitpanImage2,
+    imageAlt: 'Bitpan - Multipurpose WooCommerce FSE block theme',
+    description:
+      'Bitpan WooCommerce FSE is a modern and responsive WooCommerce block theme designed for WooCommerce websites.',
+    href: 'https://bitpan-fse.booliitheme.com',
+    features: [
+      {
+        name: 'WordPress 6.9',
+        icon: WordpressIcon,
+      },
+      {
+        name: 'Full Site Editing',
+        icon: CleanIcon,
+      },
+      {
+        name: 'WooCommerce 10.4',
+        icon: CartIcon,
+      },
+      {
+        name: 'WordPress Interactive API',
+        icon: ApiIcon,
+      },
+    ],
+  },
 ]
+const projects = _projects.reverse()
 
 function GridProjects() {
   return (
@@ -700,7 +789,7 @@ function GridProjects() {
         <FadeInStagger className="mt-14 grid flex-1 grid-cols-1 border-t border-l border-gray-200 sm:mx-0 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <FadeIn
-              key={project.id}
+              key={project.id + project.name}
               className="group/prd relative flex flex-col border-r border-b border-gray-200 p-4 sm:p-6"
             >
               <div className="relative aspect-2118/1984 ring-8 ring-neutral-100 ring-offset-8">
@@ -710,7 +799,7 @@ function GridProjects() {
                   priority
                   alt={project.imageAlt}
                   src={project.image}
-                  className="z-0 object-cover"
+                  className="z-0 object-cover object-top-left"
                 />
                 <Image
                   fill
@@ -718,7 +807,7 @@ function GridProjects() {
                   priority
                   alt={project.imageAlt}
                   src={project.image2 || project.image}
-                  className="z-0 object-cover opacity-0 transition-opacity duration-300 group-hover/prd:opacity-100"
+                  className="z-0 object-cover object-top-left opacity-0 transition-opacity duration-300 group-hover/prd:opacity-100"
                 />
               </div>
               <div className="flex flex-1 flex-col gap-y-6 pt-10 pb-2">
