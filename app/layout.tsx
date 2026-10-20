@@ -26,6 +26,8 @@ import {
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import { DemoBuyLink } from "@/components/demo/buy-link"; // demo-only
+import { readPicks } from "@/components/dev/picks";
+import { Skin } from "@/components/dev/switch-control";
 import { FontNotice } from "@/components/font-notice";
 import { GridOverlay } from "@/components/grid-overlay";
 import { PresetPanel, PresetScript } from "@/components/preset-panel";
@@ -288,7 +290,14 @@ export const metadata: Metadata = {
     "Rent a car from a real owner near you. No counter, no queue, and the price on the card is the price you pay.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+// Scaffolding, with the two imports above, the `async` and <Skin> below: the
+// switch's picks are read off disk on every request, before the first paint,
+// so a reload never flashes the defaults and then swaps. All of it comes off at
+// phase two's harvest — switch.md § Taking it off.
+export const dynamic = "force-dynamic";
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const saved = await readPicks();
   // data-scroll-behavior: Next 16 stopped neutralising the `scroll-behavior:
   // smooth` in globals.css around a route transition, so without the attribute
   // the new page renders at once and then animates up from wherever the old one
@@ -319,7 +328,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             stops before its content on every route; this is one that jumps
             them. Its target is `id="content"` on each `<main>`. */}
         <SkipLink />
-        <Direction built={direction}>{children}</Direction>
+        <Direction built={direction}>
+          {/* The switch, mounted here rather than in app/page.tsx because the
+              header and footer are: it has to wrap them for the brand, the
+              pairing, the radius and the header knob to reach them, and here
+              it wraps /lab and /design-system with the home. A page that needs
+              `?v=` renders its own <Skin>, which nests as a provider — see
+              components/dev/switch-control.tsx. */}
+          <Skin saved={saved}>{children}</Skin>
+        </Direction>
         {/* The two site-wide objects, here so they are on every route. Every
             schema a fork adds points an `@id` at one of them — an article at
             its publisher, an offer at its provider — and a reference to
