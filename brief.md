@@ -270,19 +270,19 @@ Beyond the core kit:
 ### 1 · Hero · v1
 - Made: `components/home/hero.tsx` — the hero: display line with the five-design disc pill, lede, two actions, the "10 templates" stat, the pinned-versions strip, the column-hairline Field; `components/home/hero-deck.tsx` — Ciseco's three builds fanned over a sun slab, the rating card, the Updated chip and the PatternLine switcher that brings a build to the front; `lib/data/catalogue.ts` — computed catalogue figures (`catalogueCounts`, `newestRelease`, `dated`, `setSummary`, `stackLatest`, `familyName`, `platformOf`, `joinList`)
 - Decided: the hero showcases the family with the most builds (Ciseco), in the display line's platform order Next.js · Shopify · WordPress; a branch is the kit `Button` `size="sm"`, `default` when picked, `outline` otherwise, `aria-pressed`; the picked build takes the front slot instantly (motion 0). Platform labels come from `platformOf` (the platform a build installs on). The second action reads "Switch a design's platform" → #families
-- Check: waits on request 1 (VersionChip mono); the `#templates` / `#families` anchors resolved once §2 and §3 mounted
+- Check: clean (re-run once VersionChip wrapped its text in `<code>`)
 
 ### 2 · Catalogue · v1
 - Made: `components/home/catalogue.tsx` — the section: platform rail, industry rail, search, sort, the filtered-set summary, the grid and its EmptyState, `?platform=` read on arrival and on change; `components/home/template-card.tsx` — the listing card (`TemplateCard`, plus `regularLicense`, the price's one-line gloss): BrowserFrame as the live demo's own link with the hover crossfade, build badge + New (leaf), name / industry, VersionChips, rating · sales, price + "Regular license" with an info IconButton → #license and its tooltip, Live demo (tooltip: host · opens in a new tab), Details → /work/<slug>, save (shortlist), compare checkbox; `components/home/compare.tsx` — `CompareTray` (fixed foot pill once one is ticked) and the compare Dialog, three at most (`COMPARE_MAX`)
 - Reused: `setSummary` in `lib/data/catalogue.ts` from §1, a `kind` argument added ("4 WordPress templates · last updated Dec 2025")
 - Decided: platform and industry are `FilterRail`s (`plain` single, `outline` multiple) rather than `Segmented` — the kit's own line gives a pill row narrowing a list on the page ground to FilterRail; each chip counts what pressing it would leave with the other filters held. Card is a resting surface (`bg-card` + inset hairline, `data-object`), 5fr / 7fr from `sm`, stacked under it; the frame stretches to the card's height from `sm`. The ThemeForest portfolio button stands where the reference's View all is
-- Check: waits on §6 (`#license` from the price's info button) and request 1 (VersionChip mono)
+- Check: clean (re-run once VersionChip wrapped its text in `<code>` and §6 mounted `#license`)
 
 ### 3 · Families · v1
 - Made: `components/home/families.tsx` — centred eyebrow and heading, the family picker, the picked build's large frame (the demo's own link) beside the PatternLine switcher, the build's name and "also on" line, the "What runs where" and "Versions" rows, Live demo + Details; holds `runs`, the one-line per-build note on who runs checkout, editing and content
 - Reused: `PatternLine` switcher pattern from §1 (kit `Button` `sm`, `default` picked / `outline`, `aria-pressed`); `lib/data/catalogue.ts` from §1 grew `buildLabel` ("Shopify Hydrogen", "WooCommerce"), `alsoOn` (the anticipation, platform-ordered) and `platformRank`
 - Decided: the reference's three tab cards are kit `RadioTiles` (`grid`, 3 columns from `sm`, no mark, aside "3 platforms", the build list as the line); each family remembers its own picked build; under `sm` the switcher's branches read Hydrogen / Headless so they fit the line; the lede and the first row hold `min-h` so a pick never moves the page under it
-- Check: waits on request 1 (VersionChip mono)
+- Check: clean (re-run once VersionChip wrapped its text in `<code>`)
 
 ### 4 · Proof · v1
 - Made: `components/home/proof.tsx` — heading with the as-of lede, four staggered figure blocks (sales with the best seller computed, rating, selling since with the author level, items with the catalogue counts), the platforms as flat ink wordmarks with a line of context
@@ -293,4 +293,10 @@ Beyond the core kit:
 - Made: `components/home/latest-release.tsx` — the newest dated release in a tall frame (the demo's own link) beside eyebrow, a computed heading ("Bitpan, now on WooCommerce" when the design existed on another platform, the name otherwise), lede from tagline + date + its `runs` line, VersionChips, Live demo + Details, and the release log: the four newest dated items, date · name · one version chip, each on a leaf tick disc
 - Reused: `runs` moved from `components/home/families.tsx` into `lib/data/catalogue.ts` so a server section can read it; `newestRelease`, `dated`, `buildLabel`, `familyName` from §1/§3
 - Decided: the reference's four tick rows are the release log, ticks on leaf (/15 + leaf ink) as the signal colour for "updated"; the log rows sit on a three-column grid from `sm` so dates, names and versions align
-- Check: waits on request 1 (VersionChip mono)
+- Check: clean (re-run once VersionChip wrapped its text in `<code>`)
+
+### 6 · License & support · v1
+- Made: `components/home/license.tsx` — centred eyebrow, heading and lede over one shell holding the two tiers, Regular plain and Extended inverted (`dark` on its own article, `bg-card`, `shadow-soft-lg`); each tier: who it is for, the "Envato license" chip, the end-product figure, the price and its gloss, fine print + "Read the full license" (themeforest.net/licenses/standard, new tab), its action, the inclusion it leads with, six can / cannot rows
+- Reused: `regularLicense` moved from `components/home/template-card.tsx` into `lib/data/catalogue.ts` (a server section reads it), the card imports it from there; `lib/data/catalogue.ts` grew `priceRange` (min, max and the templates at each end) — the Regular price is computed, Extended prints "On the item page"
+- Decided: the tiers share the shell's rows from `md` (`grid-rows-subgrid`, 7 rows) so each part starts level with its counterpart; the shell is `border-6 border-muted` around the page ground, tiers `rounded-md` inside its `rounded-xl`. Regular leads with support (`bg-muted` panel), Extended with updates (`bg-leaf/15`, the signal colour for "updated"); each tier's rows name the other inclusion so neither reads as missing it. Regular's action → #templates, Extended's "Ask before you buy" → #contact. The reference's gradient promo art is not drawn: the project has no raster gradient art, and a CSS gradient surface is off the style
+- Check: waits on §8 (`#contact` from "Ask before you buy")

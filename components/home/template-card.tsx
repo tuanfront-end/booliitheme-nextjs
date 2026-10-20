@@ -15,12 +15,10 @@ import { Price } from "@/components/ui/price";
 import { Rating } from "@/components/ui/rating";
 import { SaveToggle } from "@/components/ui/save-toggle";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { regularLicense } from "@/lib/data/catalogue";
 import { industries, type Project } from "@/lib/data/projects";
 import { formatNumber, hostOf } from "@/lib/format";
 import { toggleShortlist, useShortlist } from "@/lib/shortlist";
-
-/** What a Regular license covers, in the words the price is read with. */
-export const regularLicense = "Regular license · one site, for you or one client";
 
 // The listing card: the template's demo in a browser window on the start side,
 // what a buyer checks before opening it on the other — the build, the name and

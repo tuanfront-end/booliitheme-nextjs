@@ -6,6 +6,7 @@ import { Catalogue } from "@/components/home/catalogue";
 import { Families } from "@/components/home/families";
 import { Hero } from "@/components/home/hero";
 import { LatestRelease } from "@/components/home/latest-release";
+import { License } from "@/components/home/license";
 import { Proof } from "@/components/home/proof";
 import { pageMeta } from "@/lib/seo";
 
@@ -31,6 +32,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
         <Families />
         <Proof />
         <LatestRelease />
+        <License />
       </main>
     </Skin>
   );

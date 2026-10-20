@@ -87,3 +87,15 @@ export const runs: Record<string, string> = {
   bitpan: "Next.js renders every page, cart and checkout from local demo data, ready to point at your own store API.",
   "bitpan-woocommerce": "WooCommerce runs the cart and checkout, and every page is edited in the Site Editor with blocks.",
 };
+
+/** What a Regular license covers, in the words the price is read with. */
+export const regularLicense = "Regular license · one site, for you or one client";
+
+/** The Regular price range across the catalogue, and the templates at each end. */
+export const priceRange = (() => {
+  const prices = projects.map((p) => p.market.price).filter((n): n is number => n != null);
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+  const at = (n: number) => projects.filter((p) => p.market.price === n).map((p) => p.name);
+  return { min, max, lowest: at(min), highest: at(max) };
+})();
