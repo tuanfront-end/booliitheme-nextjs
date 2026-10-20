@@ -12,7 +12,7 @@ import { barLinks } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
 const linkClass =
-  "inline-flex h-10 items-center rounded-control px-3 text-sm text-muted-foreground transition-colors duration-answer ease-answer hover:text-foreground";
+  "inline-flex h-10 items-center rounded-control px-3 text-sm text-muted-foreground press hover:text-foreground";
 
 // Paper, the logo, three anchors and one action. Past the first scroll the bar
 // draws its hairline underneath, and nothing else about it changes.
@@ -37,7 +37,7 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label="BooliiTheme, home"
-          className="-mx-2 flex h-10 shrink-0 items-center gap-2 rounded-control px-2 text-foreground"
+          className="-mx-2 flex h-10 shrink-0 items-center gap-2 rounded-control px-2 text-foreground press hover:bg-accent"
         >
           <LogoMark className="size-8 shrink-0" />
           <Logo aria-hidden className="h-5 w-auto max-[359px]:hidden" />

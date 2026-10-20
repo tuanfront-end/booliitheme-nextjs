@@ -8,7 +8,7 @@ import { email, marketplaces, socials, studioLinks } from "@/lib/nav";
 
 const since = author.since.slice(0, 4);
 const linkClass =
-  "inline-flex min-h-10 items-center gap-1.5 rounded-control text-sm text-muted-foreground transition-colors duration-answer ease-answer hover:text-foreground";
+  "inline-flex min-h-10 items-center gap-1.5 rounded-control text-sm text-muted-foreground press hover:text-foreground";
 
 // Paper to the end: the hairline above it, one line on who we are, the
 // studio's links, where the templates are sold, and the address.
@@ -17,10 +17,10 @@ export function SiteFooter() {
   return (
     <footer className="mx-auto mt-40 w-full max-w-7xl px-6 sm:px-8">
       <div className="grid gap-10 border-t border-border py-12 md:grid-cols-[1fr_auto_auto] md:gap-16">
-        <div className="max-w-sm">
+        <div className="max-w-md">
           <Logo aria-hidden className="h-6 w-auto" />
           <p className="mt-4 text-sm text-muted-foreground">
-            A two-person studio designing websites, and using AI to draw them faster.
+            A studio of two, designing websites and drawing them with AI.
           </p>
         </div>
         <nav aria-label="Studio">

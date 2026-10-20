@@ -20,18 +20,18 @@ export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden">
       <div className="ground-stripes absolute inset-0" aria-hidden />
-      <div className="relative mx-auto grid max-w-7xl items-end gap-16 px-6 pt-16 pb-12 sm:px-8 lg:min-h-[44rem] lg:grid-cols-[5fr_7fr] lg:pt-24">
+      <div className="relative mx-auto grid max-w-7xl items-end gap-16 px-6 pt-16 pb-12 sm:px-8 lg:min-h-[44rem] lg:grid-cols-[6fr_6fr] lg:pt-24">
         <div className="pb-2">
           <Eyebrow>Design studio · since {since}</Eyebrow>
           <h1
             id="hero-title"
             className="mt-5 text-[48px]/[var(--heading-leading-display)] tracking-tight sm:text-[64px]/[var(--heading-leading-display)] lg:text-[72px]/[var(--heading-leading-display)]"
           >
-            Two designers, and the websites we finish
+            Two designers, finishing websites
           </h1>
-          <p className="mt-5 max-w-[34rem] text-base text-muted-foreground">
-            BooliiTheme designs and builds templates for Next.js, Shopify and WordPress, and uses AI
-            to draw them faster — so the hours go into the details.
+          <p className="mt-5 max-w-xl text-base text-muted-foreground">
+            BooliiTheme is a studio of two. We design templates for Next.js, Shopify and WordPress,
+            and let AI take the drafting so our hours go into the details.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button size="lg" render={<Link href="/#templates" />} nativeButton={false}>

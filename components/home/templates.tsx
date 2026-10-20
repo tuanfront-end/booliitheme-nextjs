@@ -36,13 +36,13 @@ export function Templates() {
     <section
       id="templates"
       aria-labelledby="templates-title"
-      className="mx-auto w-full max-w-7xl scroll-mt-24 px-6 sm:px-8"
+      className="mx-auto w-full max-w-7xl px-6 sm:px-8"
     >
       <Eyebrow>Templates</Eyebrow>
       <SectionHeading id="templates-title" className="mt-4">
         Ten templates, each one finished
       </SectionHeading>
-      <Lede className="mt-2">Open one to see it closer — every template runs as a live demo.</Lede>
+      <Lede className="mt-2">Open one to see it closer. Every template runs as a live demo.</Lede>
 
       <Dialog open={open !== null} onOpenChange={(o) => !o && setOpen(null)}>
         <ul className="mt-16 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:mt-24">
@@ -50,14 +50,14 @@ export function Templates() {
             <li key={p.slug} className="bg-background">
               <DialogTrigger
                 onClick={() => setOpen(i)}
-                className="group/card flex w-full flex-col gap-4 p-4 text-start transition-colors duration-answer ease-answer hover:bg-muted sm:p-5"
+                className="group/card flex w-full flex-col gap-4 p-4 text-start transition-colors duration-answer ease-answer hover:bg-muted focus-visible:-outline-offset-2 sm:p-5"
               >
-                <span className="block overflow-hidden rounded-md border border-border bg-background p-1">
+                <span className="block overflow-hidden border border-border bg-background p-1">
                   <Image
                     src={p.shots[0]}
                     alt=""
                     sizes="(min-width: 640px) 40rem, 100vw"
-                    className="aspect-[16/11] w-full rounded-[4px] object-cover object-top transition-transform duration-arrive ease-arrive group-hover/card:scale-[1.015]"
+                    className="aspect-[16/11] w-full object-cover object-top transition-transform duration-arrive ease-arrive group-hover/card:scale-[1.015]"
                   />
                 </span>
                 <span className="flex items-baseline justify-between gap-4 px-1">
