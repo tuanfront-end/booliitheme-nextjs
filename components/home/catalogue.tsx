@@ -179,7 +179,7 @@ export function Catalogue() {
         <EmptyState
           className="mt-4"
           title={words ? `No template named “${query.trim()}”` : "No template fits all of these"}
-          text={`The catalogue holds ${formatNumber(counts.templates)} templates. Clear the filters to see every one again.`}
+          text={`The catalog holds ${formatNumber(counts.templates)} templates. Clear the filters to see every one again.`}
         >
           <Button onClick={reset}>Show all templates</Button>
         </EmptyState>
