@@ -274,3 +274,8 @@ Beyond the core kit:
 - Reused: `PatternLine` switcher pattern from §1 (kit `Button` `sm`, `default` picked / `outline`, `aria-pressed`); `lib/data/catalogue.ts` from §1 grew `buildLabel` ("Shopify Hydrogen", "WooCommerce"), `alsoOn` (the anticipation, platform-ordered) and `platformRank`
 - Decided: the reference's three tab cards are kit `RadioTiles` (`grid`, 3 columns from `sm`, no mark, aside "3 platforms", the build list as the line); each family remembers its own picked build; under `sm` the switcher's branches read Hydrogen / Headless so they fit the line; the lede and the first row hold `min-h` so a pick never moves the page under it
 - Check: waits on request 1 (VersionChip mono)
+
+### 4 · Proof · v1
+- Made: `components/home/proof.tsx` — heading with the as-of lede, four staggered figure blocks (sales with the best seller computed, rating, selling since with the author level, items with the catalogue counts), the platforms as flat ink wordmarks with a line of context
+- Decided: the four blocks are one accent set at /20 — peach, lime, sky, iris — with ink type on them (the eyebrow takes `eyebrowClass` + `text-foreground` on the tint); the reference's corner squares are peach /35 on the first block (Frame); the platform row is set as wordmarks in the body face, no logo files
+- Check: clean

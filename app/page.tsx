@@ -5,6 +5,7 @@ import { Skin } from "@/components/dev/switch-control";
 import { Catalogue } from "@/components/home/catalogue";
 import { Families } from "@/components/home/families";
 import { Hero } from "@/components/home/hero";
+import { Proof } from "@/components/home/proof";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -27,6 +28,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
         <Hero />
         <Catalogue />
         <Families />
+        <Proof />
       </main>
     </Skin>
   );
