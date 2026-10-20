@@ -1,9 +1,9 @@
 ---
-name: editorial-glow
-description: The Editorial Glow house style for building UI — a paper-white page, warm ink, a condensed serif for display, one 14px reading size, structure drawn in hairlines, one brand hue spent in marks. Use it for every page, section or component built in a project whose AGENTS.md names editorial-glow as its house style, in place of soft-neutral, including requests that sound technical ("build a pricing page", "style this table").
+name: paper-hairline
+description: The Paper Hairline house style for building UI — a paper-white page, warm ink, a condensed serif for display, one 14px reading size, structure drawn in hairlines, one brand hue spent in marks. Use it for every page, section or component built in a project whose AGENTS.md names paper-hairline as its house style, in place of soft-neutral, including requests that sound technical ("build a pricing page", "style this table").
 ---
 
-# Editorial Glow
+# Paper Hairline
 
 The house style of this project. Where any skill says to load or follow
 `soft-neutral`, load this instead; `AGENTS.md` names the few soft-neutral files
@@ -163,7 +163,7 @@ Spend boldness once per screen; let hairlines and white do the rest.
 
 ## What breaks the style
 
-These stop a page reading as Editorial Glow:
+These stop a page reading as Paper Hairline:
 
 - A tinted ground, grey cards without outlines, or depth built from fills —
   that is Soft Neutral's ladder.

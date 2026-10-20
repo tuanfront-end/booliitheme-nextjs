@@ -4,10 +4,10 @@ Notches live in `.soft-neutral.json` (the file keeps its name because the
 shared checkers read it). This style adds one key and redefines two.
 
 ```json
-{ "house": "editorial-glow", "colour": 2, "motion": 1, "marketplace": false, "spelling": "us" }
+{ "house": "paper-hairline", "colour": 2, "motion": 1, "marketplace": false, "spelling": "us" }
 ```
 
-- **`house`** — `"editorial-glow"`. The forked checkers read their rules from
+- **`house`** — `"paper-hairline"`. The forked checkers read their rules from
   it; a file without it is a Soft Neutral project.
 - `accents`, `signal`, `neutral` and `pastel` are Soft Neutral's and are absent
   here; `pastel` above 0 is an error.

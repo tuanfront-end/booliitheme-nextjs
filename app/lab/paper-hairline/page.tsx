@@ -34,7 +34,7 @@ const notoDisplay = Noto_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Editorial Glow — lab",
+  title: "Paper Hairline — lab",
   robots: { index: false },
 };
 
@@ -148,7 +148,7 @@ const plans = [
   { name: "Custom", note: "A template of your own", price: "$4k", list: ["Your brief, our design", "Built in six weeks", "Source and handover"] },
 ];
 
-export default function EditorialGlowLab() {
+export default function PaperHairlineLab() {
   return (
     <main className={`eg ${plexMono.variable} ${notoDisplay.variable} flex-1`}>
       {/* Hero: copy anchored low on the start side, a framed product on stripes. */}

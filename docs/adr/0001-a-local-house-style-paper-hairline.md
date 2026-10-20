@@ -1,10 +1,10 @@
-# Template chạy trên một house style cục bộ: editorial-glow
+# Template chạy trên một house style cục bộ: paper-hairline
 
-booliitheme v2 chạy trên `editorial-glow` thay cho Soft Neutral. Đây là một
+booliitheme v2 chạy trên `paper-hairline` thay cho Soft Neutral. Đây là một
 house style ngang hàng, học từ ảnh gru.ai và vài site cùng họ, khác Soft Neutral
 ở gần như mọi trục: nền giấy trắng, serif biên tập, ô ghép chia bằng kẻ mảnh,
-một accent cộng một vầng sáng. Skill sống cục bộ ở
-`.claude/skills/editorial-glow/` cho tới khi anh Tuấn thấy nó đáng vào house;
+một accent, chữ đọc một cỡ 14px. Skill sống cục bộ ở
+`.claude/skills/paper-hairline/` cho tới khi anh Tuấn thấy nó đáng vào house;
 khi đó mới chuyển sang `claude-build-template-skills`, kèm ADR và thuật ngữ
 **House style** sửa bên đó.
 
@@ -22,12 +22,16 @@ khi đó mới chuyển sang `claude-build-template-skills`, kèm ADR và thuậ
 
 - Skill pipeline (site-brief, audit, canvas…) và `soft-neutral/` là chỉ đọc từ
   repo này, và vẫn gọi tên soft-neutral. `AGENTS.md` đổi hướng chúng sang
-  editorial-glow, và nêu danh sách file soft-neutral còn được đọc.
+  paper-hairline, và nêu danh sách file soft-neutral còn được đọc.
 - Symlink `.claude/skills/soft-neutral` ở lại: các checker dùng chung vẫn chạy
   từ đó, và `.soft-neutral.json` giữ tên vì chúng đọc nó.
-- Checker riêng của style được fork vào `editorial-glow/scripts/`: `_dials`,
+- Checker riêng của style được fork vào `paper-hairline/scripts/`: `_dials`,
   `palette-check`, `brand-hue`, `write-check`, `type-check`, `hover-check`,
   `controls-check`. Các bản fork lệch dần với upstream; chấp nhận trong lúc
   skill còn cục bộ.
-- Ảnh tham chiếu đi cùng skill ở `editorial-glow/refs/` chứ không vào
+- Ảnh tham chiếu đi cùng skill ở `paper-hairline/refs/` chứ không vào
   `design-refs/`, nên rời bản bán cùng `.claude/`.
+
+Tên ban đầu là `editorial-glow`. Sau lần duyệt lab đầu tiên anh Tuấn bỏ mọi
+nền gradient (vầng sáng của nguồn) và chốt chữ đọc 14px, nên style đổi tên
+thành `paper-hairline` ngày 2026-10-20.

@@ -5,8 +5,8 @@ bất kỳ section nào của trang chủ v1 và giao toàn quyền thiết kế
 
 ## Trạng thái
 
-**Đang làm** trên nhánh `redesign/editorial-glow`. Skill là `editorial-glow`,
-một house style cục bộ ở `.claude/skills/editorial-glow/` (ADR 0001). Thứ tự:
+**Đang làm** trên nhánh `redesign/paper-hairline`. Skill là `paper-hairline`,
+một house style cục bộ ở `.claude/skills/paper-hairline/` (ADR 0001). Thứ tự:
 mở rộng nguồn học → đo trên ảnh → viết skill v0 → nối skill vào template cho
 tới khi `npm run check` xanh → dựng v2. Nối xong mới dựng hay xoá gì của v1.
 
@@ -18,12 +18,12 @@ rồi dựng lại.
 ## Yêu cầu của anh
 
 1. **Không rút refs từ `design-refs/`.** Học thiết kế qua skill
-   `editorial-glow`; ảnh nguồn của nó (5 ảnh gru.ai từng ở `images/__/`, cộng
-   các site cùng họ anh duyệt) nằm ở `.claude/skills/editorial-glow/refs/`.
+   `paper-hairline`; ảnh nguồn của nó (5 ảnh gru.ai từng ở `images/__/`, cộng
+   các site cùng họ anh duyệt) nằm ở `.claude/skills/paper-hairline/refs/`.
 2. **Layout thông minh, hiện đại, sáng tạo và tối giản.** Không dựng kiểu
    layout đại trà, nhàm chán. Nếu chỉ nghĩ ra được layout quen tay thì đừng
    làm.
-3. **Gu style lấy từ `editorial-glow`** (thay soft-neutral từ 2026-10-20,
+3. **Gu style lấy từ `paper-hairline`** (thay soft-neutral từ 2026-10-20,
    ADR 0001). Bố cục không đi theo quy trình rút refs của site-brief.
 4. **Mọi thứ tối giản nhất.** Không mô tả nhiều, không nhiều thông tin.
    Profile chỉ trả lời năm điều:
@@ -42,7 +42,7 @@ rồi dựng lại.
 - Logo mark "iB" (`components/site/logo-mark.tsx`), wordmark, favicon.
 - Brand Ink đã khoá (House rule 1 trong `brief.md`). Các lựa chọn khác ở
   Stop 2 của v1 (nền near-white, Geist một họ, bo 24/12) bỏ: v2 đi từ mặc định
-  của editorial-glow, rồi Stop 2 của v2 chọn hue accent trong 3 ứng viên (không
+  của paper-hairline, rồi Stop 2 của v2 chọn hue accent trong 3 ứng viên (không
   dùng hồng/đào, dấu ấn của gru.ai) và bộ font preset.
 - Header và footer v1 nhiều thông tin (mega menu, 4 cột link). Với v2 tối
   giản thì cũng cần xem lại cho cùng tinh thần.

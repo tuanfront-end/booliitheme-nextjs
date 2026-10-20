@@ -1,4 +1,4 @@
-# editorial-glow — measurements
+# paper-hairline — measurements
 
 Taken 2026-10-20. CSS values are read from the live sites' computed styles;
 values marked *px-sampled* are read off the shots in this folder (gru shots are

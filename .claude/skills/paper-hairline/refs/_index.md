@@ -1,4 +1,4 @@
-# editorial-glow — source shots
+# paper-hairline — source shots
 
 The screens this style was learned from. Each teaches grammar — a
 proportion, a hierarchy, a treatment — never an asset: the gru.ai silhouette
