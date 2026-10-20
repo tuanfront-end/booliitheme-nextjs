@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { readPicks, versions } from "@/components/dev/picks";
 import { Skin } from "@/components/dev/switch-control";
+import { Catalogue } from "@/components/home/catalogue";
 import { Hero } from "@/components/home/hero";
 import { pageMeta } from "@/lib/seo";
 
@@ -23,6 +24,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
     <Skin saved={await readPicks()} preview={versions((await searchParams).v)}>
       <main id="content" className="flex flex-col gap-32 pt-12 sm:gap-40 sm:pt-16">
         <Hero />
+        <Catalogue />
       </main>
     </Skin>
   );

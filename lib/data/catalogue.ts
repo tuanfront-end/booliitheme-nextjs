@@ -31,10 +31,10 @@ export const dated = projects
 export const newestRelease = dated[0];
 
 /** "6 templates · last updated Dec 2025" — the summary of a filtered set. */
-export function setSummary(list: Project[]) {
+export function setSummary(list: Project[], kind?: string) {
   const n = list.length;
   const last = list.map((p) => p.market.updated).filter(Boolean).sort().at(-1);
-  const count = `${n} ${n === 1 ? "template" : "templates"}`;
+  const count = `${n} ${kind ? `${kind} ` : ""}${n === 1 ? "template" : "templates"}`;
   return last ? `${count} · last updated ${formatMonth(last)}` : count;
 }
 
