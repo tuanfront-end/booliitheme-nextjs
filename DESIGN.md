@@ -8,12 +8,12 @@ colors:
   card-foreground: "oklch(21.7% 0.004 67.625)"
   popover: "oklch(100% 0 0)"
   popover-foreground: "oklch(21.7% 0.004 67.625)"
-  primary: "oklch(84.5% 0.183 134.147)"
+  primary: "oklch(78.5% 0.163 77.582)"
   primary-foreground: "oklch(21.7% 0.004 67.625)"
-  primary-ink: "oklch(48.8% 0.14 134.147)"
-  action: "oklch(84.5% 0.183 134.147)"
-  action-foreground: "oklch(21.7% 0.004 67.625)"
-  action-hover: "oklch(89.5% 0.183 134.147)"
+  primary-ink: "oklch(50.3% 0.105 77.582)"
+  action: "oklch(21.7% 0.004 67.625)"
+  action-foreground: "oklch(99.3% 0.001 67.81)"
+  action-hover: "oklch(16.7% 0.004 67.625)"
   secondary: "oklch(93.2% 0.002 67.794)"
   secondary-foreground: "oklch(21.7% 0.004 67.625)"
   muted: "oklch(94.7% 0.002 67.8)"
@@ -22,11 +22,11 @@ colors:
   accent-foreground: "oklch(21.7% 0.004 67.625)"
   border: "oklch(95.5% 0.002 67.804)"
   input: "oklch(87.8% 0.004 67.777)"
-  ring: "oklch(48.8% 0.14 134.147)"
+  ring: "oklch(50.3% 0.105 77.582)"
   destructive: "oklch(48.6% 0.156 28.366)"
-  chart-1: "oklch(48.8% 0.14 134.147)"
-  chart-2: "oklch(60.8% 0.174 134.147)"
-  chart-3: "oklch(72.8% 0.183 134.147)"
+  chart-1: "oklch(50.3% 0.105 77.582)"
+  chart-2: "oklch(62.3% 0.13 77.582)"
+  chart-3: "oklch(74.3% 0.155 77.582)"
   chart-4: "oklch(78.4% 0.008 67.713)"
   chart-5: "oklch(88.6% 0.004 67.772)"
   leaf: "oklch(76.5% 0.177 163.223)"
@@ -152,8 +152,8 @@ there first.
 
 <!-- budget:colors -->
 - The brand hue, and up to three accent-colour decisions a page — a set of peers drawn one hue each is one decision.
-- No signal colour: outside a chip, a set and an ornament, the brand is the page's only colour.
-- Accent colours in use: `leaf`, `sun`, `coral`, `iris`, `lime`, `sky`, `peach` — no other.
+- The signal colour is `leaf` (Tailwind emerald): outside a chip, a set and an ornament, it and the brand are the page's only colours.
+- Accent colours in use: `leaf` (emerald), `sun` (amber), `coral` (rose), `iris` (violet), `lime` (lime), `sky` (sky), `peach` (orange) — no other.
 - At least one saturated moment on every page that sells: gradient art, a photograph or a tinted band; an app screen, such as a dashboard or a checkout, is exempt.
 <!-- /budget -->
 

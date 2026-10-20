@@ -34,6 +34,9 @@ import { PresetPanel, PresetScript } from "@/components/preset-panel";
 import "./globals.css";
 import { Direction } from "@/components/site/direction";
 import { JsonLd } from "@/components/site/json-ld";
+import { SiteFooter } from "@/components/site/footer";
+import { SiteHeader } from "@/components/site/header";
+import { Toaster } from "@/components/ui/toast";
 import { SkipLink } from "@/components/site/skip-link";
 import { direction, preset } from "@/lib/preset";
 import { organizationLd, webSiteLd } from "@/lib/seo";
@@ -283,11 +286,11 @@ export const metadata: Metadata = {
     // to type it. It does not apply to the title written here, which is why
     // `default` exists and carries the suffix itself — and why `pageMeta`
     // switches the home page to `title.absolute`.
-    default: `${siteName} — rent a car from someone nearby`,
+    default: `${siteName} — one design, built for Next.js, Shopify and WordPress`,
     template: `%s · ${siteName}`,
   },
   description:
-    "Rent a car from a real owner near you. No counter, no queue, and the price on the card is the price you pay.",
+    "Storefront, booking and magazine templates from BooliiTheme, each design built for Next.js, Shopify Hydrogen and WordPress block themes.",
 };
 
 // Scaffolding, with the two imports above, the `async` and <Skin> below: the
@@ -335,7 +338,12 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               it wraps /lab and /design-system with the home. A page that needs
               `?v=` renders its own <Skin>, which nests as a provider — see
               components/dev/switch-control.tsx. */}
-          <Skin saved={saved}>{children}</Skin>
+          <Skin saved={saved}>
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+          </Skin>
+          <Toaster />
         </Direction>
         {/* The two site-wide objects, here so they are on every route. Every
             schema a fork adds points an `@id` at one of them — an article at
@@ -344,7 +352,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd
           schema={[
             organizationLd(
-              "Peer-to-peer car rental in 62 US cities. Rent from owners near you, with free cancellation to 24 hours.",
+              "A template studio building storefront, booking and magazine designs for Next.js, Shopify Hydrogen and WordPress.",
             ),
             webSiteLd(),
           ]}

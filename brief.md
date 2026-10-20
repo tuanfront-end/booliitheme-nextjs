@@ -49,6 +49,14 @@ it is production-grade on their stack and still maintained.
 - the marketplace price tag · "$29 Regular" — price with the licence named
   beside it, never alone
 
+## Pages
+
+| Route | Job | Floor? | Done |
+|---|---|---|---|
+| `/` | the storefront: catalogue, families, proof, license | yes | |
+| `/work/[slug]` | one template: demo, versions, buy, its other platforms | yes | |
+| `/contact` | a pre-sale or custom-work question to the studio | yes | |
+
 ## Defaults
 - **Market & language** — worldwide marketplace buyers, US/EU heavy · US
   English, `us` spelling · USD; ThemeForest sells in USD.
@@ -97,7 +105,28 @@ it is production-grade on their stack and still maintained.
 - **Motion** — 0 · a page not for sale; hover and `<Reveal>` only.
 
 ## Shell
-_Filled at stop 2._
+- Brand (provisional until stop 2): `brand-hue.py 'oklch(78.5% 0.163 77.582)'
+  --action black --neutral warm --panel-with 'harbor=oklch(57.8% 0.231 260.041)'
+  'lagoon=oklch(55.6% 0.095 194.167)' 'plum=oklch(60.5% 0.277 328.621)'` — the
+  panel kept harbor, lagoon and Ink. Accents narrowed to leaf, coral, iris,
+  lime, sky: the brand sits 2° from `--sun` and 10° from `--peach`.
+- Container line: `mx-auto w-full max-w-7xl px-6 sm:px-8`; `<main>` gap
+  `gap-32 sm:gap-40`.
+- Ornament hand: a 1.5px stroke, round caps and joins, elbows on a 6px radius,
+  a 4–6 dash for a cut line; ink at `text-muted-foreground/45`, the brand's
+  fill only on the node a drawing is about, leaf for anything live; notes in
+  the body face at the muted ink.
+- Header: `navbars/four-column-mega-menu-under-a-wordmark-left-nav-right-bar.png`
+  — Templates mega menu by platform with the newest release as its one picture,
+  Families / License / Contact, shortlist, mode toggle, Browse templates; the
+  morph to a glass pill on the first scroll; a Drawer from the reading end
+  under lg.
+- Footer: `footers/cta-strip-over-link-columns-and-a-ghost-wordmark-on-dark.webp`
+  — an ink band at the container's width (the `dark` tokens scoped to it),
+  the ThemeForest portfolio strip, four link columns, the wordmark as a ghost.
+  The section above it never carries a band.
+- Switch: `components/dev/` — Brand, the pairing (Studio · One family · Serif
+  head, opened on Studio), ground, both radius seeds, the header knob.
 
 ## Signature
 _Written at stop 2._
@@ -126,6 +155,9 @@ Beyond the core kit:
   blurred shots, any product not made by BooliiTheme
 
 ## House rules
+1. The primary action is ink (`--action black`): the honey fill is light by
+   nature, so it carries chosen states and the marker, never a button. Waived
+   in `.soft-neutral.json` for `controls-check`'s ink-fill rule.
 
 ## For review
 - Figures come from Wayback copies of the ThemeForest pages (live pages are

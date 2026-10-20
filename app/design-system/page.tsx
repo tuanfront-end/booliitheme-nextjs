@@ -14,6 +14,7 @@ import { DsNav, type NavGroup } from "@/components/design-system/nav";
 import { PseudoStates } from "@/components/design-system/pseudo-states";
 import { DsGroup, DsSubgroup } from "@/components/design-system/section";
 import { Shape } from "@/components/design-system/shape";
+import { Signature } from "@/components/design-system/signature";
 import { Spacing } from "@/components/design-system/spacing";
 import { Typography } from "@/components/design-system/typography";
 import { Eyebrow } from "@/components/site/eyebrow";
@@ -34,6 +35,10 @@ export const metadata: Metadata = pageMeta({
 });
 
 const NAV: NavGroup[] = [
+  {
+    label: "Signature",
+    items: [{ id: "signature", label: "Three moves and the hand" }],
+  },
   {
     label: "Foundations",
     items: [
@@ -146,6 +151,14 @@ export default function DesignSystem() {
       <div className="mt-20 lg:column-grid">
         <DsNav groups={NAV} className="lg:col-span-3 xl:col-span-2" />
         <div className="flex flex-col gap-32 lg:col-span-9 xl:col-span-10">
+          <DsGroup
+            id="signature"
+            eyebrow="Signature"
+            title="Three moves, one to keep"
+            lede="Each drawn from something in a template buyer's own world. The one kept carries the site; the ornament hand under them draws every line and note."
+          >
+            <Signature />
+          </DsGroup>
           <DsGroup
             id="foundations"
             eyebrow="Foundations"

@@ -19,7 +19,7 @@
 // `siteUrl` feeds crawler-facing fields only. Copy on the screen that shows an
 // address writes the placeholder out itself, so the demo never prints its own
 // vercel.app host.
-export const siteName = "Soft Neutral";
+export const siteName = "BooliiTheme";
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
