@@ -200,6 +200,17 @@ Beyond the core kit:
   written from the stack names — anh confirms they match the products.
 - Hero's "5 designs" pill crops each design's inner-page shot into a 32px
   disc; reads busy at that size.
+- § 6: the reference's gradient-art promo tiles became tinted tiles (no
+  gradient art in the project); Envato support/update terms as written there
+  need anh's confirmation.
+- § 7: answers that claim facts — Hydrogen runs on Oxygen or any Node host,
+  custom work gets a quote, refunds are Envato's call — need anh's word.
+- § 8: under ~430px the Topic segmented row scrolls and hides "Custom work"
+  until swiped; RadioTiles stacked on mobile would show all three.
+- Hero v2 tilts its frames −3°/−2° rather than the reference's ~−12°: at −5°
+  the address bar crossed the shot at 430 and 768.
+- Hero v3 shows only the middle card under sm; the side cards stay reachable
+  through the arrows and the pattern line.
 - "What every download includes" claims (docs, support window, updates) are
   limited to Envato's own policy until anh confirms more.
 

@@ -9,8 +9,9 @@ import { cn } from "@/lib/utils";
 // says which one. Given a second shot, it crossfades to it while anything
 // marked `group/frame` above it is hovered or focused.
 //
-// The frame is a picture to a reader and chrome to the DOM, so it carries
-// `data-picture` for the page's picture count.
+// The shot inside is a real raster image, so the page's picture count measures
+// it as one; the frame takes no `data-picture`, which is for mockups drawn in
+// the DOM.
 export function BrowserFrame({
   shots,
   url,
@@ -32,7 +33,6 @@ export function BrowserFrame({
   const [first, second] = shots;
   return (
     <div
-      data-picture
       className={cn("flex flex-col overflow-hidden rounded-md bg-card ring-1 ring-border ring-inset", className)}
     >
       <div className="flex h-8 shrink-0 items-center gap-3 border-b border-border px-3">
