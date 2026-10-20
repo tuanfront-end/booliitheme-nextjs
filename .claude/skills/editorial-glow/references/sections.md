@@ -18,8 +18,8 @@ block above it. Nothing else centres.
 The body is one of:
 
 - **a joined panel** — plans, features, a comparison, a spec table;
-- **a figure** — a line drawing, a product mock, a data dial, a glow with a
-  subject;
+- **a figure** — a line drawing, a product mock, a data dial, a framed
+  photograph;
 - **a split** — a figure beside one panel or a short list, unequal widths
   (5/7, 4/8), the figure allowed to crop off the far edge;
 - **a list with a figure** — vertical tabs on the left, the chosen item's
@@ -32,8 +32,6 @@ Two bodies in one section is two sections.
 
 - Alternate a panel section with a figure section; two panels in a row read as
   a document, not a page.
-- The glow appears once (at the default notch) — usually the hero or the
-  pricing's chosen column.
 - A figure cropped by the viewport happens once or twice a page, on the side
   the copy is not.
 

@@ -5,8 +5,8 @@ the style as framed objects:
 
 - **Framed.** A photograph sits in a hairline frame at the panel radius (12),
   or as a joined panel's cell, inset 6px from the frame on a small card.
-- **True colour.** No duotone, no desaturation, no brand tint over it. The
-  glow stays the one *ornamental* mass of colour; a photograph is content.
+- **True colour.** No duotone, no desaturation, no brand tint over it, no
+  gradient behind it.
 - **Never full bleed.** No edge-to-edge hero photograph, no photograph as a
   section's ground. A photograph may crop off the viewport the way a figure
   does, once a page, inside its frame.

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="flex items-center gap-2 text-[13px] font-medium tracking-[0.02em] text-(--brand-ink) uppercase">
+    <p className="flex items-center gap-2 text-[12px] font-medium tracking-[0.04em] text-(--brand-ink) uppercase">
       <span className="size-1.5 rounded-full bg-(--brand)" />
       {children}
     </p>
@@ -52,18 +52,7 @@ function Header({ eyebrow, title, lede }: { eyebrow: string; title: string; lede
     <div>
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className="eg-serif mt-4 text-[36px] sm:text-[44px] lg:text-[48px]">{title}</h2>
-      <p className="mt-2 text-[18px] leading-[1.4] text-muted-foreground">{lede}</p>
-    </div>
-  );
-}
-
-function Glow({ className }: { className: string }) {
-  return (
-    <div aria-hidden className={`eg-glow ${className}`}>
-      <span className="inset-s-[8%] top-[6%] h-[55%] w-[60%] bg-(--glow-warm)" />
-      <span className="inset-e-[4%] top-[22%] h-[60%] w-[62%] bg-(--glow-cool)" />
-      <span className="inset-s-[22%] bottom-[4%] h-[45%] w-[56%] bg-(--glow-mid)" />
-      <div className="eg-grain" />
+      <p className="mt-2 text-[16px] leading-[1.5] text-muted-foreground">{lede}</p>
     </div>
   );
 }
@@ -162,16 +151,16 @@ const plans = [
 export default function EditorialGlowLab() {
   return (
     <main className={`eg ${plexMono.variable} ${notoDisplay.variable} flex-1`}>
-      {/* Hero: copy anchored low on the start side, the glow behind a framed product. */}
+      {/* Hero: copy anchored low on the start side, a framed product on stripes. */}
       <section className="relative overflow-hidden">
         <div className="eg-stripes absolute inset-0" aria-hidden />
         <div className="relative mx-auto grid min-h-[760px] max-w-[1280px] items-end gap-12 px-6 pt-24 pb-20 md:px-12 lg:grid-cols-[1fr_1.1fr]">
           <div className="pb-6">
             <h1 className="eg-serif text-[48px] sm:text-[64px] lg:text-[72px]">Templates built to be lived in</h1>
-            <p className="mt-4 max-w-[34em] text-[18px] leading-[1.4] text-muted-foreground">
+            <p className="mt-4 max-w-[34em] text-[16px] leading-[1.5] text-muted-foreground">
               Storefront, booking and magazine starters for Next.js, Hydrogen and WordPress.
             </p>
-            <div className="eg-rail mt-8 flex max-w-[460px] gap-6 overflow-hidden text-[15px] whitespace-nowrap">
+            <div className="eg-rail mt-8 flex max-w-[460px] gap-6 overflow-hidden text-[14px] whitespace-nowrap">
               {[
                 [Calendar03Icon, "Booking flows"],
                 [Mail01Icon, "Newsletter kits"],
@@ -185,16 +174,15 @@ export default function EditorialGlowLab() {
               ))}
             </div>
             <div className="mt-8 flex gap-3">
-              <a href="#plans" className="eg-btn inline-flex h-11 items-center gap-2 rounded-[12px] px-5 text-[16px] font-medium">
+              <a href="#plans" className="eg-btn inline-flex h-11 items-center gap-2 rounded-[12px] px-5 text-[14px] font-medium">
                 Browse templates <ArrowRightIcon className="size-4 rtl:-scale-x-100" />
               </a>
-              <a href="#plans" className="eg-btn-2 inline-flex h-11 items-center rounded-[12px] px-5 text-[16px] font-medium">
+              <a href="#plans" className="eg-btn-2 inline-flex h-11 items-center rounded-[12px] px-5 text-[14px] font-medium">
                 Hire the studio
               </a>
             </div>
           </div>
           <div className="relative">
-            <Glow className="-inset-16" />
             <div className="relative overflow-hidden rounded-[12px] border border-border bg-background p-1.5">
               <Image src={chisfis} alt="Chisfis booking template, home page" className="rounded-[8px]" priority />
             </div>
@@ -218,8 +206,8 @@ export default function EditorialGlowLab() {
                 <div key={f.title} className="flex gap-3 p-8 lg:p-10">
                   <HugeiconsIcon icon={f.icon} size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-(--brand)" />
                   <div>
-                    <p className="text-[18px] leading-[1.35] font-medium">{f.title}</p>
-                    <p className="mt-1 text-muted-foreground">{f.line}</p>
+                    <p className="text-[14px] leading-[1.55] font-medium">{f.title}</p>
+                    <p className="mt-1 text-[14px] leading-[1.55] text-muted-foreground">{f.line}</p>
                   </div>
                 </div>
               ))}
@@ -246,14 +234,14 @@ export default function EditorialGlowLab() {
               <span className="mt-5 h-px w-16 bg-border" aria-hidden />
               <div>
                 <p className="eg-serif text-[36px]">09:00</p>
-                <p className="mt-3 text-[18px] font-medium">Changelog published</p>
-                <p className="text-muted-foreground">Next.js 16.1 support, two fixes, one new block.</p>
+                <p className="mt-3 text-[14px] font-medium">Changelog published</p>
+                <p className="text-[14px] text-muted-foreground">Next.js 16.1 support, two fixes, one new block.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Pricing: four plans in one hairline panel, the chosen one washed and glowing. */}
+        {/* Pricing: four plans in one hairline panel, the chosen one on a flat wash. */}
         <section id="plans">
           <Header eyebrow="Licences" title="Pick the licence that fits" lede="Every licence includes every update for as long as the template is sold." />
           <div className="mt-16 grid overflow-hidden rounded-[12px] border border-border md:grid-cols-2 lg:mt-24 lg:grid-cols-4">
@@ -261,23 +249,22 @@ export default function EditorialGlowLab() {
               <div
                 key={p.name}
                 className={`relative flex flex-col overflow-hidden p-8 ${i < 3 ? "border-b border-border lg:border-e lg:border-b-0" : ""} ${
-                  p.chosen ? "bg-linear-to-b from-(--brand-wash) to-60% to-background" : ""
+                  p.chosen ? "bg-(--brand-wash)" : ""
                 }`}
               >
-                {p.chosen && <Glow className="inset-x-6 top-1/3 bottom-0 opacity-50" />}
                 <div className="relative">
                   <p className="eg-serif text-[40px]">
                     {p.name}
                     {p.chosen && <span className="eg-serif ms-2 text-[22px] text-(--brand-ink) italic">(Recommended)</span>}
                   </p>
-                  <p className="mt-2 text-muted-foreground">{p.note}</p>
+                  <p className="mt-2 text-[14px] text-muted-foreground">{p.note}</p>
                   <p className="mt-14 text-[44px] leading-none font-semibold tracking-[-0.02em]">
                     {p.price}
-                    <span className="ms-1 text-[16px] font-normal tracking-normal text-muted-foreground">/licence</span>
+                    <span className="ms-1 text-[14px] font-normal tracking-normal text-muted-foreground">/licence</span>
                   </p>
                   <ul className="mt-10 flex flex-col gap-2.5">
                     {p.list.map((l) => (
-                      <li key={l} className="flex items-center gap-2.5">
+                      <li key={l} className="flex items-center gap-2.5 text-[14px]">
                         <svg viewBox="0 0 16 16" className="size-4 shrink-0 stroke-muted-foreground" fill="none" strokeWidth={1.5} aria-hidden>
                           <path d="M3 8.5l3 3 7-7" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -289,7 +276,7 @@ export default function EditorialGlowLab() {
                 <div className="relative mt-auto pt-10">
                   <a
                     href="#plans"
-                    className={`${p.chosen ? "eg-btn" : "eg-btn-2"} inline-flex h-10 items-center gap-2 rounded-[10px] px-4 text-[15px] font-medium`}
+                    className={`${p.chosen ? "eg-btn" : "eg-btn-2"} inline-flex h-10 items-center gap-2 rounded-[10px] px-4 text-[14px] font-medium`}
                   >
                     {p.chosen ? "Buy Agency" : "Choose"} <ArrowRightIcon className="size-4 rtl:-scale-x-100" />
                   </a>
@@ -297,7 +284,7 @@ export default function EditorialGlowLab() {
               </div>
             ))}
           </div>
-          <div className="mt-6 flex flex-col gap-1 text-[14px] text-muted-foreground">
+          <div className="mt-6 flex flex-col gap-1 text-[12px] text-muted-foreground">
             <p>
               <span className="text-foreground">* Support:</span> answers within two working days, by email.
             </p>
@@ -314,12 +301,12 @@ export default function EditorialGlowLab() {
             {["", "eg-dark"].map((half) => (
               <div key={half} className={`eg ${half} rounded-[12px] border border-border p-8`}>
                 <div className="flex flex-wrap items-center gap-3">
-                  <button className="eg-btn h-10 rounded-[10px] px-4 text-[15px] font-medium">Primary</button>
-                  <button className="eg-btn-2 h-10 rounded-[10px] px-4 text-[15px] font-medium">Secondary</button>
-                  <button disabled className="eg-btn h-10 rounded-[10px] px-4 text-[15px] font-medium">
+                  <button className="eg-btn h-10 rounded-[10px] px-4 text-[14px] font-medium">Primary</button>
+                  <button className="eg-btn-2 h-10 rounded-[10px] px-4 text-[14px] font-medium">Secondary</button>
+                  <button disabled className="eg-btn h-10 rounded-[10px] px-4 text-[14px] font-medium">
                     Disabled
                   </button>
-                  <a href="#plans" className="text-[15px] underline-offset-4 hover:underline">
+                  <a href="#plans" className="text-[14px] underline-offset-4 hover:underline">
                     Text link
                   </a>
                 </div>
@@ -340,7 +327,7 @@ export default function EditorialGlowLab() {
                 </div>
                 <label className="mt-6 flex h-10 items-center gap-2 rounded-[10px] border border-input px-3 text-muted-foreground">
                   <HugeiconsIcon icon={Search01Icon} size={18} strokeWidth={1.5} />
-                  <span className="text-[15px]">Search templates</span>
+                  <span className="text-[14px]">Search templates</span>
                 </label>
                 <div className="mt-8 grid grid-cols-2 gap-6 border-t border-border pt-6">
                   <div>

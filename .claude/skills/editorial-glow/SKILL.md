@@ -1,6 +1,6 @@
 ---
 name: editorial-glow
-description: The Editorial Glow house style for building UI — a paper-white page, warm ink, a condensed serif for display, structure drawn in hairlines, one brand hue spent in marks and one soft glow. Use it for every page, section or component built in a project whose AGENTS.md names editorial-glow as its house style, in place of soft-neutral, including requests that sound technical ("build a pricing page", "style this table").
+description: The Editorial Glow house style for building UI — a paper-white page, warm ink, a condensed serif for display, one 14px reading size, structure drawn in hairlines, one brand hue spent in marks. Use it for every page, section or component built in a project whose AGENTS.md names editorial-glow as its house style, in place of soft-neutral, including requests that sound technical ("build a pricing page", "style this table").
 ---
 
 # Editorial Glow
@@ -24,21 +24,20 @@ open.
 
 A page like a well-set report. Paper white from top to bottom, warm near-black
 ink, and grey that is that ink thinned. Display lines are a condensed serif at
-regular weight; everything else is a quiet grotesk; figures that are data are
-mono. Structure is drawn, not tinted: content sits in panels outlined by a 1px
+regular weight; everything read is a quiet grotesk at one size, 14px, ranked
+by weight and ink; figures that are data are mono. Structure is drawn, not tinted: content sits in panels outlined by a 1px
 **hairline**, and a panel's cells share their dividers instead of floating as
 separate cards. One brand hue is spent in **marks** — the eyebrow's dot and
-label, an icon's stroke, a figure, the chosen plan — and one soft **glow** of
-that hue and its warm neighbour is the only mass of colour on the page. The
-primary button is ink, made tactile with a faint gradient and a lit top edge.
+label, an icon's stroke, a figure, the chosen plan. Every ground is flat; no
+gradient fills a section, a cell or a figure's backdrop. The primary button is ink, made tactile with a faint gradient and a lit top edge.
 Lots of white; nothing shouts.
 
 ## Personality
 
 Composed · literate · quietly warm. Not cute, not neon, not corporate.
 
-The serif and the white make it literate; the glow and the warm ink keep it
-from turning cold. Too much glow and it becomes a wellness ad; no glow and
+The serif and the white make it literate; the warm ink, the brand marks and
+the drawn figures keep it from turning cold. Without a figure per section,
 hairlines alone read as a spreadsheet.
 
 ---
@@ -64,12 +63,13 @@ The same twelve axes, in the same order, as every studio document:
 section to. Read the floor while building, not after.
 
 - **colors** — paper, two inks, the hairline, one brand hue with an ink for
-  small text, the glow pair. Brand is a mark, never a fill: the action is ink.
+  small text. Every ground is flat. Brand is a mark, never a fill: the action is
+  ink.
   → `references/colors.md`
 - **light-dark** — both halves ship. Dark is warm near-black paper with paper
-  ink; the hairline and the glow carry over. → `references/light-dark.md`
+  ink; the hairline carries over. → `references/light-dark.md`
 - **typography** — the serif for display only, at weight 400; the grotesk for
-  everything read; mono for data figures. → `references/typography.md`
+  everything read, at 14px; mono for data figures. → `references/typography.md`
 - **spacing-scale** — wide margins, a left-aligned header block, big air
   between a header and its panel. → `references/spacing-scale.md`
 - **icons** — HugeIcons stroke-rounded at a fine stroke, in the brand hue
@@ -78,12 +78,12 @@ section to. Read the floor while building, not after.
   structure, 10 on controls, pills only on chips. → `references/shape-effects.md`
 - **component-states** — hover thickens ink or the hairline; chosen is ink plus
   a mark; the brand ring is focus. → `references/component-states.md`
-- **motion** — slow and few: a reveal, a drifting glow, a fading rail.
+- **motion** — slow and few: a reveal, a fading rail, a dial's sweep.
   → `references/motion.md`
 - **sections** — header block, then one panel or one figure; asymmetry and
   cropping over centred stacks. → `references/sections.md`
-- **ornaments** — six kinds: glow, line art, skeleton mock, ground texture,
-  data dial, fading rail. One per section. → `references/ornaments.md`
+- **ornaments** — five kinds: line art, skeleton mock, ground texture, data
+  dial, fading rail. One per section. → `references/ornaments.md`
 - **imagery** — photographs in hairline frames, true colour, never full bleed.
   → `references/imagery.md`
 - **copy** — shared with the studio: soft-neutral's `references/copy.md`, plus
@@ -119,14 +119,16 @@ Every section is held to these; each has its fuller passage in the axis file.
 - **Brand is spent in marks.** The eyebrow, a feature icon, a data figure, the
   chosen or recommended item, the focus ring. It never fills a button, a band
   or a card.
-- **One glow per page** at the default notch, anchored to something — a figure,
-  the recommended column, the hero subject — and faded to paper before the
-  section's edge.
+- **Grounds are flat.** No gradient behind a section, a cell or a figure; the
+  primary button's own recipe is the one gradient on the page.
+- **Fourteen is the reading size.** Every title, description, list item,
+  button, tab and chip in the grotesk is 14px, ranked by weight and ink; the
+  lede is 16.
 - **Controls are 40px, 44 for a section's one call to action.** Radius 10, 12 on
   the 44px size. The primary is ink; the secondary is paper with a hairline and
   the lift shadow.
 - **A section opens on its header block** — eyebrow, serif heading of ten words
-  at most, one-sentence lede that holds one line at 1280 — left-aligned unless
+  at most, one-sentence lede at 16px that holds one line at 1280 — left-aligned unless
   the section's figure is centred under it.
 - **Figures are mono and brand-coloured** when they are data the product
   produced (a yield, a count, a version); a price is the grotesk at 600 in ink.
@@ -149,8 +151,8 @@ structured data, or a control labelled only by the heading beside it.
 
 ## Where to spend creativity
 
-- The hero's figure: a glow given a shape, a line drawing, a product cropped
-  off the edge.
+- The hero's figure: a line drawing, a product cropped off the edge, a data
+  dial.
 - The one data-as-ornament moment a page is remembered by.
 - Layout rhythm: splits, offsets, a figure cropped by the viewport — this is
   not a centred-stack system.
@@ -168,8 +170,8 @@ These stop a page reading as Editorial Glow:
 - A pill button or a pill input. Pills are chips and tags only.
 - The brand hue as a fill on a button, a band, a card or a section.
 - A second saturated hue anywhere outside a photograph.
-- A glow with no anchor: a wash across a whole section, behind body copy, or
-  under the header.
+- A gradient as a ground: a glow, a wash, a blurred field behind a product.
+- A reading line in the grotesk at a size other than 14 (the lede aside).
 - A dark band mid-page. The page is paper end to end; dark is the dark half.
 - A shadow on a panel or card, or a border and a declared shadow together on
   one element — the lift shadow belongs to the secondary button and to things

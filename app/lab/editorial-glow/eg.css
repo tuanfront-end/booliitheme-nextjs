@@ -24,10 +24,6 @@
   --brand-ink: #c41a6b;
   --brand-soft: #f8bedb;
   --brand-wash: #fdeff6;
-  --glow-warm: #f2a079;
-  --glow-mid: #e98099;
-  --glow-cool: #e292be;
-  --glow-strength: 1;
   --texture: #f2f0ef;
   --lineart: rgb(27 10 8 / 0.7);
   --shadow-lift: 0 1px 2px rgb(27 10 8 / 0.06), 0 2px 6px -2px rgb(27 10 8 / 0.08);
@@ -61,7 +57,6 @@
   --brand-ink: #ff7ab8;
   --brand-soft: #5a1a38;
   --brand-wash: #2a0f1c;
-  --glow-strength: 0.5;
   --texture: #221816;
   --lineart: rgb(245 240 239 / 0.7);
   --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.3);
@@ -116,28 +111,6 @@
 }
 .eg .eg-btn-2:active {
   transform: translateY(1px);
-}
-
-/* The glow: blurred stops of the brand's warm neighbourhood, with grain. */
-.eg .eg-glow {
-  position: absolute;
-  pointer-events: none;
-  opacity: var(--glow-strength);
-}
-.eg.eg-dark .eg-glow {
-  mix-blend-mode: screen;
-}
-.eg .eg-glow > span {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(48px);
-}
-.eg .eg-grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.18;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
 /* Ground textures, always masked to fade. */

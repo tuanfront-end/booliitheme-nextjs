@@ -22,18 +22,19 @@ never under 24px, never in a button, a label, a nav or body copy.
 
 ## The grotesk — everything read
 
-Instrument Sans.
+Instrument Sans, and **14px is its size**. Titles, descriptions, list items,
+buttons, tabs, chips, nav, footnotes — one size, ranked by weight and ink
+instead of by size. A title is 14 at 500 in ink; the line under it is 14 at
+400 in muted. Size steps are spent only where the role is not reading.
 
 | Role | Size / leading | Weight |
 |---|---|---|
-| lede | 18 / 1.4 | 400, muted |
-| body | 16 / 1.6 | 400 |
-| item title (a feature, a row) | 18 / 1.35 | 500 |
-| meta, button, nav | 14–16 | 500 for buttons, 400 elsewhere |
-| eyebrow | 13, uppercase, tracking 0.02em | 500, `text-brand-ink`, after a 6px brand dot |
+| lede (under a section heading) | 16 / 1.5 | 400, muted |
+| everything read: item title, description, list item, button, tab, chip, nav, field | 14 / 1.55 | 500 for a title, a button and a chosen tab; 400 elsewhere |
+| eyebrow | 12, uppercase, tracking 0.04em | 500, `text-brand-ink`, after a 6px brand dot |
+| footnote | 12 / 1.5 | 400, muted; the term it defines in ink |
 | price figure | 40–48, tracking −0.02em | 600 — the only 600 on the page |
-| price unit ("/Month") | 16 | 400, muted, on the figure's baseline |
-| footnote | 14 / 1.5 | 400, muted; the term it defines in ink |
+| price unit ("/Month") | 14 | 400, muted, on the figure's baseline |
 
 ## Mono — data
 
@@ -44,14 +45,14 @@ table. Never for an eyebrow, a label, a nav item or a button.
 ## Rhythm
 
 - A header block is eyebrow → 16px → heading → 8px → lede.
-- One role, one size: two to three sizes in a block, three to four in a
-  section.
+- A block below the header block reads at one size, 14; hierarchy inside it
+  is weight and ink.
 - Prose runs 45–75 characters. A lede holds one line at 1280.
 
 ## Floor
 
 - The serif at 400 only, never under 24px, never on chrome.
-- Two weights of the grotesk in any block; 600 only on a price.
+- Every reading line in the grotesk is 14px, the lede 16; 600 only on a price.
 - Mono only over machine text.
 - The last line of a wrapped block runs two thirds of the longest at desktop
   (studio rule, `soft-neutral/references/copy.md`).

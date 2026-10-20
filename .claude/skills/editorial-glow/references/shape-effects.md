@@ -11,8 +11,7 @@ A row of separate floating cards is the other style.
 
 A panel may give one cell a role: the **figure cell** (`bg-muted`, often with a
 ground texture) holding an illustration or a mock; the **chosen cell**
-(`bg-brand-wash` fading to paper by ~60% of its height, sometimes a glow behind
-its figure).
+(a flat `bg-brand-wash`).
 
 ## Radius
 
@@ -28,14 +27,9 @@ its figure).
   surface.
 - The primary button: its own recipe in `setup.md`.
 
-## Grain
-
-The glow carries a fine noise (an SVG `feTurbulence` at 3–5% opacity, or a
-tiled noise PNG) so it reads as light, not as a CSS gradient. Grain lives on
-the glow only.
-
 ## Floor
 
 - Panels are outlined and unshadowed; their cells share dividers.
 - No pill on a button or input.
 - Nested radii are concentric.
+- No gradient on a ground; the primary button's own recipe is the one gradient.

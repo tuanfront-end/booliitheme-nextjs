@@ -27,8 +27,8 @@ a line given room — never in the preset.
 ## The colour row
 
 Original (the brand locked at the colour stop), the other brand candidates the
-brand step offered, and Ink — the brand set to the ink itself, marks and glow
-going neutral grey. Blocks are written by `brand-hue`, never by hand.
+brand step offered, and Ink — the brand set to the ink itself, marks going
+neutral grey. Blocks are written by `brand-hue`, never by hand.
 
 ## Floor
 

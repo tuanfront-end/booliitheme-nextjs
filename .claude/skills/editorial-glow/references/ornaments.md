@@ -1,21 +1,7 @@
 # ornaments
 
-Six kinds. A section carries one at most; the glow is also counted by the
-`colour` notch. Each is drawn in this project's own hand — the shots in
-`refs/` show the kind and its job, never a shape to copy.
-
-## Glow
-
-A soft field of the three glow stops (`colors.md` § The glow pair) with grain.
-
-- **Anchored.** It sits behind something — a subject's silhouette, a product
-  mock, the chosen plan's figure — and fades to paper before the section's edge.
-- **Shaped.** Its outline follows its anchor (a head, a device, a blob behind
-  a price) rather than filling a rectangle.
-- Built as two or three absolutely-positioned blurred radial gradients
-  (`blur-3xl` or an SVG `feGaussianBlur`), a grain layer over them, the whole
-  clipped by its anchor's frame.
-- Text sits beside it, never on its strongest stop.
+Five kinds. A section carries one at most. Each is drawn in this project's own
+hand — the shots in `refs/` show the kind and its job, never a shape to copy.
 
 ## Line art
 
@@ -39,8 +25,8 @@ Drawn in `--texture` on paper or cell, always masked to fade at its edges:
 - a dot or line grid (gru's illustration cell);
 - concentric rings or arcs radiating from a corner (gru's mock ground).
 
-A ground texture is the quietest ornament and never competes with a glow in
-the same section.
+A ground texture is the quietest ornament; it sits on paper or the cell, never
+under copy.
 
 ## Data dial
 
@@ -59,7 +45,7 @@ transparent)`). Drifts at notch 1+ (`motion.md`). Says "and more" without a
 
 ## Floor
 
-- One ornament per section; one glow per page at the default notch.
+- One ornament per section.
 - Every ornament is the project's own drawing; nothing traced from `refs/`.
 - Ornaments are `aria-hidden` unless they carry data; a data dial has a text
   equivalent beside it.

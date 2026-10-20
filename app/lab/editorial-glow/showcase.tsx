@@ -57,7 +57,7 @@ export function Showcase() {
               role="tab"
               aria-selected={i === active}
               onClick={() => setActive(i)}
-              className={`flex min-h-10 w-full items-center gap-3 rounded-[10px] text-start text-[17px] transition-colors duration-150 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ring) ${
+              className={`flex min-h-10 w-full items-center gap-3 rounded-[10px] text-start text-[14px] transition-colors duration-150 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ring) ${
                 i === active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -75,7 +75,7 @@ export function Showcase() {
       <div className="relative overflow-hidden rounded-[12px] border border-border bg-muted px-10 pt-12 pb-24">
         <div className="eg-rings absolute inset-0" aria-hidden />
         <div className="relative mx-auto max-w-[460px] rounded-[12px] border border-border bg-background p-7">
-          <p className="text-[18px] leading-snug text-muted-foreground">{item.title}</p>
+          <p className="text-[14px] font-medium">{item.title}</p>
           <div className="mt-6 grid grid-cols-3 gap-4 border-b border-border pb-6">
             {item.figures.map((f) => (
               <div key={f}>
@@ -91,7 +91,7 @@ export function Showcase() {
           </div>
         </div>
         <div className="absolute inset-x-8 bottom-8 flex items-center gap-3 rounded-[12px] bg-background p-3 ps-4 shadow-(--shadow-float)">
-          <p className="flex-1 text-[15px]">Can it ship with my client&apos;s brand colour?</p>
+          <p className="flex-1 text-[14px]">Can it ship with my client&apos;s brand colour?</p>
           <span className="eg-btn grid size-10 place-items-center rounded-full">
             <HugeiconsIcon icon={SentIcon} size={18} strokeWidth={1.5} />
           </span>
@@ -100,8 +100,8 @@ export function Showcase() {
 
       <div key={item.name} className="animate-in fade-in duration-300">
         <HugeiconsIcon icon={item.icon} size={28} strokeWidth={1.5} className="text-(--brand)" />
-        <p className="mt-6 text-[18px] font-medium">{item.headline}</p>
-        <p className="mt-1 text-muted-foreground">{item.line}</p>
+        <p className="mt-6 text-[14px] font-medium">{item.headline}</p>
+        <p className="mt-1 text-[14px] leading-[1.55] text-muted-foreground">{item.line}</p>
       </div>
     </div>
   );
@@ -115,7 +115,7 @@ export function Segmented() {
         <button
           key={o}
           onClick={() => setV(o)}
-          className={`h-9 rounded-[8px] px-4 text-[15px] transition-colors duration-150 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ring) ${
+          className={`h-9 rounded-[8px] px-4 text-[14px] transition-colors duration-150 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ring) ${
             v === o
               ? "bg-background text-foreground shadow-(--shadow-lift)"
               : "text-muted-foreground hover:text-foreground"

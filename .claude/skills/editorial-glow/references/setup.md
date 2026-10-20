@@ -7,8 +7,8 @@ Source values are gru.ai's, measured in `refs/_measure.md`.
 ## Tokens
 
 shadcn's names keep their shadcn meaning, so the kit and preview-kit read them
-unchanged. The style adds `brand*`, `glow-*`, `texture`, `primary-top` and the
-two shadows.
+unchanged. The style adds `brand*`, `texture`, `primary-top` and the two
+shadows.
 
 | Token | Light | Dark | Role |
 |---|---|---|---|
@@ -25,15 +25,14 @@ two shadows.
 | `--brand` | `#e72887` | `#ff4fa0` | marks: dots, icons, large figures, rings |
 | `--brand-ink` | `#c41a6b` | `#ff7ab8` | brand text under 24px (clears 4.5:1) |
 | `--brand-soft` | `#f8bedb` | `#5a1a38` | a lit arc, a tint stroke, a selection |
-| `--brand-wash` | `#fdeff6` | `#2a0f1c` | the chosen column's top, fading to paper |
-| `--glow-warm` / `--glow-mid` / `--glow-cool` | `#f2a079` / `#e98099` / `#e292be` | same, drawn at half strength | the glow's three stops |
+| `--brand-wash` | `#fdeff6` | `#2a0f1c` | the chosen cell's flat ground |
 | `--texture` | `#f2f0ef` | `#221816` | stripes, grids, rings drawn on a ground |
 | `--ring` | `var(--brand)` | `var(--brand)` | focus |
 | `--destructive` | `#c4291c` | `#ff6b5e` | errors only |
 
 `--brand` is the variable a project changes: `brand-hue` derives
-`--brand-ink`, `--brand-soft`, `--brand-wash` and the three glow stops from it
-(`colors.md` § The glow pair). Never hand-edit the derived five.
+`--brand-ink`, `--brand-soft` and `--brand-wash` from it. Never hand-edit the
+derived three.
 
 ## Radius
 
