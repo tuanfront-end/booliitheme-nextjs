@@ -1,0 +1,71 @@
+/* The faces from fontshare.com, and the one file in this project whose assets
+   are not in the repo.
+
+   Indian Type Foundry's Free Font License grants unlimited free commercial use
+   and forbids passing the files on — section 02 rules out distributing them
+   through "a marketplace … or platform" and says a third party "must obtain
+   their own copy directly from Fontshare". A template zip with
+   Satoshi-Variable.woff2 in it is that distribution, so the files are
+   gitignored, `npm run fonts` fetches them, and public/fonts/README.md is the
+   instruction the buyer gets.
+
+   Which is why these are @font-face and not next/font/local. The loader in
+   layout.tsx resolves its `src` at build time and throws when the file is
+   missing, so the eighteen faces it loads are eighteen files that must exist —
+   correct for OFL faces that ship, fatal for a file the buyer has not fetched
+   yet. A url() that 404s is not an error at all: the browser drops the face and
+   takes the next one in the stack, which is what makes the fallbacks in
+   globals.css load-bearing rather than decorative. The cost is next/font's
+   build-time hashing and preload, which a font that may not be there could not
+   have used anyway.
+
+   One variable file per family, spanning the family's true axis range, so the
+   emphasis step is a real instance rather than a browser-synthesised bold. */
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/Switzer-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chillax";
+  src: url("/fonts/Chillax-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Erode";
+  src: url("/fonts/Erode-Variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Melodrama";
+  src: url("/fonts/Melodrama-Variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}

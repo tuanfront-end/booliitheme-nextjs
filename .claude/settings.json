@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'p=\"$CLAUDE_PROJECT_DIR/.claude/skills/soft-neutral/scripts/write-check.py\"; [ -f \"$p\" ] || p=\"$PWD/.claude/skills/soft-neutral/scripts/write-check.py\"; [ -f \"$p\" ] || exit 0; exec python3 \"$p\"'"
+          }
+        ]
+      }
+    ]
+  }
+}

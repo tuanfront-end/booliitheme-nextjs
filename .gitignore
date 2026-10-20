@@ -1,5 +1,84 @@
-node_modules
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# next.js / production
+/.next/
+/out/
+/build
+
+# packaging output: the staged copy and the zip `package.sh` writes. Committed
+# once by a stray `git add -A`, the next prep rsyncs a file it has just deleted
+# and dies without saying why.
+/dist
+
+# testing
+/coverage
+
+# misc
 .DS_Store
-.env
-.vscode
-.next
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+next-env.d.ts
+*.tsbuildinfo
+
+# Dev scaffolding: the picks the switch writes on every click, and the contact
+# sheet the reference draw is shown on. Both come off before the template ships,
+# and neither is ever worth a commit.
+.switch-picks.json
+.refs-sheet.png
+
+# The guides dragged out of the grid overlay's rulers, per route: one person's
+# working marks, read by the agent from disk and never the project's.
+.guides.json
+
+# The requests written on the page with the picker, one block each, for the
+# agent to process when told. Working notes: the commits that answer them are
+# what the project keeps.
+.comments.md
+
+# Fontshare faces, under the ITF Free Font License: free to use, not free to
+# hand on. Keeping the files out of git is what guarantees they can never
+# travel in a sale zip — `npm run fonts` fetches them from fontshare.com, and
+# public/fonts/README.md is the buyer's copy of the same instruction.
+/public/fonts/*.woff2
+/public/fonts/FFL.txt
+
+# The reference library is shared between templates and lives outside every
+# repo, so nothing about it is committed — not the images, and not the link.
+#
+# A symlink records an absolute path on one machine. Committed, it reaches every
+# other machine pointing at nothing, and `next build` stops on
+# `ENOENT: stat 'design-refs'` before it compiles a line — Vercel and a second
+# laptop fail identically, while the machine that wrote the link sees nothing
+# wrong. `stand-up.sh` writes the link when it stands a repo up, and README.md
+# carries the one-line `ln -s` for a repo that already exists.
+#
+# Tailwind is held off the library by `@source not "design-refs"` in
+# app/globals.css, which is the one place that job is done.
+design-refs
+
+# The audit skill's pictures and reports: one run deep, rewritten by the next,
+# and evidence for the agent that fixes rather than any part of the product.
+/.audit/

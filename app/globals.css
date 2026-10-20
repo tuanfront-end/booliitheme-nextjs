@@ -1,0 +1,1185 @@
+@import "tailwindcss";
+/* The reference library is a link to a folder outside this repo. Source
+   detection walks it otherwise, and Turbopack then tries to write that path
+   relative to the project root and fails the build — as a CSS parse error,
+   which names neither the link nor the library. Nothing in there is markup. */
+@source not "design-refs";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./fontshare.css";
+
+/* `dark:` follows the class next-themes puts on <html>, not the visitor's
+   system setting: the template opens light whatever the system says, and the
+   toggle in the header is the one way into the dark half. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  /* The heading half of the pair. Undeclared by default, and the fallback is
+     what makes "one family" the resting state: nothing sets --font-heading, so
+     every heading resolves to whatever --font-sans is at that element. A
+     project that pairs sets the variable once, in :root or on the switch's
+     wrapper, and the base rule below carries the rest of the face's row with
+     it. */
+  --font-heading: var(--font-heading, var(--font-sans));
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-primary-ink: var(--primary-ink);
+  --color-action: var(--action);
+  --color-action-foreground: var(--action-foreground);
+  --color-action-hover: var(--action-hover);
+  /* Gradient art is the one ornament allowed to fill space with colour, and every
+     instance of it used to carry a hue typed into a component — which is how a
+     palette with a hue knob ends up with art that ignores the knob. These two
+     are that art's only source. Mixed rather than listed so they follow
+     --primary wherever it is rotated to, and mixed toward the page rather than
+     toward white so a warm ground stays warm.
+
+     The mix lives here and not in :root as a --brand-art of its own, which is
+     where it started and where it quietly stopped following anything. A custom
+     property has its var()s substituted on the element that *declares* it, so
+     a :root token is already resolved against :root's --primary by the time
+     anything inherits it — and two things set --primary further down: the
+     switch's wrapper, and the `main:has(> [data-hue="…"])` block a route uses
+     to take a hue :root does not ship. That second one ships, so a :root
+     --brand-art is wrong in the sold file and not only under the scaffolding.
+     Declared here the whole expression rides into .bg-brand-art and into
+     --tw-gradient-from, both of which resolve on the element wearing them.
+     --color-chip below is the same trick for the same reason.
+
+     So it is taken as a utility — bg-brand-art, from-brand-art,
+     to-brand-art-soft — and never as a raw var(). A raw one has to be declared
+     somewhere, and wherever that is is where it stops tracking. */
+  --color-brand-art: color-mix(in oklab, var(--primary) 46%, var(--background));
+  --color-brand-art-soft: color-mix(in oklab, var(--primary) 20%, var(--background));
+  /* Two colours that keep their value in both halves, and the step a control
+     floating on a photograph hovers to. Their values are in :root. */
+  --color-fixed-dark: var(--fixed-dark);
+  --color-fixed-light: var(--fixed-light);
+  --color-photo-lift: var(--photo-lift);
+  --color-photo-lift-deep: var(--photo-lift-deep);
+  /* The accent colours. Each is a fill and a readable ink, the same two-token
+     shape `--primary` / `--primary-ink` already teaches. A chip from one is
+     written where it is used — `bg-leaf/15 text-leaf-ink` — rather than given
+     four more tokens of its own. */
+  --color-leaf: var(--leaf);
+  --color-leaf-ink: var(--leaf-ink);
+  --color-sun: var(--sun);
+  --color-sun-ink: var(--sun-ink);
+  --color-coral: var(--coral);
+  --color-coral-ink: var(--coral-ink);
+  --color-iris: var(--iris);
+  --color-iris-ink: var(--iris-ink);
+  --color-lime: var(--lime);
+  --color-lime-ink: var(--lime-ink);
+  --color-sky: var(--sky);
+  --color-sky-ink: var(--sky-ink);
+  --color-peach: var(--peach);
+  --color-peach-ink: var(--peach-ink);
+  /* The pastel roles — four per hue, named for the job rather than the step,
+     because the strength setting moves the step: a component writes
+     bg-leaf-surface, never bg-emerald-100. Their values are in the Soft Pastel
+     block under :root. */
+  --color-leaf-band: var(--leaf-band);
+  --color-leaf-surface: var(--leaf-surface);
+  --color-leaf-soft: var(--leaf-soft);
+  --color-leaf-mark: var(--leaf-mark);
+  --color-sun-band: var(--sun-band);
+  --color-sun-surface: var(--sun-surface);
+  --color-sun-soft: var(--sun-soft);
+  --color-sun-mark: var(--sun-mark);
+  --color-coral-band: var(--coral-band);
+  --color-coral-surface: var(--coral-surface);
+  --color-coral-soft: var(--coral-soft);
+  --color-coral-mark: var(--coral-mark);
+  --color-iris-band: var(--iris-band);
+  --color-iris-surface: var(--iris-surface);
+  --color-iris-soft: var(--iris-soft);
+  --color-iris-mark: var(--iris-mark);
+  --color-lime-band: var(--lime-band);
+  --color-lime-surface: var(--lime-surface);
+  --color-lime-soft: var(--lime-soft);
+  --color-lime-mark: var(--lime-mark);
+  --color-sky-band: var(--sky-band);
+  --color-sky-surface: var(--sky-surface);
+  --color-sky-soft: var(--sky-soft);
+  --color-sky-mark: var(--sky-mark);
+  --color-peach-band: var(--peach-band);
+  --color-peach-surface: var(--peach-surface);
+  --color-peach-soft: var(--peach-soft);
+  --color-peach-mark: var(--peach-mark);
+  /* The mix is inline here rather than behind a --chip variable on :root. A
+     var() nested inside a custom property is substituted where that property
+     is *declared*, so --chip would have been resolved once against :root's
+     primary and its resolved value inherited — a wrapper overriding the hue
+     or the alpha below would have changed nothing. Written here, @theme
+     inline puts the expression into the utility itself, where it resolves
+     against the element that uses it. */
+  --color-chip: color-mix(
+    in oklab,
+    var(--primary) var(--chip-alpha),
+    transparent
+  );
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@theme {
+  /* The corner every control wears, through one class: `rounded-control` on
+     buttons, the select trigger, inputs, chips, tabs and the header's scrolled
+     bar. calc(infinity * 1px) is what Tailwind's own rounded-full resolves to,
+     so this ships as the pill the style has always drawn.
+
+     It is the second knob a buyer turns, after the hue — move this line and
+     every control on the site changes register at once. The useful band is 0
+     to about 13px plus the pill: a 40px control has room for a corner up to a
+     third of its height, which is why this is a token of its own and not a
+     rung off --radius. The @theme inline block above would be the wrong home
+     for exactly that reason — `inline` writes the value into the utility at
+     build time, and a class already holding the pill cannot be overridden by
+     a wrapper, which is how the build switch moves it. */
+  --radius-control: calc(infinity * 1px);
+
+  /* Softer than Tailwind's shadow-*, which puts a 10% black edge directly under
+     the element and reads as a hard line on surfaces this close to white.
+
+     Each one opens with a hairline ring so the edge is drawn by the shadow
+     itself — that is what lets a raised thing keep a defined edge without a
+     separate border darkening it. Then a wide, low-opacity spread does the
+     lifting.
+
+     Tinted with --foreground rather than pure black: the palette is warm,
+     and a neutral-black shadow reads cold against a warm near-white.
+
+     Written through three variables rather than as colours, because Tailwind
+     copies a shadow's value into the utility when it builds: a `.dark` block
+     can only reach a shadow through a var() the copy still carries. In :root
+     the edge is the foreground at 1.5% and the depth is 1; the dark half
+     turns the edge into a faint light line — the one cue still visible on a
+     near-black ground — and multiplies the spread. */
+  --shadow-soft:
+    0 0 0 1px var(--shadow-edge),
+    0 2px 6px -2px oklch(var(--shadow-ink) / calc(0.05 * var(--shadow-depth))),
+    0 6px 16px -6px oklch(var(--shadow-ink) / calc(0.06 * var(--shadow-depth)));
+  --shadow-soft-lg:
+    0 0 0 1px var(--shadow-edge),
+    0 8px 24px -6px oklch(var(--shadow-ink) / calc(0.08 * var(--shadow-depth))),
+    0 24px 48px -24px oklch(var(--shadow-ink) / calc(0.1 * var(--shadow-depth)));
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  /* Each item carries its own trailing space as padding rather than flex gap,
+     so two copies measure exactly 2× one copy and -50% loops seamlessly. */
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Motion: four curves and five lengths, named for what the motion is doing.
+   Every transition on the site reads one of these, so the whole feel moves
+   from here — make it snappier by shortening `answer` and `spring`, calmer by
+   lengthening `arrive`.
+
+     answer  the page responding to a pointer: hover, press-in, a chevron
+             turning, a popup closing. Quintic ease-out, so it is perceptually
+             done in a third of its length and never reads as lag.
+     spring  a press released, a menu or popover opening. A damped spring
+             (ζ 0.6) sampled into linear(), overshooting about 9% of the
+             distance — a 3% press comes back 0.3% past rest, which is felt
+             rather than seen. No library.
+     sheet   something sliding over the page: a drawer, a sheet, its overlay.
+     morph   the header changing shape on the first scroll.
+     arrive  a section revealed once on scroll. Cubic rather than quintic: an
+             arrival nobody is waiting on rides the distance out.
+
+   `static` so every variable ships whether or not a utility uses it — the
+   reveal and `press` below read them as plain var()s. */
+@theme static {
+  --ease-answer: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: linear(0, 0.058, 0.196, 0.372, 0.553, 0.717, 0.853, 0.957, 1.028, 1.071, 1.091, 1.094, 1.086, 1.072, 1.055, 1.038, 1.023, 1.011, 1.002, 0.996, 0.992, 0.991, 0.991, 0.992, 1);
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-arrive: cubic-bezier(0.33, 1, 0.68, 1);
+
+  --duration-answer: 200ms;
+  --duration-spring: 450ms;
+  --duration-sheet: 450ms;
+  --duration-morph: 700ms;
+  --duration-arrive: 900ms;
+
+  /* A bare `transition-colors` reads these, so a transition nobody gave a
+     length still answers like every other one on the page. */
+  --default-transition-duration: var(--duration-answer);
+  --default-transition-timing-function: var(--ease-answer);
+}
+
+/* Tailwind has no theme namespace for durations, so each length is its own
+   utility, written the way Tailwind's `duration-*` is: the custom property
+   tw-animate-css reads for an enter or exit, and the transition's own. */
+@utility duration-answer {
+  --tw-duration: var(--duration-answer);
+  transition-duration: var(--duration-answer);
+}
+@utility duration-spring {
+  --tw-duration: var(--duration-spring);
+  transition-duration: var(--duration-spring);
+}
+@utility duration-sheet {
+  --tw-duration: var(--duration-sheet);
+  transition-duration: var(--duration-sheet);
+}
+@utility duration-morph {
+  --tw-duration: var(--duration-morph);
+  transition-duration: var(--duration-morph);
+}
+@utility duration-arrive {
+  --tw-duration: var(--duration-arrive);
+  transition-duration: var(--duration-arrive);
+}
+
+/* The pressed state of a control: it sinks 3% while held and springs back on
+   release. Pressing in answers at once; letting go takes the spring, because
+   the transition used on the way out of :active is the resting one. A menu
+   trigger stays put — the popup anchored to it would move with it — and a
+   locked control has nothing to answer. Anything larger than a control does
+   not shrink; it moves its fill one rung down with `active:bg-*` instead. */
+@utility press {
+  transition:
+    scale var(--duration-spring) var(--ease-spring),
+    color var(--duration-answer) var(--ease-answer),
+    background-color var(--duration-answer) var(--ease-answer),
+    border-color var(--duration-answer) var(--ease-answer),
+    box-shadow var(--duration-answer) var(--ease-answer),
+    opacity var(--duration-answer) var(--ease-answer);
+
+  &:active:not(:disabled, [aria-disabled="true"], [aria-haspopup]) {
+    scale: 0.97;
+    transition-duration: var(--duration-answer);
+    transition-timing-function: var(--ease-answer);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:active {
+      scale: none;
+    }
+  }
+}
+
+/* A scrollbar on a rail inside the page is chrome the design did not draw, and
+   macOS hides it until it is used where Windows does not — so a strip that
+   looks right here ships a grey gutter to half the buyers. The window's own bar
+   is untouched: it is the only thing saying how long the page is. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* The distance from a section's header block — eyebrow, heading, lede and any
+   control that qualifies them — to the content under it: 48px on a phone, 64
+   from `sm`. One value for every section, written once, so a page cannot drift
+   to two. */
+@utility mt-head {
+  margin-top: --spacing(12);
+  @variant sm {
+    margin-top: --spacing(16);
+  }
+}
+
+/* The column grid: the columns inside the container that a section's content
+   spans — 4 under `md`, 8 from `md`, 12 from `lg`, stretching with the page.
+   The column gap is the space between two of them, and is not the gutter,
+   which sits outside the first and last. Two numbers, written once:
+   `column-grid` lays a row out on them and the dev overlay draws them, so the
+   grid the eye checks is the grid the code uses. */
+:root {
+  --column-count: 4;
+  --column-gap: 1rem;
+  @variant md {
+    --column-count: 8;
+    --column-gap: 1.5rem;
+  }
+  @variant lg {
+    --column-count: 12;
+    --column-gap: 2rem;
+  }
+}
+
+@utility column-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
+  column-gap: var(--column-gap);
+}
+
+/* ── Soft Neutral ──────────────────────────────────────────────
+   Same variables shadcn generates, different values, written in
+   OKLCH the way Tailwind writes its own palette: lightness first,
+   then chroma, then a hue that turns without the lightness moving
+   under it.
+
+   The brand is oklch(84.5% 0.183 134.147), a lime, and it is the
+   one knob a buyer of this template turns. It is three tokens,
+   because it does three jobs with three different floors — the
+   comment on --primary has them. Turn the hue across --primary,
+   --primary-ink, --chart-1..3 (and --action when it is a colour of
+   its own) and the whole page restyles. --ring reads the ink, so it
+   follows without an edit; --primary-foreground and --chip-alpha
+   move with how light the fill is rather than with its angle.
+
+   The page is the top of the surface ladder and every other rung is
+   a distance below it, read as contrast against the page: soft tint
+   1.06, border 1.12, muted 1.15, secondary 1.20. Move --background
+   and every one of them moves with it, or the components keyed to
+   the page stop separating. Checked by scripts/palette-check.py in
+   the skill.
+
+   --radius is 1.5rem so that rounded-lg lands on 24px (containers)
+   and rounded-sm on ~14px (rows inside a card). This shadcn version
+   derives the radius scale by multiplication, so check the
+   @theme inline block above before changing it.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --radius: 1.5rem;
+
+  /* Geist's row from the per-face table in the skill's setup notes, bound once
+     here so that `font-medium` means the emphasis step of whatever face is
+     loaded, `tracking-tight` means as much tightening as that face needs, and a
+     display line that wraps clears its own descenders. Swapping the face is the
+     import in layout.tsx and these three numbers; no component changes. */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --tracking-tight: -0.025em;
+  --tracking-tighter: -0.05em;
+  --leading-display: 1;
+  --text-5xl--line-height: var(--leading-display);
+  --text-6xl--line-height: var(--leading-display);
+  --text-7xl--line-height: var(--leading-display);
+
+  /* The heading face's own row. Same four numbers, read by the base rule that
+     scopes them to h1–h6 and .font-heading, so a pair carries two rows rather
+     than one and neither face is set with the other's tracking. Pointed at the
+     body row here, which is the one-family case: swapping to a pair is these
+     five lines and the --font-heading above, and no component changes. */
+  --heading-weight-normal: var(--font-weight-normal);
+  --heading-weight-medium: var(--font-weight-medium);
+  --heading-tracking-tight: var(--tracking-tight);
+  --heading-tracking-tighter: var(--tracking-tighter);
+  --heading-leading-display: var(--leading-display);
+
+  /* Geist under a name that does not move. --font-sans is the *role*, and the
+     bench and the switch both re-point it, so the heading half of a pair whose
+     body face is something else needs a handle for the face layout.tsx
+     actually loaded. Substituted here, where --font-sans is still that face.
+     Scaffolding: it comes off with the switch unless Geist is the pick. */
+  --font-geist: var(--font-sans);
+
+  /* The Fontshare faces, each as a stack rather than a name. Their files
+     are fetched rather than shipped — see app/fontshare.css — so the second
+     half of every stack is what renders on a clone that has not run
+     `npm run fonts`, and on a buyer's first build. It is an OFL face from
+     layout.tsx in the same register, picked so that the fallback reads as a
+     decision rather than as damage: a page set in Satoshi and never fetched is
+     a page set in Geist, not a page in Times New Roman.
+
+     The row in /lab belongs to the Fontshare face, so a fallback renders with
+     numbers measured on the face above it. Both halves of each pair were
+     measured and the rows land within one step, which is the reason these
+     pairings and not others. */
+  --font-satoshi: "Satoshi", var(--font-geist);
+  --font-switzer: "Switzer", var(--font-schibsted-grotesk);
+  --font-cabinet-grotesk: "Cabinet Grotesk", var(--font-bricolage-grotesque);
+  --font-chillax: "Chillax", var(--font-poppins);
+  --font-erode: "Erode", var(--font-newsreader);
+  --font-melodrama: "Melodrama", var(--font-italiana);
+
+  --secondary: oklch(93.2% 0.002 67.794);
+  --secondary-foreground: oklch(21.7% 0.004 67.625);
+  --muted: oklch(94.7% 0.002 67.8);
+  --muted-foreground: oklch(51.3% 0.008 67.644);
+  --background: oklch(99.3% 0.001 67.81);
+  --accent: oklch(97.4% 0.001 67.808);
+  --accent-foreground: oklch(21.7% 0.004 67.625);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(21.7% 0.004 67.625);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(21.7% 0.004 67.625);
+
+  --foreground: oklch(21.7% 0.004 67.625);
+
+  /* The brand does three jobs, and each has its own floor.
+
+     --primary is the **fill**: what a component fills — a selected control,
+     a switch, progress, a story bar, a chip, gradient art, a light box. It
+     only has to be seen, so it is always bright: lime lands 1.50 on the page.
+     A fill that light carries a state beside a cue — a tick, the label's ink
+     and weight, a number — never by its colour alone. The label on it is
+     --primary-foreground, the page's ink at 11.42, where white would be 1.53.
+
+     --action is the **primary button**, with --action-foreground on it. Here
+     it is the fill itself, the house default, so the button and the chosen
+     states are one colour; a template may make it the page's ink, or — on a
+     fill light by nature, like this lime — a deep shade of the hue with white
+     type. Only its text has a floor: 4.5.
+
+     --primary-ink is the **ink**: brand-coloured text, the focus ring, a thin
+     outline, chart-1. It has to clear 4.5:1 on the page, and a hue light
+     enough to make a good fill cannot, so the ink is the same hue deeper —
+     5.89 on the page and 3.94 on the lime, which is what lets one focus ring
+     show on both. It is never a fill.
+
+     This replaces a [data-brand="light"] rule that used to force text-primary
+     back to --foreground. That worked and it threw the hue away: a light brand
+     had no brand-coloured ink at all, only a neutral one. */
+  --primary: oklch(84.5% 0.183 134.147);
+  --primary-ink: oklch(48.8% 0.14 134.147);
+  --primary-foreground: oklch(21.7% 0.004 67.625);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(89.5% 0.183 134.147);
+
+  /* The brand-hued chip, as a token rather than a bg-primary/10 written out in
+     every component. How far that alpha travels depends on how dark the primary
+     is: /10 of the reference green lands 1.150 against a card and whispers, /10
+     of a near-black primary lands 1.216 — past the band and a deeper step than
+     the well itself. So the alpha is the variable, and a palette that changes
+     the hue changes it too. Lime is a light hue, so /10 never reaches the
+     whisper band and the alpha is raised to 32%, which reads 1.150 on a card;
+     the near-black ink brand takes a thin 7% and a mid fill 10–15%. The mix
+     itself lives in the @theme block above, for the reason written there. */
+  --chip-alpha: 32%;
+
+  /* Two colours that stay put when the mode changes, for what is not a page
+     surface: a photograph's scrim and the type on it, a device's hardware. A
+     night photograph darkened for white type needs the same darkening in both
+     halves, where `bg-foreground/70 text-background` would turn it into a pale
+     wash in the dark one. The page's own ink and ground, written out because a
+     var() here would follow the mode; brand-hue.py turns them with the ramp. */
+  --fixed-dark: oklch(21.7% 0.004 67.625);
+  --fixed-light: oklch(99.3% 0.001 67.81);
+
+  /* A card-coloured control floating on a photograph — a chip, a select pill,
+     a save heart — hovers one rung down in the light half, where it is white
+     against a picture far darker than it. In the dark half its face is
+     already inside the picture's range and any step can sink it into the lit
+     part of one, so the .dark block holds the face and the cast answers.
+     `photo-lift` is a pill's step, `-deep` a small icon control's. */
+  --photo-lift: var(--muted);
+  --photo-lift-deep: var(--secondary);
+
+  /* The accent colours — six hues that are not the brand, and the only six.
+     Four are declared here and the last two below, which is the order they
+     arrived in rather than a rank.
+     They exist because one hue cannot tell four peers apart: a bento of four
+     services, six guild crests, a pie of four categories. Drawing those in one
+     hue at four lightnesses invents a ranking the content does not have.
+
+     Aliases, not transcriptions. `palette-check.py` reads stock Tailwind out of
+     the installed package for exactly this reason, and a copied oklch triple
+     here would be a second source of truth that goes stale on the next release
+     without anything failing.
+
+     Named for the colour rather than for a job. `--chip-ok` could only ever be
+     a success chip; `--leaf` can be a success chip, a guild crest, an ornament
+     on a card, or one slice of a pie. The fence was the problem.
+
+     They do not rotate with the brand, so a status chip keeps its meaning
+     wherever the brand lands — and the meaning stays in the chip. Outside a
+     chip, a set of peers and an ornament, colour is the brand or the page's
+     signal colour; a status hue spent there as well is how a green
+     brand grows a second green on every tick and progress bar.
+     `palette-check.py` reports when a rotation brings the brand within 30
+     degrees of an accent colour instead of moving it. */
+  --leaf: var(--color-emerald-400);
+  --leaf-ink: var(--color-emerald-700);
+  --sun: var(--color-amber-400);
+  --sun-ink: var(--color-amber-700);
+  --coral: var(--color-rose-400);
+  --coral-ink: var(--color-rose-700);
+  --iris: var(--color-violet-400);
+  --iris-ink: var(--color-violet-700);
+
+  /* Five and six, and they are here because of a rule rather than a taste.
+     `ornaments.md` § Palette takes the *count* of distinct colours from the
+     reference and only the *kind* from the project — so a shot telling six
+     things apart with six flat colours needs six of ours, and four left two
+     of them with nowhere to come from.
+
+     They fill the two widest gaps in the wheel the first four leave. Measured
+     at the Tailwind 400 step: rose 350, amber 38, emerald 160, violet 270,
+     which leaves 122 degrees open between amber and emerald and 110 between
+     emerald and violet. Lime lands at 84 and sky at 199, so the six sit
+     roughly 50 degrees apart the whole way round and no pair collapses into
+     one reading.
+
+     Global rather than declared beside whichever component first needed a
+     fifth: two components each inventing their own sixth colour is how a
+     palette stops being one. */
+  --lime: var(--color-lime-400);
+  --lime-ink: var(--color-lime-700);
+  --sky: var(--color-sky-400);
+  --sky-ink: var(--color-sky-700);
+
+  /* Seven, for a colour the six did not have: nothing sat between coral and
+     sun, and a peach card built from either reads salmon or butter. At this
+     step it sits 28 degrees from sun — closer than any other pair — so a peach
+     chip and a sun chip never stand side by side.
+
+     Its ink is the one a step darker. -700 lands 4.50 on this page once the
+     chip is composited, a hair under the floor every other -700 clears. */
+  --peach: var(--color-orange-400);
+  --peach-ink: var(--color-orange-800);
+
+  --destructive: oklch(48.6% 0.156 28.366);
+
+  --border: oklch(95.5% 0.002 67.804);
+  --input: oklch(87.8% 0.004 67.777);
+  --ring: var(--primary-ink);
+
+  /* The brand's ink at three lightnesses, then two greys. --chart-1 repeats
+     --primary-ink; --chart-2 and --chart-3 are the same hue 12 and 24 points
+     of lightness above it, at the fill's chroma wherever sRGB holds it, so
+     turning the hue rewrites all three. --chart-4 and --chart-5 are neutral
+     greys, and stay grey whatever hue the brand takes. */
+  --chart-1: oklch(48.8% 0.14 134.147);
+  --chart-2: oklch(60.8% 0.174 134.147);
+  --chart-3: oklch(72.8% 0.183 134.147);
+  --chart-4: oklch(78.4% 0.008 67.713);
+  --chart-5: oklch(88.6% 0.004 67.772);
+
+  --sidebar: oklch(93.2% 0.002 67.794);
+  --sidebar-foreground: oklch(21.7% 0.004 67.625);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(95.1% 0.002 67.802);
+  --sidebar-accent-foreground: oklch(21.7% 0.004 67.625);
+  --sidebar-border: oklch(93.6% 0.002 67.795);
+  --sidebar-ring: oklch(25% 0.005 67.607);
+
+  /* The two shadows' colours — see `--shadow-soft` in @theme. */
+  --shadow-ink: 21.7% 0.004 67.625;
+  --shadow-edge: oklch(21.7% 0.004 67.625 / 0.015);
+  --shadow-depth: 1;
+}
+
+/* ── Soft Pastel ──────────────────────────────────────────────
+   Colour on the surfaces that present — a feature card, a testimonial, a stat
+   tile, a pricing band — and never on the ones a visitor works in: a form, a
+   results list, a calendar, a checkout. Those keep the near-white ladder
+   above, because their colour belongs to state: selected, invalid, sold out.
+
+   Four roles per hue, and a component names the role rather than the step:
+
+     band      a section's ground                step 50
+     surface   a card or a tile                  step 100 at 65% over the page,
+                                                 or 200 when strong
+     soft      the top of a tile's gradient      one step lighter than surface
+     mark      a shape drawn on a surface        one step deeper than surface
+
+   Two strengths. This block is the paler one. data-pastel="2" on <html>, or on
+   any wrapper, moves every surface under it to the stronger one below; "1"
+   brings a wrapper back. Every value is a stock Tailwind step, aliased rather
+   than copied, like the accent colours above — except the paler surface, its 100
+   mixed into the page: the stock 100 is too loud for a card fill, the 50 too
+   faint to tell four hues apart. Opaque rather than an alpha, so a card keeps
+   its colour over a photograph or a band. Unused until a page reaches for them.
+   ───────────────────────────────────────────────────────────── */
+:root,
+[data-pastel="1"] {
+  --leaf-band: var(--color-emerald-50);
+  --leaf-surface: color-mix(in oklab, var(--color-emerald-100) 65%, var(--background));
+  --leaf-soft: var(--color-emerald-50);
+  --leaf-mark: var(--color-emerald-200);
+  --sun-band: var(--color-amber-50);
+  --sun-surface: color-mix(in oklab, var(--color-amber-100) 65%, var(--background));
+  --sun-soft: var(--color-amber-50);
+  --sun-mark: var(--color-amber-200);
+  --coral-band: var(--color-rose-50);
+  --coral-surface: color-mix(in oklab, var(--color-rose-100) 65%, var(--background));
+  --coral-soft: var(--color-rose-50);
+  --coral-mark: var(--color-rose-200);
+  --iris-band: var(--color-violet-50);
+  --iris-surface: color-mix(in oklab, var(--color-violet-100) 65%, var(--background));
+  --iris-soft: var(--color-violet-50);
+  --iris-mark: var(--color-violet-200);
+  --lime-band: var(--color-lime-50);
+  --lime-surface: color-mix(in oklab, var(--color-lime-100) 65%, var(--background));
+  --lime-soft: var(--color-lime-50);
+  --lime-mark: var(--color-lime-200);
+  --sky-band: var(--color-sky-50);
+  --sky-surface: color-mix(in oklab, var(--color-sky-100) 65%, var(--background));
+  --sky-soft: var(--color-sky-50);
+  --sky-mark: var(--color-sky-200);
+  --peach-band: var(--color-orange-50);
+  --peach-surface: color-mix(in oklab, var(--color-orange-100) 65%, var(--background));
+  --peach-soft: var(--color-orange-50);
+  --peach-mark: var(--color-orange-200);
+}
+
+/* The stronger strength. Sun and lime keep the paler steps above, because at
+   200 they read as highlighter rather than pastel — all but the surface, which
+   takes the stock 100 here rather than the paler block's mix. Bands
+   stay at 50 at both strengths — a band is section-sized, and at that size
+   only the palest step still reads as a ground rather than a block. */
+[data-pastel="2"] {
+  --sun-surface: var(--color-amber-100);
+  --lime-surface: var(--color-lime-100);
+  --leaf-surface: var(--color-emerald-200);
+  --leaf-soft: var(--color-emerald-100);
+  --leaf-mark: var(--color-emerald-300);
+  --coral-surface: var(--color-rose-200);
+  --coral-soft: var(--color-rose-100);
+  --coral-mark: var(--color-rose-300);
+  --iris-surface: var(--color-violet-200);
+  --iris-soft: var(--color-violet-100);
+  --iris-mark: var(--color-violet-300);
+  --sky-surface: var(--color-sky-200);
+  --sky-soft: var(--color-sky-100);
+  --sky-mark: var(--color-sky-300);
+  --peach-surface: var(--color-orange-200);
+  --peach-soft: var(--color-orange-100);
+  --peach-mark: var(--color-orange-300);
+}
+
+/* ── The dark half ─────────────────────────────────────────────
+   One near-black ladder the house style owns, measured rather than inverted.
+   Tint does not invert: below the page there is no room left on a near-black
+   ground, so every rung is a distance *above* it — the card nearest, then the
+   whisper tint, the hairline, the resting row and the deepest well — and the
+   same names keep their order. Steps are wider than the light half's, because
+   near black the contrast formula moves slowly: card on page reads 1.08, the
+   well 1.42, against references measured at 1.12–1.27 for a card. Hairlines
+   carry what shadows no longer can.
+
+   The brand row is the scaffold's lime, written beside :root's. The fill
+   keeps its value and its label in both halves; the ink lifts to 8:1 on the
+   dark card, or stays at the fill where the fill is lighter, as lime's is. A
+   button in a deep shade of the hue lifts to the lightest that still holds
+   white at 4.6, and one in the page's ink turns into this half's light ink
+   with its dark ground on it — the one most separate from the page. The
+   seven accent colours keep their 400 fills and read their ink at 300. */
+.dark {
+  color-scheme: dark;
+
+  --background: oklch(20% 0.003 67.637);
+  --foreground: oklch(94.7% 0.003 67.786);
+  --card: oklch(23.3% 0.004 67.651);
+  --card-foreground: oklch(94.7% 0.003 67.786);
+  --popover: oklch(24.4% 0.004 67.646);
+  --popover-foreground: oklch(94.7% 0.003 67.786);
+  --accent: oklch(25.5% 0.005 67.604);
+  --accent-foreground: oklch(94.7% 0.003 67.786);
+  --border: oklch(28.2% 0.006 67.594);
+  --muted: oklch(29.2% 0.006 67.59);
+  --muted-foreground: oklch(73.5% 0.01 67.678);
+  --secondary: oklch(31.8% 0.007 67.582);
+  --secondary-foreground: oklch(94.7% 0.003 67.786);
+  --input: oklch(38.2% 0.007 67.612);
+
+  --primary: oklch(84.5% 0.183 134.147);
+  --primary-ink: oklch(84.5% 0.183 134.147);
+  --primary-foreground: oklch(21.7% 0.004 67.625);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(89.5% 0.183 134.147);
+  --chip-alpha: 11%;
+  --photo-lift: var(--card);
+  --photo-lift-deep: var(--card);
+  --chart-1: oklch(84.5% 0.183 134.147);
+  --chart-2: oklch(72.5% 0.183 134.147);
+  --chart-3: oklch(60.5% 0.174 134.147);
+  --chart-4: oklch(51.4% 0.012 67.55);
+  --chart-5: oklch(38.3% 0.009 67.568);
+
+  --leaf-ink: var(--color-emerald-300);
+  --sun-ink: var(--color-amber-300);
+  --coral-ink: var(--color-rose-300);
+  --iris-ink: var(--color-violet-300);
+  --lime-ink: var(--color-lime-300);
+  --sky-ink: var(--color-sky-300);
+  --peach-ink: var(--color-orange-300);
+  --destructive: oklch(68.7% 0.146 25.774);
+
+  --sidebar: oklch(31.8% 0.007 67.582);
+  --sidebar-foreground: oklch(94.7% 0.003 67.786);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(28.7% 0.006 67.592);
+  --sidebar-accent-foreground: oklch(94.7% 0.003 67.786);
+  --sidebar-border: oklch(30.3% 0.006 67.587);
+  --sidebar-ring: oklch(94.7% 0.003 67.786);
+
+  --shadow-ink: 0% 0 0;
+  --shadow-edge: oklch(100% 0 0 / 0.06);
+  --shadow-depth: 5;
+}
+
+/* Pastel in the dark half is a tint of the hue over the page rather than a
+   pale step: a 100 or a 200 on near-black is a lit panel, not a whisper. The
+   400 fill mixed into the ground at a small share keeps the hue and the dark.
+   The wrapper selector is there because the Switch puts `data-pastel` on a
+   wrapper, where the light values would otherwise land inside a dark page. */
+.dark,
+.dark [data-pastel="1"] {
+  --leaf-band: color-mix(in oklab, var(--color-emerald-400) 7%, var(--background));
+  --leaf-surface: color-mix(in oklab, var(--color-emerald-400) 11%, var(--background));
+  --leaf-soft: color-mix(in oklab, var(--color-emerald-400) 6%, var(--background));
+  --leaf-mark: color-mix(in oklab, var(--color-emerald-400) 28%, var(--background));
+  --sun-band: color-mix(in oklab, var(--color-amber-400) 7%, var(--background));
+  --sun-surface: color-mix(in oklab, var(--color-amber-400) 11%, var(--background));
+  --sun-soft: color-mix(in oklab, var(--color-amber-400) 6%, var(--background));
+  --sun-mark: color-mix(in oklab, var(--color-amber-400) 28%, var(--background));
+  --coral-band: color-mix(in oklab, var(--color-rose-400) 7%, var(--background));
+  --coral-surface: color-mix(in oklab, var(--color-rose-400) 11%, var(--background));
+  --coral-soft: color-mix(in oklab, var(--color-rose-400) 6%, var(--background));
+  --coral-mark: color-mix(in oklab, var(--color-rose-400) 28%, var(--background));
+  --iris-band: color-mix(in oklab, var(--color-violet-400) 7%, var(--background));
+  --iris-surface: color-mix(in oklab, var(--color-violet-400) 11%, var(--background));
+  --iris-soft: color-mix(in oklab, var(--color-violet-400) 6%, var(--background));
+  --iris-mark: color-mix(in oklab, var(--color-violet-400) 28%, var(--background));
+  --lime-band: color-mix(in oklab, var(--color-lime-400) 7%, var(--background));
+  --lime-surface: color-mix(in oklab, var(--color-lime-400) 11%, var(--background));
+  --lime-soft: color-mix(in oklab, var(--color-lime-400) 6%, var(--background));
+  --lime-mark: color-mix(in oklab, var(--color-lime-400) 28%, var(--background));
+  --sky-band: color-mix(in oklab, var(--color-sky-400) 7%, var(--background));
+  --sky-surface: color-mix(in oklab, var(--color-sky-400) 11%, var(--background));
+  --sky-soft: color-mix(in oklab, var(--color-sky-400) 6%, var(--background));
+  --sky-mark: color-mix(in oklab, var(--color-sky-400) 28%, var(--background));
+  --peach-band: color-mix(in oklab, var(--color-orange-400) 7%, var(--background));
+  --peach-surface: color-mix(in oklab, var(--color-orange-400) 11%, var(--background));
+  --peach-soft: color-mix(in oklab, var(--color-orange-400) 6%, var(--background));
+  --peach-mark: color-mix(in oklab, var(--color-orange-400) 28%, var(--background));
+}
+
+/* Candy in the dark: a larger share of the same five hues, sun and lime held
+   at whisper exactly as the light half holds them. */
+.dark[data-pastel="2"],
+.dark [data-pastel="2"] {
+  --leaf-surface: color-mix(in oklab, var(--color-emerald-400) 18%, var(--background));
+  --leaf-soft: color-mix(in oklab, var(--color-emerald-400) 11%, var(--background));
+  --leaf-mark: color-mix(in oklab, var(--color-emerald-400) 40%, var(--background));
+  --coral-surface: color-mix(in oklab, var(--color-rose-400) 18%, var(--background));
+  --coral-soft: color-mix(in oklab, var(--color-rose-400) 11%, var(--background));
+  --coral-mark: color-mix(in oklab, var(--color-rose-400) 40%, var(--background));
+  --iris-surface: color-mix(in oklab, var(--color-violet-400) 18%, var(--background));
+  --iris-soft: color-mix(in oklab, var(--color-violet-400) 11%, var(--background));
+  --iris-mark: color-mix(in oklab, var(--color-violet-400) 40%, var(--background));
+  --sky-surface: color-mix(in oklab, var(--color-sky-400) 18%, var(--background));
+  --sky-soft: color-mix(in oklab, var(--color-sky-400) 11%, var(--background));
+  --sky-mark: color-mix(in oklab, var(--color-sky-400) 40%, var(--background));
+  --peach-surface: color-mix(in oklab, var(--color-orange-400) 18%, var(--background));
+  --peach-soft: color-mix(in oklab, var(--color-orange-400) 11%, var(--background));
+  --peach-mark: color-mix(in oklab, var(--color-orange-400) 40%, var(--background));
+}
+
+@layer base {
+  /* Every focusable thing gets a visible ring, once, rather than a utility
+     repeated on fifty-six elements. The offset is the point: this style's
+     controls are pills at the seed it ships, and a ring drawn flush against a
+     fully round edge disappears into it — which component-states.md names as the
+     one focus case that actually fails here. It costs nothing at a squarer
+     --radius-control and is the only thing that works at this one. A kit
+     control that sets `outline-none` in its own base draws this same outline
+     back with `focus-visible:outline-*`, so nothing is drawn twice. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans font-normal;
+  }
+}
+
+@layer base {
+  /* The header is sticky, so anchors need somewhere to land. */
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  /* The heading face reaches every heading without a utility at the call site,
+     and .font-heading carries it to the display type that is not a heading
+     element — a stat figure, a pull quote, a price.
+
+     The weight and tracking variables are re-declared rather than the
+     properties themselves, because that is what keeps `font-medium` and
+     `tracking-tight` in a component meaning *this face's* emphasis step and
+     *this face's* tightening. font-weight is also set outright: a display
+     heading carries no weight utility at all, so without it the heading would
+     inherit the body face's number through html.
+
+     Plain element selectors rather than :where(). Preflight ships
+     `h1…h6 { font-weight: inherit }`, which at 0,0,1 beats a zero-specificity
+     rule and leaves every display heading on the body face's weight — the
+     variables above still land, so the miss reads as "the pair half works and
+     the other half does not". Nothing is lost by the specificity: base loses
+     to the utilities layer whatever the selector, so a `font-medium` at the
+     call site still wins. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-heading {
+    font-family: var(--font-heading, var(--font-sans));
+    font-weight: var(--heading-weight-normal);
+    --font-weight-normal: var(--heading-weight-normal);
+    --font-weight-medium: var(--heading-weight-medium);
+    --tracking-tight: var(--heading-tracking-tight);
+    --tracking-tighter: var(--heading-tracking-tighter);
+    --text-5xl--line-height: var(--heading-leading-display);
+    --text-6xl--line-height: var(--heading-leading-display);
+    --text-7xl--line-height: var(--heading-leading-display);
+  }
+
+  /* Optical corrections Tailwind does not ship. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer base {
+  /* No focus rule here on purpose. The shadcn stylesheet already ships a
+     global `:focus-visible { outline: 2px solid var(--ring); outline-offset:
+     2px }`, so every control on this page — including the header links, the
+     footer links and the card links that look like they declare nothing — is
+     already ringed, and already ringed with the offset a round control
+     needs. A second rule here was redundant. */
+
+  /* No 300ms wait for a double-tap that is never coming, and no grey flash
+     box over a pill on Android. Both are touch defaults that read as lag. */
+  :where(a, button, summary, label, select, [role="button"]) {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Unlayered on purpose: @layer base loses to the utilities layer, so these
+   overrides have to sit outside the cascade layers to actually win. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+
+  /* The blanket kill. Individual components carry motion-reduce: variants for
+     the motion they own, but a template is going to grow motion this file has
+     never heard of, and the floor is that the page is complete with every
+     animation off. 0.01ms rather than 0s so animationend still fires. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Section reveal. Progressive enhancement, and every part of it is chosen for
+   the failure mode rather than for the effect:
+
+     - The hidden state is keyed to a data attribute that only JavaScript ever
+       sets. No JavaScript, hydration that never lands, a crashed observer —
+       all of them leave the page rendered, which is the one thing this must
+       not be able to break.
+     - reveal.tsx skips any section already on screen when it arms, so nothing
+       above the fold flashes out and back in.
+     - It also skips everything under prefers-reduced-motion, and the blanket
+       rule above is the second line of defence if it somehow does not.
+
+   The alternative was `animation-timeline: view()` — no JavaScript at all, and
+   genuinely the better technique. It is not here because its hidden state is
+   CSS, so a browser that supports the property but resolves the timeline
+   differently renders a blank section, and that is a failure a sold template
+   cannot carry.
+
+   Transform and opacity only: the two a compositor runs without laying out
+   the page again. */
+[data-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+
+/* 900ms on a cubic ease-out, and the curve did more of the work than the
+   number. This ran 600ms on cubic-bezier(0.22, 1, 0.36, 1) — a *quintic* ease
+   out, which spends about nine tenths of the distance in the first third of the
+   time, so the rise was perceptually over in a quarter of a second whatever the
+   duration said. Lengthening it alone buys less than it looks: 600 to 900 moves
+   the nine-tenths mark from 254ms to 375. Softening the curve at the same 900
+   moves it to 523, because a cubic rides the distance out instead of bolting
+   and then coasting. */
+[data-reveal="shown"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--duration-arrive) var(--ease-arrive),
+    transform var(--duration-arrive) var(--ease-arrive);
+}
+
+/* Printing does not scroll, so nothing ever reveals: every section still
+   pending when the dialog opens would print as a hole in the page. Save as PDF
+   goes through the same path, and in these niches a printed page is a real
+   artefact — a ticket, an itinerary, a booking confirmation, an invoice.
+   !important because print is one-way: there is no second look at the output. */
+@media print {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Right to left ─────────────────────────────────────────────
+   With `dir="rtl"` on <html> the layout mirrors, and the copy stays English.
+   A paragraph inside a right-to-left page then reads its English words left
+   to right but parks its punctuation at the wrong end — ".Book a table" —
+   because a full stop between an English word and the paragraph's own edge
+   takes the paragraph's direction.
+
+   `plaintext` gives each block of text the direction of its own first
+   letter, so English reads as English; `-webkit-match-parent` keeps the
+   alignment the page asked for, right in a right-to-left page and centred
+   where a parent centres, where `start` alone would swing it back to the
+   left. A button keeps its own centring, so it takes the first half only.
+   A textarea takes both, or a message typed in English ends with its question
+   mark at the wrong end. A single-line input takes neither: one that holds an
+   email or a code carries `dir="ltr"`, and `match-parent` would swing it to
+   the right edge of the page it sits in rather than its own start.
+   Base layer, so a `text-center` on the element still wins.
+
+   A site written in Arabic or Hebrew has no use for this, and deletes it. */
+@layer base {
+  :where([dir="rtl"])
+    :where(p, h1, h2, h3, h4, h5, h6, li, dt, dd, blockquote, figcaption, label, td, th, caption, legend, summary, div, span, a, button, textarea) {
+    unicode-bidi: plaintext;
+  }
+  :where([dir="rtl"])
+    :where(p, h1, h2, h3, h4, h5, h6, li, dt, dd, blockquote, figcaption, label, td, th, caption, legend, summary, div, span, a, textarea) {
+    text-align: match-parent;
+    text-align: -webkit-match-parent;
+  }
+}
+
+/* ── Presets ───────────────────────────────────────────────────
+   Three looks every template ships beside its own, which is Original: the
+   values above, with no attribute set. A preset moves the type pairing — both
+   faces' rows — and the two radius seeds, and nothing else: the colors, the
+   surfaces, the spacing and the motion are the template's in every one.
+
+   One is chosen by `data-preset` on <html>, which app/layout.tsx writes from
+   preset.json, and the preset panel lists every block below on its own — a
+   preset of your own is one more block. The faces they name are loaded in
+   app/layout.tsx with `preload: false`, so a page downloads only the face
+   it is showing.
+
+   `:root[…]` outranks the font variable next/font sets on <html>; the bare
+   `[…]` lets an element wear a preset on its own, which is how the panel
+   draws its sample of each. */
+:root[data-preset="soft"],
+[data-preset="soft"] {
+  --font-sans: var(--font-outfit);
+  --font-heading: var(--font-outfit);
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --tracking-tight: 0em;
+  --tracking-tighter: -0.025em;
+  --leading-display: 1;
+  --heading-weight-normal: 400;
+  --heading-weight-medium: 500;
+  --heading-tracking-tight: 0em;
+  --heading-tracking-tighter: -0.025em;
+  --heading-leading-display: 1;
+  --radius: 2rem;
+  --radius-control: calc(infinity * 1px);
+}
+
+:root[data-preset="crisp"],
+[data-preset="crisp"] {
+  --font-sans: var(--font-schibsted-grotesk);
+  --font-heading: var(--font-schibsted-grotesk);
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --tracking-tight: -0.025em;
+  --tracking-tighter: -0.05em;
+  --leading-display: 1;
+  --heading-weight-normal: 400;
+  --heading-weight-medium: 500;
+  --heading-tracking-tight: -0.025em;
+  --heading-tracking-tighter: -0.05em;
+  --heading-leading-display: 1;
+  --radius: 0.75rem;
+  --radius-control: 0.375rem;
+}
+
+:root[data-preset="editorial"],
+[data-preset="editorial"] {
+  --font-sans: var(--font-instrument-sans);
+  --font-heading: var(--font-instrument-serif);
+  --font-weight-normal: 500;
+  --font-weight-medium: 600;
+  --tracking-tight: -0.025em;
+  --tracking-tighter: -0.05em;
+  --leading-display: 1;
+  --heading-weight-normal: 400;
+  --heading-weight-medium: 400;
+  --heading-tracking-tight: 0em;
+  --heading-tracking-tighter: -0.025em;
+  --heading-leading-display: 1;
+  --radius: 1.125rem;
+  --radius-control: 0.75rem;
+}
+
+/* preset-panel colors: one block per brand color the preset panel offers,
+   each followed by its dark half. A color of your own is one more pair. */
+
+[data-color="original"] {
+  --primary: oklch(84.5% 0.183 134.147);
+}
+
+.dark [data-color="original"] {
+  --primary: oklch(84.5% 0.183 134.147);
+}
+
+:root[data-color="flamingo"],
+[data-color="flamingo"] {
+  --primary: oklch(59.8% 0.238 12.598);
+  --primary-foreground: oklch(100% 0 0);
+  --primary-ink: oklch(52.7% 0.21 12.598);
+  --ring: var(--primary-ink);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(54.8% 0.218 12.598);
+  --chip-alpha: 8%;
+  --chart-1: oklch(52.7% 0.21 12.598);
+  --chart-2: oklch(64.7% 0.238 12.598);
+  --chart-3: oklch(76.7% 0.14 12.598);
+}
+
+.dark[data-color="flamingo"],
+.dark [data-color="flamingo"] {
+  --primary: oklch(59.8% 0.238 12.598);
+  --primary-foreground: oklch(100% 0 0);
+  --primary-ink: oklch(78.3% 0.128 12.598);
+  --ring: var(--primary-ink);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(54.8% 0.218 12.598);
+  --chip-alpha: 30%;
+  --chart-1: oklch(78.3% 0.128 12.598);
+  --chart-2: oklch(66.3% 0.229 12.598);
+  --chart-3: oklch(54.3% 0.216 12.598);
+}
+
+:root[data-color="harbor"],
+[data-color="harbor"] {
+  --primary: oklch(57.2% 0.193 255.799);
+  --primary-foreground: oklch(100% 0 0);
+  --primary-ink: oklch(50.4% 0.17 255.799);
+  --ring: var(--primary-ink);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(52.2% 0.176 255.799);
+  --chip-alpha: 10%;
+  --chart-1: oklch(50.4% 0.17 255.799);
+  --chart-2: oklch(62.4% 0.193 255.799);
+  --chart-3: oklch(74.4% 0.133 255.799);
+}
+
+.dark[data-color="harbor"],
+.dark [data-color="harbor"] {
+  --primary: oklch(57.2% 0.193 255.799);
+  --primary-foreground: oklch(100% 0 0);
+  --primary-ink: oklch(76.7% 0.12 255.799);
+  --ring: var(--primary-ink);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(52.2% 0.176 255.799);
+  --chip-alpha: 24%;
+  --chart-1: oklch(76.7% 0.12 255.799);
+  --chart-2: oklch(64.7% 0.191 255.799);
+  --chart-3: oklch(52.7% 0.178 255.799);
+}
+
+:root[data-color="ink"],
+[data-color="ink"] {
+  --primary: oklch(25% 0.005 67.7);
+  --primary-foreground: oklch(100% 0 0);
+  --primary-ink: oklch(25% 0.005 67.7);
+  --ring: var(--primary-ink);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(20% 0.005 67.7);
+  --chip-alpha: 7%;
+  --chart-1: oklch(25% 0.005 67.7);
+  --chart-2: oklch(37% 0.005 67.7);
+  --chart-3: oklch(49% 0.005 67.7);
+}
+
+.dark[data-color="ink"],
+.dark [data-color="ink"] {
+  --primary: oklch(93.9% 0.002 67.7);
+  --primary-foreground: oklch(21.7% 0.004 67.625);
+  --primary-ink: oklch(93.9% 0.002 67.7);
+  --ring: var(--primary-ink);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(98.9% 0.002 67.7);
+  --chip-alpha: 9%;
+  --chart-1: oklch(93.9% 0.002 67.7);
+  --chart-2: oklch(81.9% 0.002 67.7);
+  --chart-3: oklch(69.9% 0.002 67.7);
+}
+/* end preset-panel colors */
