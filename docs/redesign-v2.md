@@ -5,9 +5,10 @@ bất kỳ section nào của trang chủ v1 và giao toàn quyền thiết kế
 
 ## Trạng thái
 
-**Đang chờ.** Anh đang build một skill từ session "Skill design từ reference
-images". Khi skill đó xong mới triển khai lại từ đầu, dùng skill đó. Trước lúc
-ấy không dựng, không xoá gì.
+**Đang làm** trên nhánh `redesign/editorial-glow`. Skill là `editorial-glow`,
+một house style cục bộ ở `.claude/skills/editorial-glow/` (ADR 0001). Thứ tự:
+mở rộng nguồn học → đo trên ảnh → viết skill v0 → nối skill vào template cho
+tới khi `npm run check` xanh → dựng v2. Nối xong mới dựng hay xoá gì của v1.
 
 Bản v1 vẫn nằm nguyên trên branch `redesign/soft-neutral` (commit cuối
 `43efc12`). Khi bắt đầu v2: xoá toàn bộ section trang chủ v1
@@ -16,14 +17,14 @@ rồi dựng lại.
 
 ## Yêu cầu của anh
 
-1. **Không rút refs từ `design-refs/`.** Học thiết kế từ các ảnh trong
-   `images/__/` (hiện có: `built-different.png`, `daily.png`, `hero.png`,
-   `one-message.png`, `pricing.png`).
+1. **Không rút refs từ `design-refs/`.** Học thiết kế qua skill
+   `editorial-glow`; ảnh nguồn của nó (5 ảnh gru.ai từng ở `images/__/`, cộng
+   các site cùng họ anh duyệt) nằm ở `.claude/skills/editorial-glow/refs/`.
 2. **Layout thông minh, hiện đại, sáng tạo và tối giản.** Không dựng kiểu
    layout đại trà, nhàm chán. Nếu chỉ nghĩ ra được layout quen tay thì đừng
    làm.
-3. **Chỉ lấy gu style từ `soft-neutral`.** Bảng màu, hình khối, độ thoáng là
-   của soft-neutral; bố cục không đi theo quy trình rút refs của site-brief.
+3. **Gu style lấy từ `editorial-glow`** (thay soft-neutral từ 2026-10-20,
+   ADR 0001). Bố cục không đi theo quy trình rút refs của site-brief.
 4. **Mọi thứ tối giản nhất.** Không mô tả nhiều, không nhiều thông tin.
    Profile chỉ trả lời năm điều:
    1. Tôi là ai.
@@ -39,7 +40,9 @@ rồi dựng lại.
 - Dữ liệu 10 sản phẩm và số liệu ThemeForest thật: `lib/data/projects.ts`
   (v2 chỉ cần tên, giá và ảnh).
 - Logo mark "iB" (`components/site/logo-mark.tsx`), wordmark, favicon.
-- Brand Ink đã khoá, nền near-white, font Geist một họ, bo container 24px, bo
-  nút 12px (các lựa chọn của anh trên Switch ở Stop 2).
+- Brand Ink đã khoá (House rule 1 trong `brief.md`). Các lựa chọn khác ở
+  Stop 2 của v1 (nền near-white, Geist một họ, bo 24/12) bỏ: v2 đi từ mặc định
+  của editorial-glow, rồi Stop 2 của v2 chọn hue accent trong 3 ứng viên (không
+  dùng hồng/đào, dấu ấn của gru.ai) và bộ font preset.
 - Header và footer v1 nhiều thông tin (mega menu, 4 cột link). Với v2 tối
   giản thì cũng cần xem lại cho cùng tinh thần.

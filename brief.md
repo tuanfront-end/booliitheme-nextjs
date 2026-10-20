@@ -183,6 +183,8 @@ Beyond the core kit:
 1. The brand is Ink (stop 2): the primary action and every chosen state are
    the page's ink. `controls-check`'s ink-fill rule cannot tell brand from ink
    and is waived in `.soft-neutral.json`.
+2. Home sections are laid out from editorial-glow's grammar and this brief,
+   never drawn from `design-refs/` (`docs/redesign-v2.md`, requirements 1–2).
 
 ## For review
 - Figures come from Wayback copies of the ThemeForest pages (live pages are
