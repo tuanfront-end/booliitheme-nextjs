@@ -257,3 +257,8 @@ Beyond the core kit:
 | 12 | Contact | 1 | `contact-sections/reserve-form-left-render-and-a-contact-card-right.webp` | |
 
 ## Build log — /
+
+### 1 · Hero · v1
+- Made: `components/home/hero.tsx` — the hero: display line with the five-design disc pill, lede, two actions, the "10 templates" stat, the pinned-versions strip, the column-hairline Field; `components/home/hero-deck.tsx` — Ciseco's three builds fanned over a sun slab, the rating card, the Updated chip and the PatternLine switcher that brings a build to the front; `lib/data/catalogue.ts` — computed catalogue figures (`catalogueCounts`, `newestRelease`, `dated`, `setSummary`, `stackLatest`, `familyName`, `platformOf`, `joinList`)
+- Decided: the hero showcases the family with the most builds (Ciseco), in the display line's platform order Next.js · Shopify · WordPress; a branch is the kit `Button` `size="sm"`, `default` when picked, `outline` otherwise, `aria-pressed`; the picked build takes the front slot instantly (motion 0). Platform labels come from `platformOf` (the platform a build installs on). The second action reads "Switch a design's platform" → #families
+- Check: waits on §2 and §3 (`#templates`, `#families` anchors) and request 1 (VersionChip mono)
