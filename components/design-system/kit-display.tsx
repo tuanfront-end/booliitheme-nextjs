@@ -23,6 +23,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
+import { NavigationMenuBlock } from "@/components/design-system/kit-navigation-menu";
 import { DsBlock, Specimen } from "@/components/design-system/section";
 import { StateGrid, type DsState } from "@/components/design-system/state-grid";
 import { Accordion, AccordionItem, AccordionPanel, AccordionTrigger } from "@/components/ui/accordion";
@@ -1424,6 +1425,7 @@ export function KitDisplay() {
   return (
     <>
       <BreadcrumbBlock />
+      <NavigationMenuBlock />
       <PaginationBlock />
       <CarouselNavBlock />
       <StoryBarsBlock />

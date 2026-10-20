@@ -55,7 +55,7 @@ export function ShortlistButton() {
                 : "Saved templates stay in this browser"}
             </DrawerDescription>
           </div>
-          <DrawerClose render={<IconButton aria-label="Close shortlist" size="sm" />}>
+          <DrawerClose render={<IconButton aria-label="Close shortlist" />}>
             <HugeiconsIcon icon={Cancel01Icon} strokeWidth={1.5} className="size-4" />
           </DrawerClose>
         </DrawerHeader>
@@ -64,22 +64,24 @@ export function ShortlistButton() {
           <ul className="flex flex-1 flex-col gap-2 overflow-y-auto px-4 py-4">
             {saved.map((p) => (
               <li key={p.slug} className="flex items-center gap-3 rounded-sm bg-accent p-2">
-                <span className="relative aspect-[4/3] w-20 shrink-0 overflow-hidden rounded-[10px] bg-muted">
+                <span className="relative aspect-[4/3] w-16 shrink-0 overflow-hidden rounded-[6px] bg-muted">
                   <Image src={p.shots[0]} alt="" fill sizes="5rem" className="object-cover object-left-top" />
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col">
                   <DrawerClose
                     render={<Link href={`/work/${p.slug}`} />}
-                    className="truncate font-medium hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                    className="line-clamp-2 font-medium hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                   >
                     {p.name}
                   </DrawerClose>
-                  <span className="truncate text-muted-foreground">
-                    {p.platforms.map((x) => platforms[x]).join(" + ")}
-                    {p.market.price ? ` · ${formatMoney(p.market.price, "USD", { maximumFractionDigits: 0 })}` : ""}
-                  </span>
+                  <span className="text-muted-foreground">{p.platforms.map((x) => platforms[x]).join(" + ")}</span>
+                  {p.market.price ? (
+                    <span className="text-muted-foreground tabular-nums">
+                      {formatMoney(p.market.price, "USD", { maximumFractionDigits: 0 })}
+                    </span>
+                  ) : null}
                 </span>
-                <IconButton aria-label={`Remove ${p.name}`} size="sm" onClick={() => toggleShortlist(p.slug)}>
+                <IconButton aria-label={`Remove ${p.name}`} onClick={() => toggleShortlist(p.slug)}>
                   <HugeiconsIcon icon={Cancel01Icon} strokeWidth={1.5} className="size-4" />
                 </IconButton>
               </li>
@@ -94,15 +96,15 @@ export function ShortlistButton() {
           </div>
         )}
 
-        <DrawerFooter className="flex-row gap-2 px-6 pb-6">
+        <DrawerFooter className="flex-col gap-2 px-6 pb-6">
+          <DrawerClose render={<Button render={<Link href="/#templates" />} nativeButton={false} />}>
+            Browse templates
+          </DrawerClose>
           {saved.length > 0 && (
-            <Button variant="secondary" onClick={clearShortlist}>
+            <Button variant="ghost" onClick={clearShortlist}>
               Clear all
             </Button>
           )}
-          <DrawerClose render={<Button render={<Link href="/#templates" />} nativeButton={false} />} className="flex-1">
-            Browse templates
-          </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

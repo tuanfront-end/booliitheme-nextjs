@@ -37,7 +37,7 @@ export const metadata: Metadata = pageMeta({
 const NAV: NavGroup[] = [
   {
     label: "Signature",
-    items: [{ id: "signature", label: "Three moves and the hand" }],
+    items: [{ id: "signature", label: "Pattern line and the hand" }],
   },
   {
     label: "Foundations",
@@ -95,6 +95,7 @@ const NAV: NavGroup[] = [
     label: "Navigation and display",
     items: [
       { id: "breadcrumb", label: "Breadcrumb" },
+      { id: "navigation-menu", label: "Navigation menu" },
       { id: "pagination", label: "Pagination" },
       { id: "carousel-nav", label: "Carousel nav" },
       { id: "story-bars", label: "Story bars" },
@@ -154,8 +155,8 @@ export default function DesignSystem() {
           <DsGroup
             id="signature"
             eyebrow="Signature"
-            title="Three moves, one to keep"
-            lede="Each drawn from something in a template buyer's own world. The one kept carries the site; the ornament hand under them draws every line and note."
+            title="One design, cut for every platform"
+            lede="The pattern line is the site's one drawn idea: a tailor's paper pattern, one design cut along a dashed, notched line into each platform it ships on. The ornament hand under it draws every other line and note."
           >
             <Signature />
           </DsGroup>

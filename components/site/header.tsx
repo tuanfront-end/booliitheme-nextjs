@@ -8,6 +8,7 @@ import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 
 import { HeaderMorph } from "@/components/site/header-morph";
 import { Logo } from "@/components/site/logo";
+import { LogoMark } from "@/components/site/logo-mark";
 import { MobileNav } from "@/components/site/mobile-nav";
 import { ModeToggle } from "@/components/site/mode-toggle";
 import { ShortlistButton } from "@/components/site/shortlist";
@@ -47,16 +48,17 @@ export function SiteHeader() {
       <div
         data-scrolled={morph && scrolled ? "true" : undefined}
         className={cn(
-          "mx-auto flex h-14 w-full max-w-7xl items-center gap-6 rounded-control px-6 sm:h-16 sm:px-8",
+          "mx-auto flex h-14 w-full max-w-7xl items-center gap-3 rounded-control px-6 sm:h-16 sm:gap-6 sm:px-8",
           "transition-[max-width,height,margin,padding,background-color,border-color,box-shadow] duration-morph ease-sheet motion-reduce:duration-0",
           "data-[scrolled=true]:mt-3 data-[scrolled=true]:h-12 data-[scrolled=true]:max-w-[calc(100%-1.5rem)] data-[scrolled=true]:bg-card/60 data-[scrolled=true]:ps-5 data-[scrolled=true]:pe-1 data-[scrolled=true]:shadow-soft-lg data-[scrolled=true]:ring-1 data-[scrolled=true]:ring-white/50 data-[scrolled=true]:backdrop-blur-xl data-[scrolled=true]:backdrop-saturate-125 data-[scrolled=true]:ring-inset sm:data-[scrolled=true]:h-14 sm:data-[scrolled=true]:max-w-5xl sm:data-[scrolled=true]:pe-2",
         )}
       >
         <Link
           href="/"
-          className="-mx-2 flex h-10 shrink-0 items-center rounded-sm px-2 text-foreground press hover:bg-accent active:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          className="-mx-2 flex h-10 shrink-0 items-center gap-2 rounded-sm px-2 text-foreground press hover:bg-accent active:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
-          <Logo className="h-6 w-auto" />
+          <LogoMark className="size-9 shrink-0" />
+          <Logo className="h-6 w-auto max-[359px]:hidden" />
         </Link>
 
         <NavigationMenu className="hidden lg:flex">
@@ -98,7 +100,7 @@ function TemplatesPanel() {
   const [nextjs, wordpress, shopify] = templatesByPlatform;
 
   return (
-    <div className="grid w-[66rem] max-w-full grid-cols-4 divide-x divide-border">
+    <div className="grid w-[65rem] max-w-full grid-cols-4 divide-x divide-border">
       <PanelColumn label={nextjs.label} items={nextjs.items} />
       <PanelColumn label={wordpress.label} items={wordpress.items} />
       <div className="flex flex-col gap-4 px-2">
@@ -124,9 +126,9 @@ function TemplatesPanel() {
       <div className="ps-2">
         <NavigationMenuLink
           render={<Link href={`/work/${newest.slug}`} />}
-          className="group/latest flex-col items-stretch gap-3 p-2 hover:bg-accent"
+          className="group/latest flex-col items-stretch gap-3 rounded-[16px] p-2 hover:bg-accent"
         >
-          <span className="relative block aspect-[4/3] overflow-hidden rounded-sm border border-border bg-muted">
+          <span className="relative block aspect-[4/3] overflow-hidden rounded-[8px] border border-border bg-muted">
             <Image
               src={newest.shots[0]}
               alt=""

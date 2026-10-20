@@ -36,7 +36,7 @@ export function SiteFooter() {
 
   return (
     <footer className="mx-auto w-full max-w-7xl px-6 pt-40 pb-6 sm:px-8 sm:pb-8">
-      <div className="dark -mx-6 overflow-hidden rounded-lg bg-card px-6 text-foreground sm:-mx-8 sm:px-8 md:px-12">
+      <div className="dark -mx-6 overflow-hidden rounded-lg bg-card px-6 text-foreground sm:-mx-8 sm:px-8">
         <div className="flex flex-col gap-8 border-b border-border py-12 md:flex-row md:items-end md:justify-between md:py-16">
           <div className="max-w-xl">
             <p className="font-heading text-3xl tracking-tighter sm:text-4xl">
@@ -59,9 +59,9 @@ export function SiteFooter() {
           </Button>
         </div>
 
-        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 md:grid-cols-4">
+        <nav aria-label="Footer" className="column-grid gap-y-10 py-12">
           {columns.map((col) => (
-            <div key={col.title}>
+            <div key={col.title} className="col-span-2 lg:col-span-3">
               <Eyebrow as="h2">{col.title}</Eyebrow>
               <ul className="mt-3">
                 {col.links.map((link) => (

@@ -5,15 +5,17 @@
   "marketplace": false,
   "accents": [
     "leaf",
+    "sun",
     "coral",
     "iris",
     "lime",
-    "sky"
+    "sky",
+    "peach"
   ],
   "signal": "leaf",
   "spelling": "us",
   "neutral": "warm",
   "waive": {
-    "controls-check: an ink fill where the brand token belongs": "House rule 1 \u2014 the primary action is ink (brand-hue --action black); honey is light by nature and only carries chosen states"
+    "controls-check: an ink fill where the brand token belongs": "House rule 1 \u2014 the brand is Ink (locked at stop 2), so the action and every chosen state are the page's ink by design"
   }
 }

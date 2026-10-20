@@ -30,12 +30,15 @@ export function MobileNav() {
       <DrawerContent>
         <DrawerHeader className="flex-row items-center justify-between px-6 pt-5">
           <DrawerTitle>Menu</DrawerTitle>
-          <DrawerClose render={<IconButton aria-label="Close menu" size="sm" />}>
+          <DrawerClose render={<IconButton aria-label="Close menu" />}>
             <HugeiconsIcon icon={Cancel01Icon} strokeWidth={1.5} className="size-4" />
           </DrawerClose>
         </DrawerHeader>
 
-        <nav aria-label="Main" className="flex flex-1 flex-col gap-8 overflow-y-auto px-3 py-4">
+        <nav
+          aria-label="Main"
+          className="flex flex-1 flex-col gap-8 overflow-y-auto px-3 pt-4 pb-12 [mask-image:linear-gradient(to_bottom,black_calc(100%-3rem),transparent)]"
+        >
           <ul>
             {studioLinks.map((link) => (
               <li key={link.href}>

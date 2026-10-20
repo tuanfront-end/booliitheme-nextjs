@@ -78,7 +78,7 @@ it is production-grade on their stack and still maintained.
 - **Belief** — "it is production-grade on my stack, and maintained" → the
   catalogue (live demo + versions on every card), Families (the same design on
   my platform), the release log (dates), real marketplace figures.
-- **Assets** — real: 20 product screenshots (`images/work/`, two per
+- **Assets** — real: the studio mark (supplied), 20 product screenshots (`images/work/`, two per
   product), product names, blurbs, demo URLs, stack versions, studio email
   `booliitheme@gmail.com`, Facebook / X / Dribbble links. Figures: only what the
   marketplace shows publicly, cited in `lib/data/` — see § For review. Copy:
@@ -95,8 +95,9 @@ it is production-grade on their stack and still maintained.
     four of the screenshots are teal-green already
   - plum `oklch(60.5% 0.277 328.621)` · Color Hunt orchid-blush · loud on a
     page of colourful screenshots
-  - Provisional pick: **honey**, action **black** (the fill is light by nature;
-    the page's ink carries the button), neutral **warm**.
+  - Provisional pick was honey; **locked at stop 2: Ink** (the user's pick on
+    the Switch), action the fill, neutral **warm**. The colour on the page is
+    the products' screenshots, the studio mark and the signal colour.
 - **Colour** — 3 · brand + three accent-colour decisions — the dials' "design
   studio selling its own craft" row; the screenshots spend most of the chroma.
 - **Accent colours** — all seven.
@@ -105,11 +106,21 @@ it is production-grade on their stack and still maintained.
 - **Motion** — 0 · a page not for sale; hover and `<Reveal>` only.
 
 ## Shell
-- Brand (provisional until stop 2): `brand-hue.py 'oklch(78.5% 0.163 77.582)'
+- Brand, as first written: `brand-hue.py 'oklch(78.5% 0.163 77.582)'
   --action black --neutral warm --panel-with 'harbor=oklch(57.8% 0.231 260.041)'
   'lagoon=oklch(55.6% 0.095 194.167)' 'plum=oklch(60.5% 0.277 328.621)'` — the
   panel kept harbor, lagoon and Ink. Accents narrowed to leaf, coral, iris,
-  lime, sky: the brand sits 2° from `--sun` and 10° from `--peach`.
+  lime, sky: the brand sat 2° from `--sun` and 10° from `--peach`.
+- **Locked at stop 2:** `brand-hue.py ink --neutral warm --panel-with
+  'honey=oklch(78.5% 0.163 77.582)' 'harbor=oklch(57.8% 0.231 260.041)'
+  'lagoon=oklch(55.6% 0.095 194.167)'` — the Color row is Ink, honey, harbor.
+  All seven accent colours licensed again; `BRANDS` is `["original"]`.
+- Switch picks at stop 2 (written into `globals.css` at the harvest): heading
+  and body Geist (One family), ground near-white, container radius 24px,
+  control radius 12px, header morph.
+- Mark: the studio's "iB" tile, supplied by anh as a PNG and redrawn to its
+  geometry in `components/site/logo-mark.tsx` and `app/icon.svg`; it sits
+  before the script wordmark in the header.
 - Container line: `mx-auto w-full max-w-7xl px-6 sm:px-8`; `<main>` gap
   `gap-32 sm:gap-40`.
 - Ornament hand: a 1.5px stroke, round caps and joins, elbows on a 6px radius,
@@ -129,7 +140,17 @@ it is production-grade on their stack and still maintained.
   head, opened on Studio), ground, both radius seeds, the header knob.
 
 ## Signature
-_Written at stop 2._
+- **The pattern line** (picked at stop 2 over the marker and the address bar):
+  a tailor's paper pattern — one design cut along a dashed, notched line into
+  each platform it ships on. It is the Stance drawn: the same design, running
+  on the platform the buyer already runs. It carries Families (§ 3), the hero's
+  platform-switcher fragment and the detail page's "Also on"; nowhere else, so
+  it stays a statement rather than a texture. `PatternLine` in
+  `components/design-system/signature.tsx` is its drawing.
+- The listing card is the template card: a `BrowserFrame` with the demo host in
+  its address bar, crossfading to the second shot on hover.
+- Nothing repeats a recent template on purpose — `signature-check.py` found no
+  sibling templates to compare against.
 
 ## Kit
 Beyond the core kit:
@@ -155,9 +176,9 @@ Beyond the core kit:
   blurred shots, any product not made by BooliiTheme
 
 ## House rules
-1. The primary action is ink (`--action black`): the honey fill is light by
-   nature, so it carries chosen states and the marker, never a button. Waived
-   in `.soft-neutral.json` for `controls-check`'s ink-fill rule.
+1. The brand is Ink (stop 2): the primary action and every chosen state are
+   the page's ink. `controls-check`'s ink-fill rule cannot tell brand from ink
+   and is waived in `.soft-neutral.json`.
 
 ## For review
 - Figures come from Wayback copies of the ThemeForest pages (live pages are
@@ -169,6 +190,7 @@ Beyond the core kit:
 - Ciseco WooCommerce has no archived page: no price, sales or date shown.
 - Bitpan WooCommerce reuses Bitpan's Next.js screenshots — needs its own pair.
 - Buyer review quotes appear only once anh pastes the ones to show.
+- The mark is redrawn from a PNG; swap in the original SVG if anh has it.
 - "What every download includes" claims (docs, support window, updates) are
   limited to Envato's own policy until anh confirms more.
 

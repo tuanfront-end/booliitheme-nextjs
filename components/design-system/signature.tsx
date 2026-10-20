@@ -1,9 +1,7 @@
 import { eyebrowClass } from "@/components/site/eyebrow";
-import { SectionHeading } from "@/components/site/section-heading";
-import { cn } from "@/lib/utils";
 
-// Stop 2's sheet: three signature moves, one of which the template keeps, and
-// the ornament hand every ornament is drawn in. The hand: a 1.5px stroke,
+// The signature move the site kept at stop 2 — the pattern line — and the
+// ornament hand every ornament is drawn in. The hand: a 1.5px stroke,
 // round caps and joins, elbows turned on a 6px radius, a 4–6 dash for a cut
 // line; ink at the muted strength for the line itself, the brand's fill for
 // the one node a drawing is about, leaf for anything live.
@@ -18,40 +16,6 @@ function Move({ label, title, caption, children }: { label: string; title: strin
       </figcaption>
       <div className="flex min-h-48 flex-col justify-center rounded-sm bg-accent p-6">{children}</div>
     </figure>
-  );
-}
-
-/** A: the marker — the old card's yellow underline, grown into the heading. */
-export function Marker({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="relative inline-block">
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-[0.06em] bottom-[0.06em] h-[0.2em] rounded-full bg-primary"
-      />
-      <span className="relative">{children}</span>
-    </span>
-  );
-}
-
-/** B: the address bar — an eyebrow worn as the URL the section lives at. */
-export function AddressEyebrow({ path, className }: { path: string; className?: string }) {
-  return (
-    <p
-      className={cn(
-        "inline-flex h-7 items-center gap-2.5 rounded-control bg-card ps-2.5 pe-3 text-xs text-muted-foreground shadow-soft",
-        className,
-      )}
-    >
-      <span aria-hidden="true" className="flex gap-1">
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-        <span className="size-1.5 rounded-full bg-muted-foreground/40" />
-      </span>
-      <span>
-        booliitheme.com<span className="text-foreground">{path}</span>
-      </span>
-    </p>
   );
 }
 
@@ -91,34 +55,15 @@ export function PatternLine({ name, builds }: { name: string; builds: [string, s
 export function Signature() {
   return (
     <div className="flex flex-col gap-12">
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-6">
         <Move
-          label="Move A · heading highlight"
-          title="The marker"
-          caption="The honey underline from the old cards, laid under the one word a heading turns on — the platform."
-        >
-          <SectionHeading as="h3" className="text-3xl sm:text-3xl lg:text-4xl">
-            One design, <Marker>every</Marker> platform
-          </SectionHeading>
-        </Move>
-        <Move
-          label="Move B · eyebrow"
-          title="The address bar"
-          caption="From the browser window: each section opens on the URL it lives at, because every claim here has a page you can open."
-        >
-          <div className="flex flex-col items-start gap-3">
-            <AddressEyebrow path="/templates" />
-            <SectionHeading as="h3" className="text-3xl sm:text-3xl lg:text-4xl">
-              Ten templates, three platforms
-            </SectionHeading>
-          </div>
-        </Move>
-        <Move
-          label="Move C · a way of drawing"
+          label="Signature · a way of drawing"
           title="The pattern line"
           caption="From a tailor's paper pattern: one design cut along a dashed, notched line into each platform it ships on."
         >
-          <PatternLine name="Ciseco" builds={["Next.js", "Shopify Hydrogen", "WooCommerce"]} />
+          <div className="mx-auto w-full max-w-md">
+            <PatternLine name="Ciseco" builds={["Next.js", "Shopify Hydrogen", "WooCommerce"]} />
+          </div>
         </Move>
       </div>
 

@@ -34,7 +34,7 @@ import { savePicks } from "./save-picks";
 // neutral; plum was a candidate and is not on the row. Stop 2 locks the brand
 // — the script writes the pick into :root — and this list shrinks to
 // ["original"], which takes the Brand group off the panel.
-const BRANDS: string[] = ["original", "harbor", "lagoon", "ink"];
+const BRANDS: string[] = ["original"];
 
 // Each face's whole row from the per-face table in setup.md. Twenty-one of these
 // thirty are OFL from Google; three more are OFL and CC BY from files in

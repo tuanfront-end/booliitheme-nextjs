@@ -467,12 +467,12 @@
      This replaces a [data-brand="light"] rule that used to force text-primary
      back to --foreground. That worked and it threw the hue away: a light brand
      had no brand-coloured ink at all, only a neutral one. */
-  --primary: oklch(78.5% 0.163 77.582);
-  --primary-ink: oklch(50.3% 0.105 77.582);
-  --primary-foreground: oklch(21.7% 0.004 67.625);
-  --action: var(--foreground);
-  --action-foreground: var(--background);
-  --action-hover: oklch(16.7% 0.004 67.625);
+  --primary: oklch(25% 0.005 67.7);
+  --primary-ink: oklch(25% 0.005 67.7);
+  --primary-foreground: oklch(100% 0 0);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(20% 0.005 67.7);
 
   /* The brand-hued chip, as a token rather than a bg-primary/10 written out in
      every component. How far that alpha travels depends on how dark the primary
@@ -483,7 +483,7 @@
      whisper band and the alpha is raised to 32%, which reads 1.150 on a card;
      the near-black ink brand takes a thin 7% and a mid fill 10–15%. The mix
      itself lives in the @theme block above, for the reason written there. */
-  --chip-alpha: 20%;
+  --chip-alpha: 7%;
 
   /* Two colours that stay put when the mode changes, for what is not a page
      surface: a photograph's scrim and the type on it, a device's hardware. A
@@ -577,9 +577,9 @@
      of lightness above it, at the fill's chroma wherever sRGB holds it, so
      turning the hue rewrites all three. --chart-4 and --chart-5 are neutral
      greys, and stay grey whatever hue the brand takes. */
-  --chart-1: oklch(50.3% 0.105 77.582);
-  --chart-2: oklch(62.3% 0.13 77.582);
-  --chart-3: oklch(74.3% 0.155 77.582);
+  --chart-1: oklch(25% 0.005 67.7);
+  --chart-2: oklch(37% 0.005 67.7);
+  --chart-3: oklch(49% 0.005 67.7);
   --chart-4: oklch(78.4% 0.008 67.713);
   --chart-5: oklch(88.6% 0.004 67.772);
 
@@ -697,6 +697,11 @@
 .dark {
   color-scheme: dark;
 
+  /* Declared again here, not only on :root: a var() inside a custom property
+     resolves where it is declared, so a `dark` scope inside the light page —
+     the footer's ink band — would otherwise keep the light half's ring. */
+  --ring: var(--primary-ink);
+
   --background: oklch(20% 0.003 67.637);
   --foreground: oklch(94.7% 0.003 67.786);
   --card: oklch(23.3% 0.004 67.651);
@@ -712,18 +717,18 @@
   --secondary-foreground: oklch(94.7% 0.003 67.786);
   --input: oklch(38.2% 0.007 67.612);
 
-  --primary: oklch(78.5% 0.163 77.582);
-  --primary-ink: oklch(78.5% 0.163 77.582);
+  --primary: oklch(93.9% 0.002 67.7);
+  --primary-ink: oklch(93.9% 0.002 67.7);
   --primary-foreground: oklch(21.7% 0.004 67.625);
-  --action: var(--foreground);
-  --action-foreground: var(--background);
-  --action-hover: oklch(99.7% 0.002 67.786);
-  --chip-alpha: 13%;
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(98.9% 0.002 67.7);
+  --chip-alpha: 9%;
   --photo-lift: var(--card);
   --photo-lift-deep: var(--card);
-  --chart-1: oklch(78.5% 0.163 77.582);
-  --chart-2: oklch(66.5% 0.138 77.582);
-  --chart-3: oklch(54.5% 0.113 77.582);
+  --chart-1: oklch(93.9% 0.002 67.7);
+  --chart-2: oklch(81.9% 0.002 67.7);
+  --chart-3: oklch(69.9% 0.002 67.7);
   --chart-4: oklch(51.4% 0.012 67.55);
   --chart-5: oklch(38.3% 0.009 67.568);
 
@@ -1086,11 +1091,41 @@
    each followed by its dark half. A color of your own is one more pair. */
 
 [data-color="original"] {
-  --primary: oklch(78.5% 0.163 77.582);
+  --primary: oklch(25% 0.005 67.7);
 }
 
 .dark [data-color="original"] {
+  --primary: oklch(93.9% 0.002 67.7);
+}
+
+:root[data-color="honey"],
+[data-color="honey"] {
   --primary: oklch(78.5% 0.163 77.582);
+  --primary-foreground: oklch(21.7% 0.004 67.625);
+  --primary-ink: oklch(50.3% 0.105 77.582);
+  --ring: var(--primary-ink);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(83.5% 0.151 77.582);
+  --chip-alpha: 20%;
+  --chart-1: oklch(50.3% 0.105 77.582);
+  --chart-2: oklch(62.3% 0.13 77.582);
+  --chart-3: oklch(74.3% 0.155 77.582);
+}
+
+.dark[data-color="honey"],
+.dark [data-color="honey"] {
+  --primary: oklch(78.5% 0.163 77.582);
+  --primary-foreground: oklch(21.7% 0.004 67.625);
+  --primary-ink: oklch(78.5% 0.163 77.582);
+  --ring: var(--primary-ink);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(83.5% 0.151 77.582);
+  --chip-alpha: 13%;
+  --chart-1: oklch(78.5% 0.163 77.582);
+  --chart-2: oklch(66.5% 0.138 77.582);
+  --chart-3: oklch(54.5% 0.113 77.582);
 }
 
 :root[data-color="harbor"],
@@ -1099,9 +1134,9 @@
   --primary-foreground: oklch(100% 0 0);
   --primary-ink: oklch(50.9% 0.208 260.041);
   --ring: var(--primary-ink);
-  --action: var(--foreground);
-  --action-foreground: var(--background);
-  --action-hover: oklch(16.7% 0.004 67.625);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(52.8% 0.215 260.041);
   --chip-alpha: 10%;
   --chart-1: oklch(50.9% 0.208 260.041);
   --chart-2: oklch(62.9% 0.2 260.041);
@@ -1114,72 +1149,12 @@
   --primary-foreground: oklch(100% 0 0);
   --primary-ink: oklch(76.8% 0.118 260.041);
   --ring: var(--primary-ink);
-  --action: var(--foreground);
-  --action-foreground: var(--background);
-  --action-hover: oklch(99.7% 0.002 67.786);
+  --action: var(--primary);
+  --action-foreground: var(--primary-foreground);
+  --action-hover: oklch(52.8% 0.215 260.041);
   --chip-alpha: 24%;
   --chart-1: oklch(76.8% 0.118 260.041);
   --chart-2: oklch(64.8% 0.188 260.041);
   --chart-3: oklch(52.8% 0.215 260.041);
-}
-
-:root[data-color="lagoon"],
-[data-color="lagoon"] {
-  --primary: oklch(55.6% 0.095 194.167);
-  --primary-foreground: oklch(100% 0 0);
-  --primary-ink: oklch(49% 0.083 194.167);
-  --ring: var(--primary-ink);
-  --action: var(--foreground);
-  --action-foreground: var(--background);
-  --action-hover: oklch(16.7% 0.004 67.625);
-  --chip-alpha: 11%;
-  --chart-1: oklch(49% 0.083 194.167);
-  --chart-2: oklch(61% 0.095 194.167);
-  --chart-3: oklch(73% 0.095 194.167);
-}
-
-.dark[data-color="lagoon"],
-.dark [data-color="lagoon"] {
-  --primary: oklch(55.6% 0.095 194.167);
-  --primary-foreground: oklch(100% 0 0);
-  --primary-ink: oklch(75.6% 0.095 194.167);
-  --ring: var(--primary-ink);
-  --action: var(--foreground);
-  --action-foreground: var(--background);
-  --action-hover: oklch(99.7% 0.002 67.786);
-  --chip-alpha: 23%;
-  --chart-1: oklch(75.6% 0.095 194.167);
-  --chart-2: oklch(63.6% 0.095 194.167);
-  --chart-3: oklch(51.6% 0.088 194.167);
-}
-
-:root[data-color="ink"],
-[data-color="ink"] {
-  --primary: oklch(25% 0.005 67.7);
-  --primary-foreground: oklch(100% 0 0);
-  --primary-ink: oklch(25% 0.005 67.7);
-  --ring: var(--primary-ink);
-  --action: var(--primary);
-  --action-foreground: var(--primary-foreground);
-  --action-hover: oklch(20% 0.005 67.7);
-  --chip-alpha: 7%;
-  --chart-1: oklch(25% 0.005 67.7);
-  --chart-2: oklch(37% 0.005 67.7);
-  --chart-3: oklch(49% 0.005 67.7);
-}
-
-.dark[data-color="ink"],
-.dark [data-color="ink"] {
-  --primary: oklch(93.9% 0.002 67.7);
-  --primary-foreground: oklch(21.7% 0.004 67.625);
-  --primary-ink: oklch(93.9% 0.002 67.7);
-  --ring: var(--primary-ink);
-  --action: var(--primary);
-  --action-foreground: var(--primary-foreground);
-  --action-hover: oklch(98.9% 0.002 67.7);
-  --chip-alpha: 9%;
-  --chart-1: oklch(93.9% 0.002 67.7);
-  --chart-2: oklch(81.9% 0.002 67.7);
-  --chart-3: oklch(69.9% 0.002 67.7);
 }
 /* end preset-panel colors */
