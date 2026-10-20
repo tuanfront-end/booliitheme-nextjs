@@ -162,14 +162,23 @@ function family(vars, name) {
 
 // --- the front matter ---------------------------------------------------------
 
-const COLOURS = [
+// The house style the template runs on, from `.soft-neutral.json`'s `house`
+// key. Without it the template is Soft Neutral; with "paper-hairline" the
+// colour list and the budget lines are that style's.
+const HOUSE = (() => {
+  try { return JSON.parse(readFileSync(DIALS, "utf8")).house ?? "soft-neutral"; } catch { return "soft-neutral"; }
+})();
+
+const SHARED_COLOURS = [
   "background", "foreground", "card", "card-foreground", "popover", "popover-foreground",
   "primary", "primary-foreground", "primary-ink", "action", "action-foreground", "action-hover",
   "secondary", "secondary-foreground", "muted", "muted-foreground",
   "accent", "accent-foreground", "border", "input", "ring", "destructive",
   "chart-1", "chart-2", "chart-3", "chart-4", "chart-5",
-  ...["leaf", "sun", "coral", "iris", "lime", "sky", "peach"].flatMap((h) => [h, `${h}-ink`]),
 ];
+const COLOURS = HOUSE === "paper-hairline"
+  ? [...SHARED_COLOURS, "primary-top", "brand", "brand-ink", "brand-soft", "brand-wash", "texture"]
+  : [...SHARED_COLOURS, ...["leaf", "sun", "coral", "iris", "lime", "sky", "peach"].flatMap((h) => [h, `${h}-ink`])];
 
 const RADII = ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl"];
 
@@ -276,7 +285,25 @@ function dials() {
   };
 }
 
+// Paper Hairline spends no accent colours and no saturated moments: one brand
+// hue in marks, flat grounds, photographs framed.
+function hairlineBudgets(d) {
+  const colors = [
+    ["- No brand colour at all: eyebrows, icons and figures are the ink.",
+      "- The brand hue on eyebrows, feature icons and the focus ring, and nowhere else.",
+      "- The brand hue on eyebrows, feature icons, data figures, the chosen item and its cell's wash, lit segments and the focus ring — always a mark, never a fill."][Math.min(d.colour, 2)],
+    "- Every ground is flat: no gradient behind a section, a cell or a figure. The primary button's own gradient is the one on the page.",
+    "- One saturated hue on a page outside photographs.",
+  ];
+  const motion = [["- Nothing moves on its own; hover and press answer in 160ms.",
+    "- Sections reveal once on scroll and a fading rail may drift; nothing loops faster than 20s.",
+    "- Sections reveal, a fading rail drifts, a data dial sweeps once; nothing loops faster than 20s."][Math.min(d.motion, 2)]];
+  const imagery = ["- Every photograph sits in a hairline frame or a panel cell, in true colour, never full bleed and never a section's ground."];
+  return { colors, motion, imagery };
+}
+
 function budgets(d) {
+  if (HOUSE === "paper-hairline") return hairlineBudgets(d);
   const decisions = ["no accent colour anywhere", "no accent-colour decision", "one accent-colour decision",
     "up to three accent-colour decisions", "up to four accent-colour decisions, and an accent colour may ground a whole section",
     "accent-colour decisions without a cap"][d.colour];

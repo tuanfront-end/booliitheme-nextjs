@@ -9,6 +9,7 @@ import {
   Fraunces,
   Geist,
   Geist_Mono,
+  IBM_Plex_Mono,
   Google_Sans_Flex,
   Instrument_Sans,
   Instrument_Serif,
@@ -16,6 +17,7 @@ import {
   Italiana,
   Manrope,
   Newsreader,
+  Noto_Serif_Display,
   Outfit,
   Plus_Jakarta_Sans,
   Poppins,
@@ -45,7 +47,7 @@ import { siteName, siteUrl } from "@/lib/site";
 // The generated @theme inline maps --font-sans → var(--font-sans), so the
 // next/font variable has to be named --font-sans, not --font-geist-sans.
 const geistSans = Geist({
-  variable: "--font-sans",
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -96,11 +98,24 @@ const beVietnamPro = Be_Vietnam_Pro({
 
 // The five added for the heading/body split. All variable, so no weight list:
 // the pair is whatever the row asks for and the file already carries it.
+// The body face of the Paper Hairline style: every reading line is set in it.
 const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
-  // A preset face: the harvest keeps it, and nothing downloads it until a
-  // preset that names it is picked.
+});
+
+// Data figures — yields, counts, versions — and nothing else.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
+// The display face of the Condensed preset, held at width 70.
+const notoSerifDisplay = Noto_Serif_Display({
+  variable: "--font-noto-serif-display",
+  subsets: ["latin"],
+  axes: ["wdth"],
   preload: false,
 });
 
@@ -143,10 +158,8 @@ const fraunces = Fraunces({
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
-  // A preset face: the harvest keeps it, and nothing downloads it until a
-  // preset that names it is picked.
-  preload: false,
   weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -316,7 +329,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${googleSansFlex.variable} ${manrope.variable} ${outfit.variable} ${poppins.variable} ${beVietnamPro.variable} ${instrumentSans.variable} ${schibstedGrotesk.variable} ${bricolageGrotesque.variable} ${newsreader.variable} ${fraunces.variable} ${instrumentSerif.variable} ${plusJakartaSans.variable} ${apfelGrotezk.variable} ${amiamie.variable} ${gatchina.variable} ${bodoniModa.variable} ${italiana.variable} ${prata.variable} ${facultyGlyphic.variable} ${sourceSans3.variable} ${elmsSans.variable} ${inter.variable} ${familjenGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${googleSansFlex.variable} ${manrope.variable} ${outfit.variable} ${poppins.variable} ${beVietnamPro.variable} ${instrumentSans.variable} ${plexMono.variable} ${notoSerifDisplay.variable} ${schibstedGrotesk.variable} ${bricolageGrotesque.variable} ${newsreader.variable} ${fraunces.variable} ${instrumentSerif.variable} ${plusJakartaSans.variable} ${apfelGrotezk.variable} ${amiamie.variable} ${gatchina.variable} ${bodoniModa.variable} ${italiana.variable} ${prata.variable} ${facultyGlyphic.variable} ${sourceSans3.variable} ${elmsSans.variable} ${inter.variable} ${familjenGrotesk.variable} h-full antialiased`}
     >
       <head>
         <PresetScript />

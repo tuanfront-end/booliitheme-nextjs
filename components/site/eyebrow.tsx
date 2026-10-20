@@ -12,7 +12,10 @@ import { cn } from "@/lib/utils";
 // group label — takes `eyebrowClass` instead. A caller passes position,
 // alignment and, on a pastel surface, the foreground ink through `className`;
 // how an eyebrow looks on this template is decided here, once.
-export const eyebrowClass = "text-xs tracking-widest text-muted-foreground uppercase";
+// A brand dot and two to four uppercase words in the brand's ink: the one
+// place a section header spends the brand.
+export const eyebrowClass =
+  "inline-flex items-center gap-2 text-xs font-medium tracking-wider text-brand-ink uppercase before:size-1.5 before:shrink-0 before:rounded-full before:bg-brand before:content-['']";
 
 type EyebrowProps = ComponentProps<"p"> & {
   as?: "p" | "span" | "h2" | "h3";

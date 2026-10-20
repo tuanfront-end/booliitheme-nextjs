@@ -21,6 +21,7 @@ import { DsBlock, Specimen } from "@/components/design-system/section";
 import { StateGrid } from "@/components/design-system/state-grid";
 import { FilterChip, FilterRail } from "@/components/ui/filter-rail";
 import { QuantityStepper } from "@/components/ui/quantity-stepper";
+import { DotTabs } from "@/components/ui/dot-tabs";
 import { RadioTiles } from "@/components/ui/radio-tiles";
 import { RangeFilter } from "@/components/ui/range-filter";
 import { Segmented, SegmentedPanel } from "@/components/ui/segmented";
@@ -153,6 +154,69 @@ function RadioTilesBlock() {
           defaultValue="flexible"
           options={RATES}
         />
+      </Specimen>
+    </DsBlock>
+  );
+}
+
+/* ── Dot tabs ────────────────────────────────────────────────── */
+
+const KINDS = [
+  { value: "storefront", label: "Storefront" },
+  { value: "booking", label: "Booking" },
+  { value: "magazine", label: "Magazine" },
+  { value: "custom", label: "Custom work" },
+];
+
+const KIND_NOTES: Record<string, string> = {
+  storefront: "Filters, a cart drawer and a checkout that keeps its state on refresh.",
+  booking: "A date range, a guest stepper and a map that follows the list.",
+  magazine: "Issue pages, an author archive and a reading-time line on every card.",
+  custom: "Send the brief; we answer with a scope and a date within two days.",
+};
+
+function DotTabsBlock() {
+  const [kind, setKind] = useState("storefront");
+  return (
+    <DsBlock
+      id="dot-tabs"
+      title="Dot tabs"
+      when="three to six kinds of one thing switch the figure beside them, read top to bottom."
+      source="components/ui/dot-tabs.tsx"
+      states={
+        <StateGrid
+          rows={[
+            {
+              label: "Tab",
+              render: (s) => cell(
+                <DotTabs
+                  aria-label="Template kinds"
+                  value=""
+                  onValueChange={() => {}}
+                  items={[{ value: "booking", label: "Booking", disabled: s === "disabled" }]}
+                />
+              ),
+            },
+            {
+              label: "Current",
+              render: (s) => cell(
+                <DotTabs
+                  aria-label="Template kinds"
+                  value="booking"
+                  onValueChange={() => {}}
+                  items={[{ value: "booking", label: "Booking", disabled: s === "disabled" }]}
+                />
+              ),
+            },
+          ]}
+        />
+      }
+    >
+      <Specimen className="grid gap-8 sm:grid-cols-[200px_1fr]">
+        <DotTabs aria-label="Template kinds" items={KINDS} value={kind} onValueChange={setKind} controls="dot-tabs-panel" />
+        <p id="dot-tabs-panel" role="tabpanel" className="text-sm text-muted-foreground">
+          {KIND_NOTES[kind]}
+        </p>
       </Specimen>
     </DsBlock>
   );
@@ -759,6 +823,7 @@ export function KitChoice() {
   return (
     <>
       <RadioTilesBlock />
+      <DotTabsBlock />
       <SegmentedBlock />
       <FilterRailBlock />
       <SliderBlock />

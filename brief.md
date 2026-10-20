@@ -180,9 +180,10 @@ Beyond the core kit:
   blurred shots, any product not made by BooliiTheme
 
 ## House rules
-1. The brand is Ink (stop 2): the primary action and every chosen state are
-   the page's ink. `controls-check`'s ink-fill rule cannot tell brand from ink
-   and is waived in `.soft-neutral.json`.
+1. The action is Ink (paper-hairline): the primary button and every chosen
+   state are the page's ink; the brand hue is a mark only. `controls-check`'s
+   ink-fill rule cannot tell brand from ink and is waived in
+   `.soft-neutral.json`.
 2. Home sections are laid out from paper-hairline's grammar and this brief,
    never drawn from `design-refs/` (`docs/redesign-v2.md`, requirements 1–2).
 

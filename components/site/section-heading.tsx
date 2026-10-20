@@ -23,7 +23,7 @@ export function SectionHeading({
   return (
     <Tag
       className={cn(
-        "text-3xl tracking-tighter sm:text-4xl lg:text-5xl",
+        "font-heading text-4xl tracking-tight sm:text-[44px]/[var(--heading-leading-display)] lg:text-5xl",
         className,
       )}
       {...props}

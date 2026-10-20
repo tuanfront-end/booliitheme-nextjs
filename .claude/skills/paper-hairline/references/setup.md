@@ -53,6 +53,19 @@ Two, both warm, neither on a panel:
 `lift` — the secondary button, a chip that can be pressed. `float` — anything
 over other content: a menu, a popover, a chat field set over a figure.
 
+## Utilities this style adds to `globals.css`
+
+- `btn-ink` — the primary button's recipe below; the kit's `Button` default
+  variant wears it.
+- `ground-stripes`, `ground-grid`, `ground-rings` — the three ground textures,
+  each put on an absolutely positioned layer of its own (the mask fades
+  whatever the element holds).
+- `text-brand`, `text-brand-ink`, `bg-brand-wash`, `stroke-brand-soft` … — the
+  brand tokens as Tailwind colours.
+
+The kit adds `DotTabs` (`components/ui/dot-tabs.tsx`) for the vertical tab list
+beside a figure.
+
 ## The primary button
 
 ```css

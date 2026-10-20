@@ -10,9 +10,14 @@ import {
   SentIcon,
 } from "@hugeicons/core-free-icons";
 
+import { Button } from "@/components/ui/button";
+import { DotTabs } from "@/components/ui/dot-tabs";
+import { Segmented } from "@/components/ui/segmented";
+
 const items = [
   {
-    name: "Storefront",
+    value: "storefront",
+    label: "Storefront",
     title: "Ciseco — a storefront for Next.js",
     figures: ["6,126", "4.61", "v16.0"],
     icon: Layers01Icon,
@@ -20,7 +25,8 @@ const items = [
     line: "Filters, a cart drawer and a checkout that keeps its state on refresh.",
   },
   {
-    name: "Booking",
+    value: "booking",
+    label: "Booking",
     title: "Chisfis — stays, cars and experiences",
     figures: ["3", "1,240", "v15.4"],
     icon: Calendar03Icon,
@@ -28,7 +34,8 @@ const items = [
     line: "A date range, a guest stepper and a map that follows the list.",
   },
   {
-    name: "Magazine",
+    value: "magazine",
+    label: "Magazine",
     title: "Ncmaz — a magazine for WordPress",
     figures: ["42", "18", "v6.8"],
     icon: PaintBoardIcon,
@@ -36,7 +43,8 @@ const items = [
     line: "Issue pages, an author archive and a reading-time line on every card.",
   },
   {
-    name: "Custom work",
+    value: "custom",
+    label: "Custom work",
     title: "A template of your own",
     figures: ["2", "6", "wk"],
     icon: Briefcase01Icon,
@@ -46,40 +54,24 @@ const items = [
 ];
 
 export function Showcase() {
-  const [active, setActive] = useState(0);
-  const item = items[active];
+  const [active, setActive] = useState("storefront");
+  const item = items.find((it) => it.value === active) ?? items[0];
   return (
     <div className="grid items-center gap-12 lg:grid-cols-[200px_1fr_300px]">
-      <ul className="flex flex-col gap-1" role="tablist" aria-label="Template kinds">
-        {items.map((it, i) => (
-          <li key={it.name}>
-            <button
-              role="tab"
-              aria-selected={i === active}
-              onClick={() => setActive(i)}
-              className={`flex min-h-10 w-full items-center gap-3 rounded-[10px] text-start text-[14px] transition-colors duration-150 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ring) ${
-                i === active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <span
-                className={`size-1.5 rounded-full ${
-                  i === active ? "bg-foreground" : "border border-muted-foreground"
-                }`}
-              />
-              {it.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <DotTabs aria-label="Template kinds" items={items} value={active} onValueChange={setActive} controls="showcase-panel" />
 
-      <div className="relative overflow-hidden rounded-[12px] border border-border bg-muted px-10 pt-12 pb-24">
-        <div className="eg-rings absolute inset-0" aria-hidden />
-        <div className="relative mx-auto max-w-[460px] rounded-[12px] border border-border bg-background p-7">
-          <p className="text-[14px] font-medium">{item.title}</p>
+      <div
+        id="showcase-panel"
+        role="tabpanel"
+        className="relative overflow-hidden rounded-lg border border-border bg-muted px-10 pt-12 pb-24"
+      >
+        <div className="ground-rings absolute inset-0" aria-hidden />
+        <div className="relative mx-auto max-w-[460px] rounded-lg border border-border bg-background p-7">
+          <p className="text-sm font-medium">{item.title}</p>
           <div className="mt-6 grid grid-cols-3 gap-4 border-b border-border pb-6">
             {item.figures.map((f) => (
               <div key={f}>
-                <p className="eg-mono text-[26px] text-(--brand)">{f}</p>
+                <p className="font-mono text-2xl text-brand">{f}</p>
                 <span className="mt-1 block h-2 w-10 rounded-[2px] bg-border" />
               </div>
             ))}
@@ -90,40 +82,36 @@ export function Showcase() {
             ))}
           </div>
         </div>
-        <div className="absolute inset-x-8 bottom-8 flex items-center gap-3 rounded-[12px] bg-background p-3 ps-4 shadow-(--shadow-float)">
-          <p className="flex-1 text-[14px]">Can it ship with my client&apos;s brand colour?</p>
-          <span className="eg-btn grid size-10 place-items-center rounded-full">
+        <div className="absolute inset-x-8 bottom-8 flex items-center gap-3 rounded-lg bg-background p-2 ps-4 shadow-soft-lg">
+          <p className="flex-1 text-sm">Can it ship with my client&apos;s brand colour?</p>
+          <Button size="icon" aria-label="Send">
             <HugeiconsIcon icon={SentIcon} size={18} strokeWidth={1.5} />
-          </span>
+          </Button>
         </div>
       </div>
 
-      <div key={item.name} className="animate-in fade-in duration-300">
-        <HugeiconsIcon icon={item.icon} size={28} strokeWidth={1.5} className="text-(--brand)" />
-        <p className="mt-6 text-[14px] font-medium">{item.headline}</p>
-        <p className="mt-1 text-[14px] leading-[1.55] text-muted-foreground">{item.line}</p>
+      <div key={item.value} className="animate-in fade-in duration-answer ease-answer">
+        <HugeiconsIcon icon={item.icon} size={28} strokeWidth={1.5} className="text-brand" />
+        <p className="mt-6 text-sm font-medium">{item.headline}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{item.line}</p>
       </div>
     </div>
   );
 }
 
-export function Segmented() {
-  const [v, setV] = useState("Next.js");
+export function PlatformSegmented() {
+  const [v, setV] = useState("next");
   return (
-    <div className="inline-flex rounded-[12px] border border-border bg-muted p-1">
-      {["Next.js", "Hydrogen", "WordPress"].map((o) => (
-        <button
-          key={o}
-          onClick={() => setV(o)}
-          className={`h-9 rounded-[8px] px-4 text-[14px] transition-colors duration-150 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ring) ${
-            v === o
-              ? "bg-background text-foreground shadow-(--shadow-lift)"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          {o}
-        </button>
-      ))}
-    </div>
+    <Segmented
+      aria-label="Platform"
+      name="platform"
+      value={v}
+      onValueChange={setV}
+      options={[
+        { value: "next", label: "Next.js" },
+        { value: "hydrogen", label: "Hydrogen" },
+        { value: "wordpress", label: "WordPress" },
+      ]}
+    />
   );
 }

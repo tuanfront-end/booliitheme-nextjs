@@ -4,7 +4,6 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
-import { useTheme } from "next-themes";
 import {
   Children, createContext, useContext, useEffect, useState, useSyncExternalStore,
 } from "react";
@@ -73,7 +72,16 @@ type Face = {
 };
 
 const faces: Face[] = [
-  // First because it is what :root ships, so the page loads as it sells.
+  // The Paper Hairline faces first: Instrument Serif is what :root ships as the
+  // heading and Instrument Sans as the body, so the page loads as it sells.
+  // Noto Serif Display and Boska are the two presets' headings; the switch
+  // shows Noto at its default width, the preset narrows it to 70.
+  { id: "iserif-ph", label: "Instrument Serif", variable: "--font-instrument-serif", where: "heading",
+    body: "400", emphasis: "400", tight: "-0.01em", tighter: "-0.02em", leading: "1.04" },
+  { id: "notodisplay", label: "Noto Serif Display", variable: "--font-noto-serif-display", where: "heading",
+    body: "400", emphasis: "400", tight: "-0.02em", tighter: "-0.03em", leading: "1.04" },
+  { id: "boska", label: "Boska", variable: "--font-boska", where: "heading",
+    body: "400", emphasis: "400", tight: "-0.01em", tighter: "-0.02em", leading: "1.04" },
   { id: "geist", label: "Geist", variable: "--font-geist", where: "both",
     body: "400", emphasis: "500", tight: "-0.025em", tighter: "-0.05em", leading: "1" },
   { id: "gsf", label: "Google Sans Flex", variable: "--font-google-sans-flex", where: "both",
@@ -178,9 +186,9 @@ const faces: Face[] = [
 // Both Studio halves are fetched: until `npm run fonts` has run they render as
 // the OFL face behind each stack — Bricolage Grotesque over Geist.
 const pairings = [
-  { id: "studio", label: "Studio", heading: "cabinet", body: "satoshi" },
-  { id: "solo", label: "One family", heading: "geist", body: "geist" },
-  { id: "reading", label: "Serif head", heading: "newsreader", body: "geist" },
+  { id: "original", label: "Original", heading: "iserif-ph", body: "instrument" },
+  { id: "condensed", label: "Condensed", heading: "notodisplay", body: "instrument" },
+  { id: "fine", label: "Fine", heading: "boska", body: "instrument" },
 ];
 
 // What a switch nobody has touched opens on: the tone's pairing, so the shell
@@ -206,44 +214,13 @@ const strengthById = (id: string | undefined) =>
   strengths.find((s) => s.id === id) ??
   strengths.find((s) => s.id === BRIEF_PASTEL) ?? strengths[0];
 
-// A rung is a distance below the page, so a ground is one number and the rest
-// of the ladder follows from it. The knob moves the ladder globals.css wrote
-// rather than typing one of its own: :root holds the template's neutral
-// family — warm, cool, or the brand's hue on a pastel project — and a ladder
-// typed here would repaint every template in one family. --card does not move:
-// it is the one rung *above* the page, and it is already white.
-const RUNGS = ["--accent", "--border", "--muted", "--secondary"] as const;
-
 // Only the top of the ladder is offered. A tinted mid-ladder page is not a
 // third option, it is the unsupported case: the rungs move down with the page
 // but the card cannot, so every distance inside a card stretches and the
 // whisper turns into a block.
 const grounds = [
-  { id: "page",  label: "Near-white" },
-  { id: "white", label: "White" },
+  { id: "page",  label: "Paper" },
 ] as const;
-
-// White lifts the page to L 100% and every rung by the same OKLCH lightness,
-// each keeping its chroma and hue through relative colour syntax, so the
-// ladder keeps its family and its steps. Read off :root once, on the client —
-// the server has no stylesheet to read — and cached, so the snapshot
-// useSyncExternalStore takes is the same object every render. Null on a page
-// not written in oklch().
-let lifted: CSSProperties | null | undefined;
-function whiteGround(): CSSProperties | null {
-  if (lifted !== undefined) return lifted;
-  const root = getComputedStyle(document.documentElement);
-  const page = /^oklch\(\s*([\d.]+)%/.exec(root.getPropertyValue("--background").trim());
-  if (!page) return (lifted = null);
-  const lift = ((100 - Number(page[1])) / 100).toFixed(4);
-  return (lifted = Object.fromEntries([
-    ["--background", "oklch(100% 0 0)"],
-    ...RUNGS.map((name) => [
-      name,
-      `oklch(from ${root.getPropertyValue(name).trim()} calc(l + ${lift}) c h)`,
-    ]),
-  ]) as CSSProperties);
-}
 
 // The multipliers globals.css derives the scale with, copied rather than
 // imported because CSS cannot be read from here. Checked against this repo's
@@ -277,10 +254,9 @@ const RADIUS_STEPS = [
 // conversion is not done twice from memory.
 //                                                    rows land   goes back as
 const radii = [
-  { id: "lg",      label: "Lớn 24px",     seed: 24 },  // 14.4px   1.5rem
-  { id: "md",      label: "Vừa 18px",     seed: 18 },  // 10.8px   1.125rem
-  { id: "sm",      label: "Nhỏ 12px",     seed: 12 },  //  7.2px   0.75rem
-  { id: "rounded", label: "Rounded 32px", seed: 32 },  // 19.2px   2rem
+  { id: "sm",      label: "12px",         seed: 12 },  //  7.2px   0.75rem
+  { id: "md",      label: "16px",         seed: 16 },  //  9.6px   1rem
+  { id: "xs",      label: "8px",          seed: 8 },   //  4.8px   0.5rem
 ] as const;
 
 // Re-declared as the same `calc()` globals.css writes rather than multiplied
@@ -312,10 +288,8 @@ const scale = (r: (typeof radii)[number]) =>
 // slider thumb are `rounded-full` by hand and never read the seed.
 //                                                       goes back as
 const controls = [
-  { id: "pill",   label: "Pill",    r: "calc(infinity * 1px)" }, // already there
-  { id: "soft",   label: "Bo 12px", r: "12px" },                 // 0.75rem
+  { id: "ten",    label: "Bo 10px", r: "10px" },                 // 0.625rem — already there
   { id: "tight",  label: "Bo 6px",  r: "6px" },                  // 0.375rem
-  { id: "square", label: "Vuông",   r: "0px" },                  // 0
 ] as const;
 
 // The one knob that switches a behaviour rather than a value, so it is the one
@@ -434,14 +408,6 @@ function Root({ saved, preview = {}, children }: SkinProps) {
   const [header, setHeader] = useState<Header>(headerById(saved.header));
   const [strength, setStrength] = useState<Strength>(strengthById(saved.pastel));
   const [picks, setPicks] = useState<Record<string, number>>(saved.picks ?? {});
-  // The mode is the preset panel's Mode row, remembered the way a visitor's
-  // is, and read here only to know whether the ground knob may write. In the
-  // dark half `.dark` owns the ground and the ladder, and a light value
-  // written inline here would win over it.
-  const { resolvedTheme } = useTheme();
-  const night = resolvedTheme === "dark";
-  const white = useSyncExternalStore(never, whiteGround, () => null);
-
   // One writer. Every control goes through it, so the file on disk is never a
   // subset of what is on screen, and there is no read-modify-write to race.
   // A failed write is swallowed on purpose: this is scaffolding, and a
@@ -540,7 +506,6 @@ function Root({ saved, preview = {}, children }: SkinProps) {
             "--heading-tracking-tight": heading.tight,
             "--heading-tracking-tighter": heading.tighter,
             "--heading-leading-display": heading.leading,
-            ...(ground.id === "white" && !night ? white : null),
             ...scale(radius),
             // One property and no rungs, which is the whole difference
             // between the two seeds.

@@ -55,10 +55,11 @@ export function SiteHeader() {
       >
         <Link
           href="/"
+          aria-label="BooliiTheme, home"
           className="-mx-2 flex h-10 shrink-0 items-center gap-2 rounded-sm px-2 text-foreground press hover:bg-accent active:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
           <LogoMark className="size-9 shrink-0" />
-          <Logo className="h-6 w-auto max-[359px]:hidden" />
+          <Logo aria-hidden className="h-6 w-auto max-[359px]:hidden" />
         </Link>
 
         <NavigationMenu className="hidden lg:flex">

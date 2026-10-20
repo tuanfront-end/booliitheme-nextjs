@@ -1,4 +1,4 @@
-# Soft Neutral — context
+# BooliiTheme — context
 
 The vocabulary this project uses about itself. Where a word here disagrees with
 a word in a skill document, this file is the one that is current.
@@ -17,8 +17,9 @@ floor, so a template short of it is not finished, whatever its home page looks
 like.
 
 **Ship check** — the machine-readable half of done, run before a template is
-packaged: `npm run check`, which is `eslint` and the build followed by every
-checker in `.claude/skills/soft-neutral/scripts/`. The script is the list;
+packaged: `npm run check`, which is `eslint` and the build followed by the
+shared checkers in `.claude/skills/soft-neutral/scripts/` and the house style's
+own forks in `.claude/skills/paper-hairline/scripts/`. The script is the list;
 nothing here keeps a second copy of it. Distinct from a **section check**, which
 reads one section the moment it is built, and from an **audit**, which reads one
 section or page once it is approved.
@@ -88,77 +89,40 @@ wrong is upstream, the style being unsuited to this one product is not.
 
 ## The palette
 
-**Ladder** — the ordered set of near-white surface values. Its rungs are
-**distances from the page**, not fixed lightnesses; the same component keeps its
-appearance on any supported ground because the whole ladder moves with the page.
+**House style** — the visual language this template is built in:
+**paper-hairline**, a local style in `.claude/skills/paper-hairline/`
+(`docs/adr/0001`). It replaces Soft Neutral here; where a skill says
+soft-neutral, it means this.
+_Avoid_: theme
 
-**Rung** — one surface value on the ladder. Named rungs, in order down from the
-page: soft tint, border, muted, secondary. The card sits above the page and is
-the only rung that does.
+**Paper** — the page's one ground, `#ffffff` light and a warm near-black dark,
+and the ground of every card and panel on it. Surfaces do not separate by fill.
+_Avoid_: near-white, ladder, rung
 
-**Ground** — the page colour a build runs on. One is supported: a near-white at
-the **top** of the ladder, warm in the house style, cool when the template took
-the cool neutral family, and turned to the brand's hue on a **pastel** project,
-each at the same luminance. A page in the middle of the
-ladder is not supported; small steps need all their room on one side, so a
-mid-ladder page and a soft look cannot both be had.
+**Hairline** — the 1px `--border` line that draws all structure: a panel's
+outline, the dividers between its cells, a frame around a photograph. Distinct
+from a **shadow**, which only things that float or press carry.
 
-**Whisper** — a surface separated from its neighbour by so little that it reads
-as texture rather than as a block. The intended feel of every fill in the style.
-Roughly 1.02–1.19 contrast. Distinct from anything a **floor** applies to.
+**Cell** — the one quiet fill, `bg-muted`: an illustration's cell, a skeleton
+card, a hovered row. Small by rule.
 
-**Floor** — the 4.5:1 contrast minimum. It applies to **ink only**. Fills are
-decoration and are governed by the whisper band instead. Conflating the two is
-what made earlier versions of the style read as crude.
+**Joined panel** — items that belong together drawn as one outlined box whose
+cells share dividers: four plans, six features, a figure beside a grid. The
+opposite of a row of separate cards.
 
-**Data fill** — a fill that encodes a value rather than a surface: a bar in a
-chart, a meter, a progress track. It carries information the way ink does, so
-the **whisper** band does not govern it — a bar held to 1.19 against its ground
-is a bar that cannot be read. Nor does the **floor**, since nothing is set on
-top of it. `palette-check.py` measures token pairs, not component fills, so it
-sees neither; the judgement is the build's.
+**Mark** — a small use of the brand hue that says one thing: an eyebrow's dot
+and label, a feature icon, a data figure, the chosen cell's wash, the focus
+ring. The brand is only ever a mark, never a fill.
 
-**Indoor tint** — a fill inside a card. Measured against its card, never against
-the page, so that it survives a change of ground.
+**Floor** — the 4.5:1 contrast minimum for text, 3:1 from 24px and for a state
+shown by a mark alone.
 
 **Showcase surface** — a surface the page uses to *tell* the visitor something:
-a feature card, a testimonial, a stat tile, a pricing tier, an FAQ block, a call
-to action, a category tile. A clickable one is still a showcase surface — an
-invitation is still telling.
+a feature cell, a testimonial, a stat, a pricing tier, a call to action.
 
 **Working surface** — a surface inside a *task* the visitor is doing: searching,
-filtering, comparing, choosing, filling in, paying, managing. A results list, a
-filter rail, a form, a calendar, a cart, a checkout, an account dashboard. The
-task draws the line, never where the content comes from: a testimonial is data
-in a real product and is still a showcase surface. Its colour belongs to state —
-selected, invalid, sold out — so a fill under it erases the signal the task
-runs on.
-
-**Pastel** — the layer that lets a showcase surface wear a colour, at one of two
-strengths: **whisper**, a card at Tailwind's step 100, colour noticed second —
-named for the band those cards measure inside, 1.09–1.20 against the page, which
-is the **whisper** above with a hue in it; **candy**, step 200, colour noticed
-first. Off is the house style. Chosen once
-per project; a finished page moves between the strengths on one attribute.
-Distinct from the **colour** dial, which counts the decisions a page spends on
-chips, ornaments and its signal colour — a page's pastel set is one decision outside
-that count.
-
-**Role** — one of the four jobs a pastel hue does, each its own utility: a
-**band** is a section's ground, a **surface** a card or tile, **soft** the top
-of a gradient tile, a **mark** a shape drawn on a surface. A component names the
-role and the strength picks the step, which is what lets one attribute move a
-whole page.
-
-**Brand block** — the one showcase surface a pastel page fills with the brand
-at full strength: an FAQ, a call-to-action panel, a featured tier. Besides the
-primary button and a control's chosen state it is the brand's only appearance
-at full strength; a second turns the brand from the page's accent into its
-ground.
-
-**Brand's pastel** — on a pastel page, the accent colour within 30° of the brand. It
-fills surfaces as the brand's own colour and gives the set its owner; as a chip
-it still yields to the brand, because there colour carries meaning.
+filtering, comparing, choosing, filling in, paying. Its marks belong to state —
+selected, invalid, sold out.
 
 ## Sections and references
 
@@ -236,34 +200,20 @@ dashboard, a checkout, a door scanner, a map listing. Named under `appRoutes` in
 `.soft-neutral.json`. The picture rule, the saturated moments and the photograph
 do not bind on it; it is judged as a tool. _Avoid_: tool page, dashboard.
 
-**Accent colour** — one of the seven hues that are not the brand: `--leaf`, `--sun`,
-`--coral`, `--iris`, `--lime`, `--sky`, `--peach`, each with an ink half. They
-exist because one hue cannot tell peers apart — four services, six crests, four
-pie slices — and drawing
-those in one hue at four lightnesses invents a ranking the content does not
-have. Named for the colour rather than the job, so the same token is a success
-chip in one place and a guild crest in another. They do not rotate with the
-brand hue. A set used together counts as **one** colour decision, and a page
-holds the brand plus three, one of them its **signal colour**.
+**Accent colour** — the seven names Soft Neutral spends on peers (`--leaf`,
+`--sun`, …). Kept declared so the kit's class strings still resolve; in this
+template they all read the ink, except `--leaf`, which is the brand. Peers are
+told apart by icon and label here.
 _Avoid_: accent, on its own
 
-**Signal colour** — the one accent colour a page spends outside a chip, a set of
-peers and an ornament, named in `.soft-neutral.json` as `"signal"`. A
-verified badge, a tick, a progress bar, a pressed toggle and a meaning the
-product gives a colour of its own take the brand or this, and no other accent colour:
-a status hue stays in its chip. None at colour 0 and 1. Written with its hue's
-own utilities, `text-iris-ink` on a page whose signal colour is iris; the
-**secondary** rung is a grey and an unrelated word.
-_Avoid_: secondary, secondary accent
+**Signal colour** — the brand, spent as the one colour a product gives a meaning
+of its own (a verified badge, a tick, a progress bar). Named `"signal": "leaf"`
+in `.soft-neutral.json`, and `--leaf` is the brand.
 
-**Ornament** — one of the fourteen kinds drawn on a section: a Field, a Line, a
-Tilt. It comes from the section's own reference, built with the section, or
-from a **Shot** or a **Recipe** when the user asks for one — an **ornament
-pass** — because an ornament built from its row in the table alone comes out as
-the generic version of itself. Either way it keeps its source's kind and job
-and is drawn anew in the template's **ornament hand**. Recorded in the
-section's `// ornament:` line, which `ref-ledger.py` checks against its source.
-No page owes any.
+**Ornament** — one of the five kinds paper-hairline draws on a section: line
+art, a skeleton mock, a ground texture, a data dial, a fading rail. One a
+section at most, drawn in the template's **ornament hand**, `aria-hidden`
+unless it carries data.
 _Avoid_: mark, drawn mark
 
 **Ornament hand** — the stroke, cap, corner and colour roles every ornament of
@@ -358,20 +308,19 @@ files where the round step nearby measured wrong, not because the number is
 untidy. The emphasis half is the ceiling — the style has two weights, and which
 two is the face's business.
 
-**Pairing** — the two *faces* a page is set in: a **heading face** on `h1`–`h6`
-and `.font-heading`, a **body face** everywhere else. Distinct from **pair**,
-which is weights, not faces. The default pairing is the same face twice, which
-is what "one family" now means; ten pairings worth starting from are listed in
-the setup notes, and a tenth is a decision to write down rather than a
-default.
+**Pairing** — the two *faces* a page is set in: the **heading face**
+(Instrument Serif) on `h1`, `h2` and `.font-heading`, the **body face**
+(Instrument Sans) everywhere else, `h3`–`h6` included. A preset swaps the
+heading face only.
 
-**Section heading** — the heading that opens a section: 30px on a phone, 36px
-from `sm`, 48px from `lg`, one role at three widths. The hero's display line is
-not one, and sits at least a step above it at every width.
+**Section heading** — the heading that opens a section: 36px on a phone, 44px
+from `sm`, 48px from `lg`, in the serif at 400. The hero's display line is not
+one, and sits a step above it at every width.
 
-**Body copy** — anything read through: a sentence, a description, a lede, the
-claim over a stat. 16px wherever it makes the section's case, on the section's
-ground or inside a tile of it; 14px only inside a **product object**.
+**Body copy** — anything read through: a sentence, a description, a title over
+it, the claim over a stat. **14px**, the one reading size, ranked by weight and
+ink rather than by size. The lede under a section heading is the one line at
+16px.
 
 **Product object** — a thing the product sells or keeps, shown as one unit: a
 course or tutor card, a listing, a pricing tier, a booking, a table row — or
@@ -417,10 +366,10 @@ own, and `palette-check.py` skips its tree for the per-page rules and reports
 that it skipped it. The marker lives in the page because an exemption list in
 the script would be a second place to forget.
 
-**Soft shadow** — the project's own shadow tokens. Each opens with a hairline
-ring, so a raised element draws its own edge, and is tinted with the foreground
-rather than black because the palette runs warm. Counts as **one** declared depth
-cue even though the eye sees both an edge and a lift.
+**Soft shadow** — the project's two shadow tokens. `shadow-soft` is a hairline
+ring and the faintest lift, for the secondary button and a pressable chip;
+`shadow-soft-lg` adds a float for menus, popovers and dialogs. A panel or a card
+carries neither.
 
 ## The bench
 

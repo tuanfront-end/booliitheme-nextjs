@@ -25,10 +25,13 @@ khi đó mới chuyển sang `claude-build-template-skills`, kèm ADR và thuậ
   paper-hairline, và nêu danh sách file soft-neutral còn được đọc.
 - Symlink `.claude/skills/soft-neutral` ở lại: các checker dùng chung vẫn chạy
   từ đó, và `.soft-neutral.json` giữ tên vì chúng đọc nó.
-- Checker riêng của style được fork vào `paper-hairline/scripts/`: `_dials`,
-  `palette-check`, `brand-hue`, `write-check`, `type-check`, `hover-check`,
-  `controls-check`. Các bản fork lệch dần với upstream; chấp nhận trong lúc
-  skill còn cục bộ.
+- Checker riêng của style chỉ fork khi một luật của soft-neutral thật sự trái
+  với style này. Hiện có hai bản, ở `paper-hairline/scripts/`: `palette-check`
+  (viết lại: giấy, hai mực, mark và nền không gradient thay cho thang sắc nền
+  và bảy accent) và `type-check` (cho weight 600 trên con số giá). Các checker
+  khác của soft-neutral vẫn chạy nguyên, vì luật của chúng đúng với cả hai
+  style. Các bản fork lệch dần với upstream; chấp nhận trong lúc skill còn cục
+  bộ.
 - Ảnh tham chiếu đi cùng skill ở `paper-hairline/refs/` chứ không vào
   `design-refs/`, nên rời bản bán cùng `.claude/`.
 

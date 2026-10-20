@@ -84,6 +84,7 @@ const NAV: NavGroup[] = [
     label: "Choice and range",
     items: [
       { id: "radio-tiles", label: "Radio tiles" },
+      { id: "dot-tabs", label: "Dot tabs" },
       { id: "segmented", label: "Segmented" },
       { id: "filter-rail", label: "Filter rail" },
       { id: "slider", label: "Slider" },

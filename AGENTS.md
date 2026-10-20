@@ -18,6 +18,16 @@ Issues live in this repo's GitHub Issues, via the `gh` CLI. See `docs/agents/iss
 
 The five canonical roles, each label string equal to its name. See `docs/agents/triage-labels.md`.
 
+### House style
+
+This template runs on **paper-hairline**, a local house style at
+`.claude/skills/paper-hairline/` (`docs/adr/0001`). Wherever a skill, an agent
+file or a dossier says to load or follow `soft-neutral`, load `paper-hairline`
+instead. From `soft-neutral/` read only the shared files: `references/copy.md`,
+`seo.md`, `direction.md`, `fetched-faces.md`, the mechanics in `switch.md`, and
+the ledger part of `sections.md`. Its scripts still run in `npm run check`
+beside paper-hairline's forks; `package.json` is the list.
+
 ### Design language
 
 `DESIGN.md` is the template's design language, shipped to the buyer as it

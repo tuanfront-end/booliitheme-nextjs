@@ -1,6 +1,7 @@
 {
-  "colour": 3,
-  "motion": 0,
+  "house": "paper-hairline",
+  "colour": 2,
+  "motion": 1,
   "pastel": 0,
   "marketplace": false,
   "accents": [
