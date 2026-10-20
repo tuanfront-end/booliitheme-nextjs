@@ -1,5 +1,9 @@
 # BooliiTheme — brief
 
+> **Superseded for the home page (2026-10-20).** Anh rejected every v1
+> section; the redesign waits on his reference-images skill. Read
+> `docs/redesign-v2.md` before building anything.
+
 **One line** — the storefront of BooliiTheme, a two-person studio selling
 storefront, booking and magazine templates built for Next.js, Shopify Hydrogen
 and WordPress block themes, to developers and agencies choosing a starter.
