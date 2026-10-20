@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { readPicks, versions } from "@/components/dev/picks";
 import { Skin, Variant } from "@/components/dev/switch-control";
 import { Catalogue } from "@/components/home/catalogue";
+import { CatalogueV2 } from "@/components/home/catalogue-v2";
 import { Contact } from "@/components/home/contact";
 import { Faq } from "@/components/home/faq";
 import { Families } from "@/components/home/families";
@@ -36,7 +37,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
           <HeroV2 />
           <HeroV3 />
         </Variant>
-        <Catalogue />
+        <Variant slot="catalogue">
+          <Catalogue />
+          <CatalogueV2 />
+        </Variant>
         <Families />
         <Proof />
         <LatestRelease />

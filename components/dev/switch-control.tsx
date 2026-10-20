@@ -369,6 +369,7 @@ const strengths = [
 // Empty until the home's sections are built.
 const slots: { id: string; label: string; options: string[] }[] = [
   { id: "hero", label: "Hero", options: ["Fanned deck", "Ink band pair", "Centred carousel"] },
+  { id: "catalogue", label: "Catalogue", options: ["Wide cards, two up", "Upright tiles, four up"] },
 ];
 
 const never = () => () => {};

@@ -4,7 +4,7 @@
 
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { COMPARE_MAX, CompareTray } from "@/components/home/compare";
 import { TemplateCard } from "@/components/home/template-card";
@@ -30,7 +30,13 @@ const SORTS = [
 const isPlatform = (v: string | null): v is Platform => v !== null && v in platforms;
 const counts = catalogueCounts();
 
-export function Catalogue() {
+export const catalogueTitle = "Find the build for the platform you run";
+export const catalogueLede =
+  "Every card opens its live demo and prints the versions it pins. Save a few to your shortlist, or tick up to three cards and set them side by side.";
+
+/** The catalogue's filters, sort and compare picks, and what they leave — the
+ *  one state every version of the section draws. */
+export function useCatalogue() {
   const params = useSearchParams();
   const asked = params.get("platform");
   const [platform, setPlatform] = useState<PlatformPick>(isPlatform(asked) ? asked : "all");
@@ -41,9 +47,11 @@ export function Catalogue() {
 
   // The footer's "/?platform=wordpress#templates" lands here from anywhere on
   // the site, this page included, so a new value is taken whenever it arrives.
-  useEffect(() => {
+  const [arrived, setArrived] = useState(asked);
+  if (asked !== arrived) {
+    setArrived(asked);
     if (isPlatform(asked)) setPlatform(asked);
-  }, [asked]);
+  }
 
   const words = query.trim().toLowerCase();
   const matches = (p: (typeof projects)[number], by: { platform?: boolean; industry?: boolean }) =>
@@ -91,33 +99,50 @@ export function Catalogue() {
   const toggleCompare = (slug: string, on: boolean) =>
     setCompare((list) => (on ? [...list, slug].slice(-COMPARE_MAX) : list.filter((s) => s !== slug)));
 
+  return {
+    platform,
+    setPlatform,
+    picked,
+    setPicked,
+    query,
+    setQuery,
+    sort,
+    setSort,
+    compare,
+    setCompare,
+    words,
+    shown,
+    platformOptions,
+    industryOptions,
+    suggestions,
+    reset,
+    toggleCompare,
+    summary: setSummary(shown, platform === "all" ? undefined : platforms[platform]),
+  };
+}
+
+export function Catalogue() {
+  const c = useCatalogue();
+  const { platform, setPlatform, picked, setPicked, compare, shown } = c;
+
   return (
     <section id="templates" aria-labelledby="templates-title" className="mx-auto w-full max-w-7xl scroll-mt-24 px-6 sm:px-8">
       <SectionHeading id="templates-title" className="max-w-2xl">
-        Find the build for the platform you run
+        {catalogueTitle}
       </SectionHeading>
       <Lede className="mt-4 max-w-xl">
-        Every card opens its live demo and prints the versions it pins. Save a few to your shortlist, or tick up to
-        three cards and set them side by side.
+        {catalogueLede}
       </Lede>
 
       <div className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
         <FilterRail
           aria-label="Platform"
-          options={platformOptions}
+          options={c.platformOptions}
           value={platform}
           onValueChange={(v) => setPlatform(v as PlatformPick)}
           className="min-w-0"
         />
-        <Button
-          variant="outline"
-          render={<a href={author.url} target="_blank" rel="noopener noreferrer" />}
-          nativeButton={false}
-        >
-          All {author.items} items on ThemeForest
-          <ArrowUpRightIcon aria-hidden="true" data-icon="inline-end" className="rtl:-scale-x-100" />
-          <span className="sr-only">(opens in a new tab)</span>
-        </Button>
+        <PortfolioLink />
       </div>
 
       <div className="mt-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -125,41 +150,19 @@ export function Catalogue() {
           multiple
           variant="outline"
           aria-label="Industry"
-          options={industryOptions}
+          options={c.industryOptions}
           value={picked}
           onValueChange={(v) => setPicked(v as Industry[])}
           className="min-w-0"
         />
         <div className="flex gap-3">
-          <SearchField
-            value={query}
-            onValueChange={setQuery}
-            suggestions={suggestions}
-            onSubmit={setQuery}
-            label="Search templates by name"
-            placeholder="Search by name"
-            className="min-w-0 flex-1 lg:w-64 lg:flex-none"
-          />
-          <Select items={SORTS} value={sort} onValueChange={(v) => setSort(v as Sort)}>
-            <SelectTrigger aria-label="Sort">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent label="Sort">
-              <SelectGroup>
-                <SelectLabel>Sort</SelectLabel>
-                {SORTS.map((s) => (
-                  <SelectItem key={s.value} value={s.value}>
-                    {s.label}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <CatalogueSearch catalogue={c} className="min-w-0 flex-1 lg:w-64 lg:flex-none" />
+          <SortSelect catalogue={c} />
         </div>
       </div>
 
       <p aria-live="polite" className="mt-8 text-sm text-muted-foreground tabular-nums">
-        {setSummary(shown, platform === "all" ? undefined : platforms[platform])}
+        {c.summary}
       </p>
 
       {shown.length > 0 ? (
@@ -170,26 +173,89 @@ export function Catalogue() {
                 project={p}
                 compared={compare.includes(p.slug)}
                 compareLocked={compare.length >= COMPARE_MAX}
-                onCompareChange={(on) => toggleCompare(p.slug, on)}
+                onCompareChange={(on) => c.toggleCompare(p.slug, on)}
               />
             </li>
           ))}
         </ul>
       ) : (
-        <EmptyState
-          className="mt-4"
-          title={words ? `No template named “${query.trim()}”` : "No template fits all of these"}
-          text={`The catalog holds ${formatNumber(counts.templates)} templates. Clear the filters to see every one again.`}
-        >
-          <Button onClick={reset}>Show all templates</Button>
-        </EmptyState>
+        <CatalogueEmpty catalogue={c} className="mt-4" />
       )}
 
-      <CompareTray
-        picked={compare.map((s) => projects.find((p) => p.slug === s)!)}
-        onRemove={(slug) => toggleCompare(slug, false)}
-        onClear={() => setCompare([])}
-      />
+      <CatalogueTray catalogue={c} />
     </section>
+  );
+}
+
+type CatalogueState = ReturnType<typeof useCatalogue>;
+
+/** The ThemeForest portfolio, every item the author sells. */
+export function PortfolioLink() {
+  return (
+    <Button
+      variant="outline"
+      render={<a href={author.url} target="_blank" rel="noopener noreferrer" />}
+      nativeButton={false}
+    >
+      All {author.items} items on ThemeForest
+      <ArrowUpRightIcon aria-hidden="true" data-icon="inline-end" className="rtl:-scale-x-100" />
+      <span className="sr-only">(opens in a new tab)</span>
+    </Button>
+  );
+}
+
+export function CatalogueSearch({ catalogue: c, className }: { catalogue: CatalogueState; className?: string }) {
+  return (
+    <SearchField
+      value={c.query}
+      onValueChange={c.setQuery}
+      suggestions={c.suggestions}
+      onSubmit={c.setQuery}
+      label="Search templates by name"
+      placeholder="Search by name"
+      className={className}
+    />
+  );
+}
+
+export function SortSelect({ catalogue: c, className }: { catalogue: CatalogueState; className?: string }) {
+  return (
+    <Select items={SORTS} value={c.sort} onValueChange={(v) => c.setSort(v as Sort)}>
+      <SelectTrigger aria-label="Sort" className={className}>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent label="Sort">
+        <SelectGroup>
+          <SelectLabel>Sort</SelectLabel>
+          {SORTS.map((s) => (
+            <SelectItem key={s.value} value={s.value}>
+              {s.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function CatalogueEmpty({ catalogue: c, className }: { catalogue: CatalogueState; className?: string }) {
+  return (
+    <EmptyState
+      className={className}
+      title={c.words ? `No template named “${c.query.trim()}”` : "No template fits all of these"}
+      text={`The catalog holds ${formatNumber(counts.templates)} templates. Clear the filters to see every one again.`}
+    >
+      <Button onClick={c.reset}>Show all templates</Button>
+    </EmptyState>
+  );
+}
+
+export function CatalogueTray({ catalogue: c }: { catalogue: CatalogueState }) {
+  return (
+    <CompareTray
+      picked={c.compare.map((s) => projects.find((p) => p.slug === s)!)}
+      onRemove={(slug) => c.toggleCompare(slug, false)}
+      onClear={() => c.setCompare([])}
+    />
   );
 }
