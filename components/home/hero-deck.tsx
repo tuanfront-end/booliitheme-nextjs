@@ -1,5 +1,6 @@
 "use client";
 
+import { StarIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
 import { BrowserFrame } from "@/components/site/browser-frame";
@@ -121,5 +122,21 @@ export function UpdatedBadge({ className }: { className?: string }) {
     >
       Updated {formatDate(newestRelease.market.updated)}
     </Badge>
+  );
+}
+
+/** "4.61 from 217 ratings on ThemeForest" on a sun star — the rating as a pill.
+ *  Its surface is the caller's: the muted rung on a band, a card over a picture. */
+export function RatingPill({ className }: { className?: string }) {
+  return (
+    <p className={cn("inline-flex items-center gap-2 rounded-control py-1 ps-1 pe-3 text-sm", className)}>
+      <span className="grid size-6 place-items-center rounded-full bg-card">
+        <StarIcon aria-hidden="true" className="size-3.5 text-sun" />
+      </span>
+      <span>
+        <span className="font-medium tabular-nums">{author.rating.toFixed(2)}</span>
+        <span className="text-muted-foreground"> from {formatNumber(author.ratings)}&nbsp;ratings on ThemeForest</span>
+      </span>
+    </p>
   );
 }

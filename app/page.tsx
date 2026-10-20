@@ -8,6 +8,7 @@ import { Faq } from "@/components/home/faq";
 import { Families } from "@/components/home/families";
 import { Hero } from "@/components/home/hero";
 import { HeroV2 } from "@/components/home/hero-v2";
+import { HeroV3 } from "@/components/home/hero-v3";
 import { LatestRelease } from "@/components/home/latest-release";
 import { License } from "@/components/home/license";
 import { Proof } from "@/components/home/proof";
@@ -33,6 +34,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
         <Variant slot="hero">
           <Hero />
           <HeroV2 />
+          <HeroV3 />
         </Variant>
         <Catalogue />
         <Families />

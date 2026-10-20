@@ -2,16 +2,15 @@
 // opens: panel · dark
 // ornament: Tilt ← hero-sections/dark-badge-copy-left-tilted-card-pair-with-glass-chips-right-logo-row-below.png · the card pair redrawn as two browser frames at -3° and -2°
 // ornament: Glass ← hero-sections/dark-badge-copy-left-tilted-card-pair-with-glass-chips-right-logo-row-below.png · the two chips redrawn as frosted panels holding the pattern-line switch and the Updated state
-import { ArrowDownIcon, ArrowRightIcon, StarIcon } from "@heroicons/react/24/solid";
+import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import { counts, DesignsPill, heroActions, heroLede, heroStat, heroTitle, showcase } from "@/components/home/hero";
+import { RatingPill } from "@/components/home/hero-deck";
 import { HeroPair } from "@/components/home/hero-pair";
 import { Lede } from "@/components/site/lede";
 import { Button } from "@/components/ui/button";
 import { platformMarks } from "@/lib/data/catalogue";
-import { author } from "@/lib/data/projects";
-import { formatNumber } from "@/lib/format";
 
 // Hero v2: the same words as v1 on an ink band at the container's width — the
 // dark half's tokens scoped to it, as the footer's are. Copy on the reading
@@ -23,18 +22,7 @@ export function HeroV2() {
       <div className="dark -mx-6 rounded-lg bg-card px-6 pt-14 pb-10 text-foreground sm:-mx-8 sm:px-8 lg:pt-20">
         <div className="column-grid items-center gap-y-14">
           <div className="col-span-full lg:col-span-6">
-            <p className="inline-flex items-center gap-2 rounded-control bg-muted py-1 ps-1 pe-3 text-sm">
-              <span className="grid size-6 place-items-center rounded-full bg-card">
-                <StarIcon aria-hidden="true" className="size-3.5 text-sun" />
-              </span>
-              <span>
-                <span className="font-medium tabular-nums">{author.rating.toFixed(2)}</span>
-                <span className="text-muted-foreground">
-                  {" "}
-                  from {formatNumber(author.ratings)}&nbsp;ratings on ThemeForest
-                </span>
-              </span>
-            </p>
+            <RatingPill className="bg-muted" />
             <h1 id="hero-title" className="mt-6 text-4xl tracking-tighter sm:text-5xl lg:text-6xl">
               {heroTitle} <DesignsPill ring="ring-card" />
             </h1>
