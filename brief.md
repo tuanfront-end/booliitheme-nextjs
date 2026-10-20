@@ -191,6 +191,15 @@ Beyond the core kit:
 - Bitpan WooCommerce reuses Bitpan's Next.js screenshots — needs its own pair.
 - Buyer review quotes appear only once anh pastes the ones to show.
 - The mark is redrawn from a PNG; swap in the original SVG if anh has it.
+- Catalogue filters use the kit's `FilterRail` (platform single, industry
+  multi) rather than `Segmented` — the kit's own rule for pills filtering a
+  list on the page.
+- Hero's second action reads "Switch a design's platform" while the header
+  calls #families "Families" — one destination, two names.
+- Families' "what runs where" lines (`lib/data/catalogue.ts` `runs`) were
+  written from the stack names — anh confirms they match the products.
+- Hero's "5 designs" pill crops each design's inner-page shot into a 32px
+  disc; reads busy at that size.
 - "What every download includes" claims (docs, support window, updates) are
   limited to Envato's own policy until anh confirms more.
 

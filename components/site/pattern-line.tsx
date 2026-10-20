@@ -13,9 +13,9 @@ import { cn } from "@/lib/utils";
 // button that switches the shot. Two or three branches.
 const W = 300;
 const H = 160;
-const FROM = 66; // where the source chip's edge meets the line
-const SPLIT = 110; // where the pattern branches
-const TO = 176; // where a branch meets its chip
+const FROM = 60; // where the source chip's edge meets the line
+const SPLIT = 96; // where the pattern branches
+const TO = 150; // where a branch meets its chip
 
 function branchPath(y: number) {
   const mid = H / 2;
@@ -51,7 +51,7 @@ export function PatternLine({
         {ys.map((y, i) => (
           <g key={y} className={i === active ? "text-foreground" : "text-muted-foreground/45"} stroke="currentColor">
             <path d={branchPath(y)} strokeDasharray={i === active ? undefined : "4 6"} />
-            <path d={`M146 ${y - 5} V${y + 5}`} />
+            <path d={`M${(SPLIT + TO) / 2 + 4} ${y - 5} V${y + 5}`} />
           </g>
         ))}
         <circle cx={SPLIT} cy={H / 2} r="4" className="fill-primary" />

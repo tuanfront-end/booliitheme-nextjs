@@ -13,7 +13,7 @@ export function VersionChip({ dep, className }: { dep: Dependency; className?: s
         className,
       )}
     >
-      {dep.version ? `${dep.name.toLowerCase()}@${dep.version}` : dep.name}
+      {dep.version ? <code>{`${dep.name.toLowerCase()}@${dep.version}`}</code> : dep.name}
     </span>
   );
 }
