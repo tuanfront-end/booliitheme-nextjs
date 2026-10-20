@@ -57,3 +57,20 @@ export function joinList(items: string[]) {
 
 /** The label a build goes by in a platform switcher: the platform it installs on. */
 export const platformOf = (p: Project) => platforms[p.platforms.at(-1)!];
+
+/** What a build is called beside its family's others: "Shopify Hydrogen", "WooCommerce". */
+export const buildLabel = (p: Project) => p.build.replace(/ block theme$/, "");
+
+/** "Shopify Hydrogen and WooCommerce" — where else a build's design ships. */
+export const alsoOn = (p: Project) =>
+  joinList(
+    projects
+      .filter((q) => q.family === p.family && q.slug !== p.slug)
+      .sort((a, b) => platformRank(a) - platformRank(b))
+      .map(buildLabel),
+  );
+
+/** Next.js, then Shopify, then WordPress — the order the display line names them;
+ *  a headless build after the plain one on its platform. */
+const PLATFORM_ORDER = ["nextjs", "shopify", "wordpress"];
+export const platformRank = (p: Project) => PLATFORM_ORDER.indexOf(p.platforms[0]) * 2 + p.platforms.length - 1;

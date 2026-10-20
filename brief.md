@@ -268,3 +268,9 @@ Beyond the core kit:
 - Reused: `setSummary` in `lib/data/catalogue.ts` from §1, a `kind` argument added ("4 WordPress templates · last updated Dec 2025")
 - Decided: platform and industry are `FilterRail`s (`plain` single, `outline` multiple) rather than `Segmented` — the kit's own line gives a pill row narrowing a list on the page ground to FilterRail; each chip counts what pressing it would leave with the other filters held. Card is a resting surface (`bg-card` + inset hairline, `data-object`), 5fr / 7fr from `sm`, stacked under it; the frame stretches to the card's height from `sm`. The ThemeForest portfolio button stands where the reference's View all is
 - Check: waits on §6 (`#license` from the price's info button) and request 1 (VersionChip mono)
+
+### 3 · Families · v1
+- Made: `components/home/families.tsx` — centred eyebrow and heading, the family picker, the picked build's large frame (the demo's own link) beside the PatternLine switcher, the build's name and "also on" line, the "What runs where" and "Versions" rows, Live demo + Details; holds `runs`, the one-line per-build note on who runs checkout, editing and content
+- Reused: `PatternLine` switcher pattern from §1 (kit `Button` `sm`, `default` picked / `outline`, `aria-pressed`); `lib/data/catalogue.ts` from §1 grew `buildLabel` ("Shopify Hydrogen", "WooCommerce"), `alsoOn` (the anticipation, platform-ordered) and `platformRank`
+- Decided: the reference's three tab cards are kit `RadioTiles` (`grid`, 3 columns from `sm`, no mark, aside "3 platforms", the build list as the line); each family remembers its own picked build; under `sm` the switcher's branches read Hydrogen / Headless so they fit the line; the lede and the first row hold `min-h` so a pick never moves the page under it
+- Check: waits on request 1 (VersionChip mono)
