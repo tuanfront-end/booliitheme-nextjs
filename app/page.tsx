@@ -7,6 +7,7 @@ import { CatalogueV2 } from "@/components/home/catalogue-v2";
 import { Contact } from "@/components/home/contact";
 import { Faq } from "@/components/home/faq";
 import { Families } from "@/components/home/families";
+import { FamiliesV2 } from "@/components/home/families-v2";
 import { Hero } from "@/components/home/hero";
 import { HeroV2 } from "@/components/home/hero-v2";
 import { HeroV3 } from "@/components/home/hero-v3";
@@ -41,7 +42,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
           <Catalogue />
           <CatalogueV2 />
         </Variant>
-        <Families />
+        <Variant slot="families">
+          <Families />
+          <FamiliesV2 />
+        </Variant>
         <Proof />
         <LatestRelease />
         <License />

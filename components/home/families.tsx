@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 const glyph: Partial<Record<Industry, IconSvgElement>> = { ecommerce: ShoppingBag01Icon, magazine: News01Icon };
 
 const order: Platform[] = ["nextjs", "shopify", "wordpress"];
-const sets = families.map((f) => ({
+export const familySets = families.map((f) => ({
   family: f.family,
   name: familyName(f.family),
   builds: f.builds
@@ -34,10 +34,54 @@ const sets = families.map((f) => ({
     ),
 }));
 
+export const familiesTitle = "One design, rebuilt by hand for each platform";
+
+type FamilySet = (typeof familySets)[number];
+
+/** The pattern line as a family's switch: the design on the left, a button
+ *  per build on the right, the build in view drawn solid. Under `sm` the
+ *  two-word builds go by their short name so the line fits. */
+export function FamilyLine({
+  set,
+  at,
+  onPick,
+  className,
+}: {
+  set: FamilySet;
+  at: number;
+  onPick: (i: number) => void;
+  className?: string;
+}) {
+  return (
+    <PatternLine
+      className={className}
+      active={at}
+      source={<span className="block rounded-control bg-muted px-3 py-1.5 text-sm font-medium">{set.name}</span>}
+      branches={set.builds.map((b, i) => (
+        <Button
+          key={b.slug}
+          size="sm"
+          variant={i === at ? "default" : "outline"}
+          aria-pressed={i === at}
+          onClick={() => onPick(i)}
+          aria-label={buildLabel(b)}
+        >
+          <span aria-hidden="true" className="sm:hidden">
+            {buildLabel(b).replace(/^(Shopify|Headless) (\w+)$/, (_, a, z) => (a === "Shopify" ? z : a))}
+          </span>
+          <span aria-hidden="true" className="max-sm:hidden">
+            {buildLabel(b)}
+          </span>
+        </Button>
+      ))}
+    />
+  );
+}
+
 export function Families() {
-  const [family, setFamily] = useState(sets[0].family);
+  const [family, setFamily] = useState(familySets[0].family);
   const [picks, setPicks] = useState<Record<string, number>>({});
-  const set = sets.find((s) => s.family === family)!;
+  const set = familySets.find((s) => s.family === family)!;
   const at = picks[family] ?? 0;
   const p: Project = set.builds[at];
 
@@ -46,7 +90,7 @@ export function Families() {
       <div className="mx-auto max-w-2xl text-center">
         <Eyebrow>Families</Eyebrow>
         <SectionHeading id="families-title" className="mt-4 text-balance">
-          One design, rebuilt by hand for each platform
+          {familiesTitle}
         </SectionHeading>
       </div>
 
@@ -59,7 +103,7 @@ export function Families() {
         value={family}
         onValueChange={(v) => setFamily(v as typeof family)}
         className="mt-12"
-        options={sets.map((s) => ({
+        options={familySets.map((s) => ({
           value: s.family,
           title: s.name,
           aside: `${s.builds.length} platforms`,
@@ -92,29 +136,11 @@ export function Families() {
           <p className="text-sm text-muted-foreground">
             The same design on {set.builds.length}&nbsp;platforms
           </p>
-          <PatternLine
+          <FamilyLine
+            set={set}
+            at={at}
+            onPick={(i) => setPicks((all) => ({ ...all, [family]: i }))}
             className="mt-2 max-w-sm"
-            active={at}
-            source={
-              <span className="block rounded-control bg-muted px-3 py-1.5 text-sm font-medium">{set.name}</span>
-            }
-            branches={set.builds.map((b, i) => (
-              <Button
-                key={b.slug}
-                size="sm"
-                variant={i === at ? "default" : "outline"}
-                aria-pressed={i === at}
-                onClick={() => setPicks((all) => ({ ...all, [family]: i }))}
-                aria-label={buildLabel(b)}
-              >
-                <span aria-hidden="true" className="sm:hidden">
-                  {buildLabel(b).replace(/^(Shopify|Headless) (\w+)$/, (_, a, z) => (a === "Shopify" ? z : a))}
-                </span>
-                <span aria-hidden="true" className="max-sm:hidden">
-                  {buildLabel(b)}
-                </span>
-              </Button>
-            ))}
           />
 
           <h3 className="mt-6 text-2xl tracking-tight sm:text-3xl sm:tracking-tighter">{p.name}</h3>

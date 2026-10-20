@@ -370,6 +370,7 @@ const strengths = [
 const slots: { id: string; label: string; options: string[] }[] = [
   { id: "hero", label: "Hero", options: ["Fanned deck", "Ink band pair", "Centred carousel"] },
   { id: "catalogue", label: "Catalogue", options: ["Wide cards, two up", "Upright tiles, four up"] },
+  { id: "families", label: "Families", options: ["Tabs over a split", "Two tinted panels"] },
 ];
 
 const never = () => () => {};
