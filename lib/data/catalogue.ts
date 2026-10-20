@@ -99,3 +99,6 @@ export const priceRange = (() => {
   const at = (n: number) => projects.filter((p) => p.market.price === n).map((p) => p.name);
   return { min, max, lowest: at(min), highest: at(max) };
 })();
+
+/** The platforms as the page sets them in a row of wordmarks. */
+export const platformMarks = ["Next.js", "Shopify", "WordPress", "WooCommerce"];

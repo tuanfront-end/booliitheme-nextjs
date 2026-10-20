@@ -4,7 +4,7 @@
 import { eyebrowClass } from "@/components/site/eyebrow";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Lede } from "@/components/site/lede";
-import { catalogueCounts } from "@/lib/data/catalogue";
+import { catalogueCounts, platformMarks } from "@/lib/data/catalogue";
 import { author, projects } from "@/lib/data/projects";
 import { formatMonth, formatNumber } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -45,7 +45,6 @@ const blocks = [
   },
 ];
 
-const marks = ["Next.js", "Shopify", "WordPress", "WooCommerce"];
 
 const stagger = ["lg:mt-0", "lg:mt-12", "lg:mt-24", "lg:mt-36"];
 
@@ -88,7 +87,7 @@ export function Proof() {
           Every template is built by hand on one of these four platforms.
         </p>
         <ul aria-label="Platforms" className="flex flex-wrap items-center gap-x-8 gap-y-3 lg:gap-x-10">
-          {marks.map((m) => (
+          {platformMarks.map((m) => (
             <li key={m} className="text-xl font-medium tracking-tight text-muted-foreground sm:text-2xl">
               {m}
             </li>

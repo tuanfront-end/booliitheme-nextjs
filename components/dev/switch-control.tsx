@@ -368,7 +368,7 @@ const strengths = [
 // `options` labels the three by what actually differs: the shape, not "A/B/C".
 // Empty until the home's sections are built.
 const slots: { id: string; label: string; options: string[] }[] = [
-  // { id: "hero", label: "Hero", options: ["Split 45/55", "Panel", "Full-bleed"] },
+  { id: "hero", label: "Hero", options: ["Fanned deck", "Ink band pair"] },
 ];
 
 const never = () => () => {};

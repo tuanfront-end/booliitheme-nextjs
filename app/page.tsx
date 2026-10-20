@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 
 import { readPicks, versions } from "@/components/dev/picks";
-import { Skin } from "@/components/dev/switch-control";
+import { Skin, Variant } from "@/components/dev/switch-control";
 import { Catalogue } from "@/components/home/catalogue";
 import { Contact } from "@/components/home/contact";
 import { Faq } from "@/components/home/faq";
 import { Families } from "@/components/home/families";
 import { Hero } from "@/components/home/hero";
+import { HeroV2 } from "@/components/home/hero-v2";
 import { LatestRelease } from "@/components/home/latest-release";
 import { License } from "@/components/home/license";
 import { Proof } from "@/components/home/proof";
@@ -29,7 +30,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
   return (
     <Skin saved={await readPicks()} preview={versions((await searchParams).v)}>
       <main id="content" className="flex flex-col gap-32 pt-12 sm:gap-40 sm:pt-16">
-        <Hero />
+        <Variant slot="hero">
+          <Hero />
+          <HeroV2 />
+        </Variant>
         <Catalogue />
         <Families />
         <Proof />

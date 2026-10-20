@@ -25,31 +25,10 @@ const SLOTS = [
 
 export function HeroDeck({ builds }: { builds: Project[] }) {
   const [front, setFront] = useState(0);
-  const name = familyName(builds[0].family);
 
   const switcher = (
     <div className="rounded-lg bg-card p-4 shadow-soft-lg">
-      <p className="text-xs text-muted-foreground">
-        {name} on {builds.length} platforms
-      </p>
-      <PatternLine
-        className="mt-1"
-        active={front}
-        source={
-          <span className="block rounded-control bg-muted px-2.5 py-1 text-xs font-medium">{name}</span>
-        }
-        branches={builds.map((b, i) => (
-          <Button
-            key={b.slug}
-            size="sm"
-            variant={i === front ? "default" : "outline"}
-            aria-pressed={i === front}
-            onClick={() => setFront(i)}
-          >
-            {platformOf(b)}
-          </Button>
-        ))}
-      />
+      <BuildSwitch builds={builds} front={front} onPick={setFront} />
     </div>
   );
 
@@ -83,20 +62,64 @@ export function HeroDeck({ builds }: { builds: Project[] }) {
           </p>
         </div>
 
-        <Badge
-          tone="leaf"
-          ground="photo"
-          dot
-          className="absolute start-3 bottom-[5.75rem] z-40 sm:start-auto sm:end-6 sm:bottom-6"
-          title={`${newestRelease.name}, the newest release`}
-        >
-          Updated {formatDate(newestRelease.market.updated)}
-        </Badge>
+        <UpdatedBadge className="absolute start-3 bottom-[5.75rem] z-40 sm:start-auto sm:end-6 sm:bottom-6" />
 
         <div className="absolute -start-[6%] bottom-0 z-40 hidden w-80 lg:block">{switcher}</div>
       </div>
 
       <div className="lg:hidden">{switcher}</div>
     </div>
+  );
+}
+
+/** The pattern line as a switch: the design on the left, a button per build on
+ *  the right, the build in front drawn solid. Its surface is the caller's. */
+export function BuildSwitch({
+  builds,
+  front,
+  onPick,
+}: {
+  builds: Project[];
+  front: number;
+  onPick: (i: number) => void;
+}) {
+  const name = familyName(builds[0].family);
+  return (
+    <>
+      <p className="text-xs text-muted-foreground">
+        {name} on {builds.length} platforms
+      </p>
+      <PatternLine
+        className="mt-1"
+        active={front}
+        source={<span className="block rounded-control bg-muted px-2.5 py-1 text-xs font-medium">{name}</span>}
+        branches={builds.map((b, i) => (
+          <Button
+            key={b.slug}
+            size="sm"
+            variant={i === front ? "default" : "outline"}
+            aria-pressed={i === front}
+            onClick={() => onPick(i)}
+          >
+            {platformOf(b)}
+          </Button>
+        ))}
+      />
+    </>
+  );
+}
+
+/** "Updated Dec 12, 2025" — the newest release's date, the leaf state chip. */
+export function UpdatedBadge({ className }: { className?: string }) {
+  return (
+    <Badge
+      tone="leaf"
+      ground="photo"
+      dot
+      className={className}
+      title={`${newestRelease.name}, the newest release`}
+    >
+      Updated {formatDate(newestRelease.market.updated)}
+    </Badge>
   );
 }
