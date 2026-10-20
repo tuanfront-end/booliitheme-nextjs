@@ -7,11 +7,10 @@ import { HugeiconsIcon } from "@hugeicons/react";
 
 import { useEndEdge } from "@/components/site/direction";
 import { Eyebrow } from "@/components/site/eyebrow";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { IconButton } from "@/components/ui/icon-button";
-import { marketplaces, studioLinks, templatesByPlatform } from "@/lib/nav";
+import { marketplaces, studioLinks } from "@/lib/nav";
 
 // The header under lg: every link the mega menu and the bar carry, in one
 // panel from the reading end. The mode toggle stays in the bar beside this
@@ -24,7 +23,7 @@ export function MobileNav() {
 
   return (
     <Drawer swipeDirection={end}>
-      <DrawerTrigger render={<IconButton aria-label="Open menu" className="lg:hidden" />}>
+      <DrawerTrigger render={<IconButton aria-label="Open menu" className="md:hidden" />}>
         <HugeiconsIcon icon={Menu01Icon} strokeWidth={1.5} className="size-4" />
       </DrawerTrigger>
       <DrawerContent>
@@ -49,21 +48,6 @@ export function MobileNav() {
             ))}
           </ul>
 
-          {templatesByPlatform.map((group) => (
-            <div key={group.platform}>
-              <Eyebrow className="px-3 pb-2">{group.label}</Eyebrow>
-              <ul>
-                {group.items.map((p) => (
-                  <li key={p.slug}>
-                    <DrawerClose render={<Link href={`/work/${p.slug}`} />} className={row}>
-                      {p.name}
-                      {p.isNew && <Badge tone="leaf">New</Badge>}
-                    </DrawerClose>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
 
           <div>
             <Eyebrow className="px-3 pb-2">Marketplaces</Eyebrow>
@@ -82,8 +66,8 @@ export function MobileNav() {
         </nav>
 
         <DrawerFooter className="px-6 pb-6">
-          <DrawerClose render={<Button render={<Link href="/#templates" />} nativeButton={false} size="lg" />}>
-            Browse templates
+          <DrawerClose render={<Button render={<Link href="/#contact" />} nativeButton={false} size="lg" />}>
+            Message us
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

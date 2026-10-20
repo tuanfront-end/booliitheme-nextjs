@@ -1,132 +1,82 @@
-// ref: hero-sections/headline-and-client-pill-left-fanned-cards-over-a-peach-slab-right.png — split 50/50 · right-heavy (departed: the stat's own avatar cluster, since the headline's pill already carries the one cluster of designs; the strip holds version chips, standing still at motion 0)
-// opens: panel · light
-// ornament: Field ← hero-sections/headline-and-client-pill-left-fanned-cards-over-a-peach-slab-right.png · the column hairlines redrawn on this page's own grid, faded toward the foot
-// ornament: Tilt ← hero-sections/headline-and-client-pill-left-fanned-cards-over-a-peach-slab-right.png · the fanned cards redrawn as three browser frames at -3°, 0 and 3°
-import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
-import { HeroDeck } from "@/components/home/hero-deck";
-import { Lede } from "@/components/site/lede";
-import { VersionChip } from "@/components/site/version-chip";
+import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/ui/button";
-import { catalogueCounts, familyName, joinList, multiPlatformFamilies, stackLatest } from "@/lib/data/catalogue";
-import { families, projects, type Platform } from "@/lib/data/projects";
-import { cn } from "@/lib/utils";
+import { author, projects } from "@/lib/data/projects";
+import { formatNumber } from "@/lib/format";
 
-export const counts = catalogueCounts();
-// One build per design — its own home page, as the pill's discs.
-const designs = [...new Map(projects.map((p) => [p.family, p])).values()];
-// The family with the most builds is the one the deck fans out, its builds in
-// the order the display line names their platforms.
-const order: Platform[] = ["nextjs", "shopify", "wordpress"];
-export const showcase = [...families]
-  .sort((a, b) => b.builds.length - a.builds.length)[0]
-  .builds.slice()
-  .sort((a, b) => order.indexOf(a.platforms[0]) - order.indexOf(b.platforms[0]));
-// Every string the hero says, shared by its three versions: they differ in
-// layout and never in what they say.
-export const heroTitle = "The same design on Next.js, Shopify Hydrogen or WordPress";
-export const heroLede = `Pick the platform your client already runs. ${joinList(multiPlatformFamilies.map((f) => familyName(f.family)))} ship on two or three of them, with checkout and editor rebuilt by hand on each.`;
-export const heroStat = `Across ${counts.platforms}\u00a0platforms, each running as a live demo you can click through before you buy it.`;
-export const heroActions = [
-  { label: "Browse templates", href: "#templates" },
-  { label: "Switch a design's platform", href: "#families" },
-];
+const since = author.since.slice(0, 4);
+// Three builds from three families, the newest at the front.
+const shown = ["chisfis", "ciseco", "ncmaz"]
+  .map((slug) => projects.find((p) => p.slug === slug))
+  .filter((p) => p !== undefined);
 
-// The strip: every dependency a template pins to a version.
-const pinned = stackLatest.filter((dep) => dep.version);
-
+// Who we are and what we do, anchored low on the start side; three templates
+// cascade off the far edge on hairline stripes. Below the actions, the
+// portfolio's real figures in mono.
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate mx-auto w-full max-w-7xl px-6 sm:px-8">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-6 -top-16 bottom-0 -z-10 column-grid grid-rows-1 [mask-image:linear-gradient(to_bottom,black_55%,transparent)] sm:inset-x-8"
-      >
-        {Array.from({ length: 12 }, (_, i) => (
-          <span key={i} className="border-s border-border last:border-e max-lg:nth-[n+9]:hidden max-md:nth-[n+5]:hidden" />
-        ))}
-      </div>
-
-      <div className="column-grid gap-y-10 lg:gap-y-12">
-        <h1
-          id="hero-title"
-          className="col-span-full text-4xl tracking-tighter sm:text-5xl lg:col-span-7 lg:row-start-1 lg:text-6xl"
-        >
-          {heroTitle}{" "}
-          <DesignsPill />
-        </h1>
-
-        <Lede className="col-span-full max-w-md lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:mt-3">
-          {heroLede}
-        </Lede>
-
-        <div className="col-span-full flex flex-wrap gap-3 lg:col-span-6 lg:row-start-2">
-          <Button render={<Link href={heroActions[0].href} />} nativeButton={false} size="lg">
-            {heroActions[0].label}
-            <ArrowRightIcon aria-hidden="true" data-icon="inline-end" className="rtl:-scale-x-100" />
-          </Button>
-          <Button render={<Link href={heroActions[1].href} />} nativeButton={false} size="lg" variant="outline">
-            {heroActions[1].label}
-            <ArrowDownIcon aria-hidden="true" data-icon="inline-end" />
-          </Button>
-        </div>
-
-        <div className="col-span-full md:col-span-6 md:col-start-2 lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-2 lg:-mt-10">
-          <HeroDeck builds={showcase} />
-        </div>
-
-        <div className="col-span-full max-w-sm lg:col-span-5 lg:row-start-3 lg:self-end">
-          <p className="text-4xl tracking-tighter tabular-nums sm:text-5xl">
-            {counts.templates}&nbsp;templates
+    <section aria-labelledby="hero-title" className="relative overflow-hidden">
+      <div className="ground-stripes absolute inset-0" aria-hidden />
+      <div className="relative mx-auto grid max-w-7xl items-end gap-16 px-6 pt-16 pb-12 sm:px-8 lg:min-h-[44rem] lg:grid-cols-[5fr_7fr] lg:pt-24">
+        <div className="pb-2">
+          <Eyebrow>Design studio · since {since}</Eyebrow>
+          <h1
+            id="hero-title"
+            className="mt-5 text-[48px]/[var(--heading-leading-display)] tracking-tight sm:text-[64px]/[var(--heading-leading-display)] lg:text-[72px]/[var(--heading-leading-display)]"
+          >
+            Two designers, and the websites we finish
+          </h1>
+          <p className="mt-5 max-w-[34rem] text-base text-muted-foreground">
+            BooliiTheme designs and builds templates for Next.js, Shopify and WordPress, and uses AI
+            to draw them faster — so the hours go into the details.
           </p>
-          <p className="mt-3 text-base text-muted-foreground">
-            {heroStat}
-          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button size="lg" render={<Link href="/#templates" />} nativeButton={false}>
+              See the templates
+              <ArrowRightIcon data-icon="inline-end" className="rtl:-scale-x-100" />
+            </Button>
+            <Button size="lg" variant="secondary" render={<Link href="/#contact" />} nativeButton={false}>
+              Message us
+            </Button>
+          </div>
+          <dl className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-5">
+            {[
+              [String(author.items), "templates"],
+              [formatNumber(author.sales), "sales"],
+              [author.rating.toFixed(2), "average rating"],
+            ].map(([figure, label]) => (
+              <div key={label} className="flex items-baseline gap-2">
+                <dt className="sr-only">{label}</dt>
+                <dd className="font-mono text-sm text-brand-ink tabular-nums">{figure}</dd>
+                <dd aria-hidden className="text-sm text-muted-foreground">
+                  {label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="relative h-[22rem] sm:h-[30rem] lg:h-[36rem]" aria-hidden>
+          {shown.map((p, i) => (
+            <div
+              key={p.slug}
+              className="absolute w-[78%] rounded-lg border border-border bg-background p-1.5 shadow-soft-lg sm:w-[70%] lg:w-[76%]"
+              style={{ insetInlineStart: `${i * 16}%`, top: `${(2 - i) * 14}%`, zIndex: 3 - i }}
+            >
+              <Image
+                src={p.shots[0]}
+                alt=""
+                sizes="(min-width: 1024px) 40rem, 80vw"
+                priority={i === 0}
+                className="aspect-[16/11] w-full rounded-md object-cover object-top"
+              />
+            </div>
+          ))}
         </div>
       </div>
-
-      <ul
-        aria-label="The newest version of each dependency the templates pin"
-        className="mt-16 flex flex-wrap items-center justify-center gap-2 border-y border-border py-5 lg:mt-20 lg:flex-nowrap lg:justify-between lg:gap-4"
-      >
-        {pinned.map((dep, i) => (
-          <li key={dep.name} className="flex items-center gap-4">
-            {i > 0 ? (
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                className="hidden size-4 text-muted-foreground/45 lg:block"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              >
-                <path d="M8 2v12M2.8 5l10.4 6M2.8 11l10.4-6" />
-              </svg>
-            ) : null}
-            <VersionChip dep={dep} />
-          </li>
-        ))}
-      </ul>
     </section>
-  );
-}
-
-/** The headline's count of designs: one disc per design, cropped from its
- *  inner-page shot. `ring` is the ground the discs are cut out of. */
-export function DesignsPill({ ring = "ring-background" }: { ring?: string }) {
-  return (
-    <span className="inline-flex translate-y-[-0.12em] items-center gap-2 rounded-control py-1 ps-1 pe-4 align-middle ring-1 ring-border ring-inset">
-      <span className="flex -space-x-2.5 rtl:space-x-reverse">
-        {designs.map((p) => (
-          <span key={p.slug} className={cn("relative size-8 overflow-hidden rounded-full ring-2", ring)}>
-            <Image src={p.shots[1]} alt="" fill sizes="96px" className="object-cover object-[50%_40%]" />
-          </span>
-        ))}
-      </span>
-      <span className="text-sm tracking-normal whitespace-nowrap">{counts.designs}&nbsp;designs</span>
-    </span>
   );
 }

@@ -990,35 +990,52 @@
   --brand: #ff4fa0;
 }
 
-:root[data-color="honey"],
-[data-color="honey"] {
-  --brand: oklch(70% 0.16 62);
-  --brand-ink: oklch(50% 0.12 58);
-  --brand-soft: oklch(89% 0.07 70);
-  --brand-wash: oklch(97.5% 0.02 75);
+:root[data-color="cobalt"],
+[data-color="cobalt"] {
+  --brand: oklch(55% 0.21 262);
+  --brand-ink: oklch(49% 0.2 262);
+  --brand-soft: oklch(88% 0.06 262);
+  --brand-wash: oklch(97.5% 0.015 262);
 }
 
-.dark[data-color="honey"],
-.dark [data-color="honey"] {
-  --brand: oklch(78% 0.15 66);
-  --brand-ink: oklch(82% 0.12 70);
-  --brand-soft: oklch(38% 0.07 60);
-  --brand-wash: oklch(23% 0.03 60);
+.dark[data-color="cobalt"],
+.dark [data-color="cobalt"] {
+  --brand: oklch(70% 0.16 262);
+  --brand-ink: oklch(78% 0.12 262);
+  --brand-soft: oklch(36% 0.09 262);
+  --brand-wash: oklch(22% 0.04 262);
 }
 
-:root[data-color="harbor"],
-[data-color="harbor"] {
-  --brand: oklch(57.8% 0.231 260);
-  --brand-ink: oklch(50.9% 0.208 260);
-  --brand-soft: oklch(88% 0.06 260);
-  --brand-wash: oklch(97.5% 0.015 260);
+:root[data-color="vermilion"],
+[data-color="vermilion"] {
+  --brand: oklch(62% 0.2 35);
+  --brand-ink: oklch(52% 0.18 33);
+  --brand-soft: oklch(89% 0.06 40);
+  --brand-wash: oklch(97.5% 0.018 45);
 }
 
-.dark[data-color="harbor"],
-.dark [data-color="harbor"] {
-  --brand: oklch(70% 0.17 260);
-  --brand-ink: oklch(78% 0.12 260);
-  --brand-soft: oklch(36% 0.09 260);
-  --brand-wash: oklch(22% 0.04 260);
+.dark[data-color="vermilion"],
+.dark [data-color="vermilion"] {
+  --brand: oklch(72% 0.17 38);
+  --brand-ink: oklch(80% 0.12 45);
+  --brand-soft: oklch(38% 0.09 35);
+  --brand-wash: oklch(23% 0.04 35);
 }
+
+:root[data-color="moss"],
+[data-color="moss"] {
+  --brand: oklch(58% 0.15 152);
+  --brand-ink: oklch(47% 0.12 152);
+  --brand-soft: oklch(90% 0.05 152);
+  --brand-wash: oklch(97.5% 0.015 152);
+}
+
+.dark[data-color="moss"],
+.dark [data-color="moss"] {
+  --brand: oklch(72% 0.15 152);
+  --brand-ink: oklch(80% 0.12 152);
+  --brand-soft: oklch(36% 0.07 152);
+  --brand-wash: oklch(22% 0.03 152);
+}
+
 /* end preset-panel colors */

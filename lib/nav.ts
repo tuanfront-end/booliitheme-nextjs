@@ -5,14 +5,12 @@ import { author, platforms, projects, type Platform } from "@/lib/data/projects"
 
 export const studioLinks = [
   { label: "Templates", href: "/#templates" },
-  { label: "Families", href: "/#families" },
-  { label: "License", href: "/#license" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Contact", href: "/contact" },
+  { label: "Work with us", href: "/#work-with-us" },
+  { label: "Contact", href: "/#contact" },
 ];
 
-/** The header bar's own links, after the Templates trigger. */
-export const barLinks = studioLinks.filter((l) => ["Families", "License", "Contact"].includes(l.label));
+/** The header bar's own links. */
+export const barLinks = studioLinks;
 
 export const marketplaces = [
   { label: "ThemeForest", href: author.url },

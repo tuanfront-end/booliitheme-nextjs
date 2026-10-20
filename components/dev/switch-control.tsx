@@ -28,12 +28,11 @@ import { savePicks } from "./save-picks";
 // rest, and every value on screen is one the script measured. `original` is
 // the brand :root carries and needs no attribute.
 //
-// Written in at the mount like BRIEF_PASTEL: the names `brand-hue.py` printed
-// for the panel, Original first. Original is honey, black action, warm
-// neutral; plum was a candidate and is not on the row. Stop 2 locks the brand
-// — the script writes the pick into :root — and this list shrinks to
-// ["original"], which takes the Brand group off the panel.
-const BRANDS: string[] = ["original"];
+// The three brand candidates for Stop 2, measured against paper and the dark
+// half (each clears 3:1 as a mark and 4.5:1 as brand text). Pink, the style's
+// own default, is left off on purpose: it is gru.ai's signature. Stop 2 writes
+// the pick into :root and this list shrinks to ["original"].
+const BRANDS: string[] = ["cobalt", "vermilion", "moss"];
 
 // Each face's whole row from the per-face table in setup.md. Twenty-one of these
 // thirty are OFL from Google; three more are OFL and CC BY from files in
@@ -341,11 +340,7 @@ const strengths = [
 //
 // `options` labels the three by what actually differs: the shape, not "A/B/C".
 // Empty until the home's sections are built.
-const slots: { id: string; label: string; options: string[] }[] = [
-  { id: "hero", label: "Hero", options: ["Fanned deck", "Ink band pair", "Centred carousel"] },
-  { id: "catalogue", label: "Catalogue", options: ["Wide cards, two up", "Upright tiles, four up"] },
-  { id: "families", label: "Families", options: ["Tabs over a split", "Two tinted panels"] },
-];
+const slots: { id: string; label: string; options: string[] }[] = [];
 
 const never = () => () => {};
 
@@ -540,7 +535,7 @@ function Root({ saved, preview = {}, children }: SkinProps) {
                   <Pill key={id} active={brand === id} onClick={() => commit({ brand: id })}>
                     {/* Each dot wears its own block, as the panel's swatches do. */}
                     <span aria-hidden data-color={id}
-                          className="size-2.5 rounded-full bg-primary" />
+                          className="size-2.5 rounded-full bg-brand" />
                     {id.charAt(0).toUpperCase() + id.slice(1)}
                   </Pill>
                 ))}
