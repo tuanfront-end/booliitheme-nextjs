@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { readPicks, versions } from "@/components/dev/picks";
 import { Skin } from "@/components/dev/switch-control";
 import { Catalogue } from "@/components/home/catalogue";
+import { Contact } from "@/components/home/contact";
 import { Faq } from "@/components/home/faq";
 import { Families } from "@/components/home/families";
 import { Hero } from "@/components/home/hero";
@@ -35,6 +36,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
         <LatestRelease />
         <License />
         <Faq />
+        <Contact />
       </main>
     </Skin>
   );
