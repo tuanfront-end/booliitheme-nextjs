@@ -1,3 +1,4 @@
+import { PatternLine } from "@/components/site/pattern-line";
 import { eyebrowClass } from "@/components/site/eyebrow";
 
 // The signature move the site kept at stop 2 — the pattern line — and the
@@ -19,39 +20,6 @@ function Move({ label, title, caption, children }: { label: string; title: strin
   );
 }
 
-/** C: the pattern line — one design cut along a dashed, notched line into its platforms. */
-export function PatternLine({ name, builds }: { name: string; builds: [string, string, string] }) {
-  const chip = "absolute -translate-y-1/2 rounded-control bg-card px-3 py-1.5 text-sm whitespace-nowrap shadow-soft";
-  return (
-    <div className="relative aspect-[300/160] w-full">
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 300 160"
-        className="absolute inset-0 size-full text-muted-foreground/45"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <g strokeDasharray="4 6">
-          <path d="M66 80 H104 Q110 80 110 74 V30 Q110 24 116 24 H176" />
-          <path d="M66 80 H176" />
-          <path d="M66 80 H104 Q110 80 110 86 V130 Q110 136 116 136 H176" />
-        </g>
-        <path d="M146 19 V29 M146 75 V85 M146 131 V141" />
-        <circle cx="110" cy="80" r="4" className="fill-primary stroke-none" />
-      </svg>
-      <span className={`${chip} start-0 top-1/2 font-medium`}>{name}</span>
-      {builds.map((b, i) => (
-        <span key={b} className={chip} style={{ insetInlineStart: "59%", top: `${[15, 50, 85][i]}%` }}>
-          {b}
-        </span>
-      ))}
-    </div>
-  );
-}
-
 export function Signature() {
   return (
     <div className="flex flex-col gap-12">
@@ -62,7 +30,15 @@ export function Signature() {
           caption="From a tailor's paper pattern: one design cut along a dashed, notched line into each platform it ships on."
         >
           <div className="mx-auto w-full max-w-md">
-            <PatternLine name="Ciseco" builds={["Next.js", "Shopify Hydrogen", "WooCommerce"]} />
+            <PatternLine
+              active={0}
+              source={<span className="block rounded-control bg-card px-4 py-2 text-sm font-medium shadow-soft">Ciseco</span>}
+              branches={["Next.js", "Shopify Hydrogen", "WooCommerce"].map((b) => (
+                <span key={b} className="block rounded-control bg-card px-3 py-1.5 text-sm whitespace-nowrap shadow-soft">
+                  {b}
+                </span>
+              ))}
+            />
           </div>
         </Move>
       </div>

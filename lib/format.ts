@@ -60,3 +60,20 @@ export function formatArea(squareFeet: number) {
     ? `${formatNumber(Math.round(squareFeet))} sq ft`
     : `${formatNumber(Math.round(squareFeet * 0.09290304))} m²`;
 }
+
+/** Dec 12, 2025 — a release or update date, printed whole. Dates on this site
+ *  are what the marketplace showed when it was read, so they are never turned
+ *  into "N days ago". */
+export function formatDate(iso: string) {
+  return dateFormat({ month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(iso));
+}
+
+/** Dec 2025 — the same date at the month. */
+export function formatMonth(iso: string) {
+  return dateFormat({ month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(iso));
+}
+
+/** ciseco-nextjs.vercel.app — a demo's host, the part a browser's bar shows. */
+export function hostOf(url: string) {
+  return new URL(url).host;
+}

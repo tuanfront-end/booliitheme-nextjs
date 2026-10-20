@@ -243,5 +243,17 @@ Beyond the core kit:
 
 | # | Section | v | File | Takes |
 |---|---|---|---|---|
+| 1 | Hero | 1 | `hero-sections/headline-and-client-pill-left-fanned-cards-over-a-peach-slab-right.png` | |
+| 2 | Hero | 2 | `hero-sections/dark-badge-copy-left-tilted-card-pair-with-glass-chips-right-logo-row-below.png` | |
+| 3 | Hero | 3 | `hero-sections/centred-headline-and-email-pill-over-a-three-card-carousel-with-a-lifted-middle.webp` | |
+| 4 | Catalogue | 1 | `product-lists/heading-and-city-tabs-over-four-wide-listing-cards-photo-left-specs-right.png` | |
+| 5 | Catalogue | 2 | `product-lists/heading-tabs-and-filter-chips-over-eight-product-cards-with-swatch-rows.png` | |
+| 6 | Families | 1 | `feature-sections/centred-heading-and-three-tab-cards-over-photo-left-copy-right.jpeg` | |
+| 7 | Families | 2 | `feature-sections/centred-copy-and-link-over-two-tinted-panels-with-ui-illustrations.webp` | |
+| 8 | Proof | 1 | `stats/four-staggered-figure-blocks-with-logo-row.png` | |
+| 9 | Latest release | 1 | `feature-sections/photo-left-serif-heading-cta-and-four-tick-rows-right.png` | |
+| 10 | License & support | 1 | `pricing-sections/two-tier-pair-in-one-shell-with-the-featured-tier-inverted.jpeg` | |
+| 11 | FAQ | 1 | `faqs/centred-heading-with-tabs-over-numbered-accordion.png` | |
+| 12 | Contact | 1 | `contact-sections/reserve-form-left-render-and-a-contact-card-right.webp` | |
 
 ## Build log — /
