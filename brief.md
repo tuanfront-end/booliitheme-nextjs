@@ -279,3 +279,9 @@ Beyond the core kit:
 - Made: `components/home/proof.tsx` — heading with the as-of lede, four staggered figure blocks (sales with the best seller computed, rating, selling since with the author level, items with the catalogue counts), the platforms as flat ink wordmarks with a line of context
 - Decided: the four blocks are one accent set at /20 — peach, lime, sky, iris — with ink type on them (the eyebrow takes `eyebrowClass` + `text-foreground` on the tint); the reference's corner squares are peach /35 on the first block (Frame); the platform row is set as wordmarks in the body face, no logo files
 - Check: clean
+
+### 5 · Latest release · v1
+- Made: `components/home/latest-release.tsx` — the newest dated release in a tall frame (the demo's own link) beside eyebrow, a computed heading ("Bitpan, now on WooCommerce" when the design existed on another platform, the name otherwise), lede from tagline + date + its `runs` line, VersionChips, Live demo + Details, and the release log: the four newest dated items, date · name · one version chip, each on a leaf tick disc
+- Reused: `runs` moved from `components/home/families.tsx` into `lib/data/catalogue.ts` so a server section can read it; `newestRelease`, `dated`, `buildLabel`, `familyName` from §1/§3
+- Decided: the reference's four tick rows are the release log, ticks on leaf (/15 + leaf ink) as the signal colour for "updated"; the log rows sit on a three-column grid from `sm` so dates, names and versions align
+- Check: waits on request 1 (VersionChip mono)

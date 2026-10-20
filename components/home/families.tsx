@@ -15,23 +15,10 @@ import { SectionHeading } from "@/components/site/section-heading";
 import { VersionChip } from "@/components/site/version-chip";
 import { Button } from "@/components/ui/button";
 import { RadioTiles } from "@/components/ui/radio-tiles";
-import { alsoOn, buildLabel, familyName, joinList } from "@/lib/data/catalogue";
+import { alsoOn, buildLabel, familyName, joinList, runs } from "@/lib/data/catalogue";
 import { families, type Industry, type Platform, type Project } from "@/lib/data/projects";
 import { hostOf } from "@/lib/format";
 import { cn } from "@/lib/utils";
-
-// What a buyer gets on each platform that the others do it differently:
-// who runs the checkout, where the words are edited, what the pages read from.
-const runs: Record<string, string> = {
-  ciseco: "Next.js renders every page, cart and checkout from local demo data, ready to point at your own store API.",
-  "ciseco-hydrogen": "Shopify runs checkout, payments and stock; Hydrogen draws the storefront from the Storefront API.",
-  "ciseco-woocommerce": "WooCommerce runs the cart and checkout, and every page is edited in the Site Editor with blocks.",
-  ncmaz: "Next.js renders posts from local demo data, ready to point at the CMS or API you already use.",
-  "ncmaz-headless-wordpress": "WordPress keeps the editor and the posts; the Next.js front end reads them over GraphQL.",
-  "ncmaz-wordpress": "Everything stays in WordPress: posts in the block editor, page layouts in the Site Editor.",
-  bitpan: "Next.js renders every page, cart and checkout from local demo data, ready to point at your own store API.",
-  "bitpan-woocommerce": "WooCommerce runs the cart and checkout, and every page is edited in the Site Editor with blocks.",
-};
 
 const glyph: Partial<Record<Industry, IconSvgElement>> = { ecommerce: ShoppingBag01Icon, magazine: News01Icon };
 

@@ -74,3 +74,16 @@ export const alsoOn = (p: Project) =>
  *  a headless build after the plain one on its platform. */
 const PLATFORM_ORDER = ["nextjs", "shopify", "wordpress"];
 export const platformRank = (p: Project) => PLATFORM_ORDER.indexOf(p.platforms[0]) * 2 + p.platforms.length - 1;
+
+// One line per build on what its platform does differently from the others:
+// who runs the checkout, where the words are edited, what the pages read from.
+export const runs: Record<string, string> = {
+  ciseco: "Next.js renders every page, cart and checkout from local demo data, ready to point at your own store API.",
+  "ciseco-hydrogen": "Shopify runs checkout, payments and stock; Hydrogen draws the storefront from the Storefront API.",
+  "ciseco-woocommerce": "WooCommerce runs the cart and checkout, and every page is edited in the Site Editor with blocks.",
+  ncmaz: "Next.js renders posts from local demo data, ready to point at the CMS or API you already use.",
+  "ncmaz-headless-wordpress": "WordPress keeps the editor and the posts; the Next.js front end reads them over GraphQL.",
+  "ncmaz-wordpress": "Everything stays in WordPress: posts in the block editor, page layouts in the Site Editor.",
+  bitpan: "Next.js renders every page, cart and checkout from local demo data, ready to point at your own store API.",
+  "bitpan-woocommerce": "WooCommerce runs the cart and checkout, and every page is edited in the Site Editor with blocks.",
+};
