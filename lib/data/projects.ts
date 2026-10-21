@@ -36,6 +36,16 @@ import bitpanLiveDesktop from "@/images/live/bitpan-desktop.jpg";
 import bitpanLiveMobile from "@/images/live/bitpan-mobile.jpg";
 import ciscrypLiveDesktop from "@/images/live/ciscryp-desktop.jpg";
 import ciscrypLiveMobile from "@/images/live/ciscryp-mobile.jpg";
+import ofenLiveDesktop from "@/images/live/ofen-desktop.jpg";
+import ofenLiveMobile from "@/images/live/ofen-mobile.jpg";
+import saalLiveDesktop from "@/images/live/saal-desktop.jpg";
+import saalLiveMobile from "@/images/live/saal-mobile.jpg";
+import waypointLiveDesktop from "@/images/live/waypoint-desktop.jpg";
+import waypointLiveMobile from "@/images/live/waypoint-mobile.jpg";
+import doorlistLiveDesktop from "@/images/live/doorlist-desktop.jpg";
+import doorlistLiveMobile from "@/images/live/doorlist-mobile.jpg";
+import loopmereLiveDesktop from "@/images/live/loopmere-desktop.jpg";
+import loopmereLiveMobile from "@/images/live/loopmere-mobile.jpg";
 
 // Every figure below is one ThemeForest shows publicly, read off an archived
 // copy of the page named in `asOf` — the live pages sit behind a bot wall.
@@ -43,8 +53,8 @@ import ciscrypLiveMobile from "@/images/live/ciscryp-mobile.jpg";
 // rather than a guess.
 
 export type Platform = "nextjs" | "wordpress" | "shopify";
-export type Industry = "ecommerce" | "booking" | "magazine" | "nft";
-export type Family = "ciseco" | "ncmaz" | "bitpan" | "chisfis" | "ciscryp";
+export type Industry = "ecommerce" | "booking" | "magazine" | "nft" | "real-estate" | "education" | "events" | "media";
+export type Family = "ciseco" | "ncmaz" | "bitpan" | "chisfis" | "ciscryp" | "ofen" | "saal" | "waypoint" | "doorlist" | "loopmere";
 
 export const platforms: Record<Platform, string> = {
   nextjs: "Next.js",
@@ -57,6 +67,10 @@ export const industries: Record<Industry, string> = {
   booking: "Booking",
   magazine: "Blog & magazine",
   nft: "NFT marketplace",
+  "real-estate": "Real estate",
+  education: "Education",
+  events: "Events & tickets",
+  media: "Media",
 };
 
 export type Dependency = { name: string; version?: string };
@@ -81,12 +95,17 @@ export type Project = {
   industry: Industry;
   tagline: string;
   demo: string;
-  shots: [StaticImageData, StaticImageData];
+  /** The home page first; a second shot, when there is one, is an inner page. */
+  shots: StaticImageData[];
   /** The live demo captured at 1440 × 900 and 390 × 844, shown in the device
    *  mockup. Absent while a demo is down. */
   live?: { desktop: StaticImageData; mobile: StaticImageData };
   stack: Dependency[];
   isNew?: boolean;
+  /** The Polar checkout every Buy button on the site goes to. */
+  checkout?: string;
+  /** A site of the studio's own, shown beside the templates and not for sale. */
+  personal?: boolean;
   market: Market;
 };
 
@@ -94,6 +113,79 @@ const tf = (path: string) => `https://themeforest.net/item/${path}`;
 
 /** Newest first — the order the catalogue opens on. */
 export const projects: Project[] = [
+  {
+    slug: "doorlist",
+    name: "Doorlist",
+    family: "doorlist",
+    build: "Next.js",
+    platforms: ["nextjs"],
+    industry: "events",
+    tagline: "Event ticketing marketplace template",
+    demo: "https://doorlist-eight.vercel.app",
+    shots: [doorlistLiveDesktop],
+    live: { desktop: doorlistLiveDesktop, mobile: doorlistLiveMobile },
+    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    isNew: true,
+    market: {
+      url: "https://themeforest.net/user/booliitheme",
+      price: 49,
+      asOf: "2026-10-21",
+    },
+  },
+  {
+    slug: "waypoint",
+    name: "Waypoint",
+    family: "waypoint",
+    build: "Next.js",
+    platforms: ["nextjs"],
+    industry: "education",
+    tagline: "AI course marketplace template",
+    demo: "https://waypoint-puce-seven.vercel.app",
+    shots: [waypointLiveDesktop],
+    live: { desktop: waypointLiveDesktop, mobile: waypointLiveMobile },
+    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    market: {
+      url: "https://themeforest.net/user/booliitheme",
+      price: 49,
+      asOf: "2026-10-21",
+    },
+  },
+  {
+    slug: "ofen",
+    name: "Ofen",
+    family: "ofen",
+    build: "Next.js",
+    platforms: ["nextjs"],
+    industry: "real-estate",
+    tagline: "Real estate brokerage template",
+    demo: "https://template-ofen.vercel.app",
+    shots: [ofenLiveDesktop],
+    live: { desktop: ofenLiveDesktop, mobile: ofenLiveMobile },
+    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    market: {
+      url: "https://themeforest.net/user/booliitheme",
+      price: 39,
+      asOf: "2026-10-21",
+    },
+  },
+  {
+    slug: "saal",
+    name: "Saal",
+    family: "saal",
+    build: "Next.js",
+    platforms: ["nextjs"],
+    industry: "education",
+    tagline: "Tutor marketplace template",
+    demo: "https://template-saal.vercel.app",
+    shots: [saalLiveDesktop],
+    live: { desktop: saalLiveDesktop, mobile: saalLiveMobile },
+    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    market: {
+      url: "https://themeforest.net/user/booliitheme",
+      price: 39,
+      asOf: "2026-10-21",
+    },
+  },
   {
     slug: "bitpan-woocommerce",
     name: "Bitpan WooCommerce",
@@ -351,6 +443,24 @@ export const projects: Project[] = [
       ratings: 7,
       updated: "2023-11-19",
       asOf: "2025-08-20",
+    },
+  },
+  {
+    slug: "loopmere",
+    name: "Loopmere",
+    family: "loopmere",
+    build: "Next.js",
+    platforms: ["nextjs"],
+    industry: "media",
+    tagline: "Ambient sound, mixed by you",
+    demo: "https://loopmere.vercel.app",
+    shots: [loopmereLiveDesktop],
+    live: { desktop: loopmereLiveDesktop, mobile: loopmereLiveMobile },
+    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    personal: true,
+    market: {
+      url: "https://themeforest.net/user/booliitheme",
+      asOf: "2026-10-21",
     },
   },
 ];

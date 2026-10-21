@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { HeroFigure } from "@/components/home/hero-figure";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/ui/button";
-import { author } from "@/lib/data/projects";
+import { author, projects } from "@/lib/data/projects";
 import { formatNumber } from "@/lib/format";
 
 const since = author.since.slice(0, 4);
@@ -55,7 +55,7 @@ export function Hero() {
           </div>
           <dl className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-5">
             {[
-              [String(author.items), "templates"],
+              [String(projects.filter((p) => !p.personal).length), "templates"],
               [formatNumber(author.sales), "sales"],
               [author.rating.toFixed(2), "average rating"],
             ].map(([figure, label]) => (

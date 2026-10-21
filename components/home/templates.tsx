@@ -42,11 +42,50 @@ function Frame({
 }
 
 const price = (p: Project) =>
-  p.market.price ? formatMoney(p.market.price, undefined, { maximumFractionDigits: 0 }) : "On ThemeForest";
+  p.personal
+    ? "Personal project"
+    : p.market.price
+      ? formatMoney(p.market.price, undefined, { maximumFractionDigits: 0 })
+      : "On ThemeForest";
 
-// Every template as a picture, its name and its price on paper, in two
-// columns, the second set half a card lower — nothing else on the card. A press opens the template over the page, the way
-// Dribbble opens a shot, and the arrows walk to its neighbours without closing.
+// Every Buy goes to the template's Polar checkout; the marketplace page stands
+// in until a checkout is set.
+const buyHref = (p: Project) => p.checkout ?? p.market.url;
+
+const NUMBERS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+  "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty"];
+const forSale = projects.filter((p) => !p.personal).length;
+
+// Preview opens the live demo in a new tab; Buy goes to checkout. A personal
+// project has the preview alone.
+function Actions({ p }: { p: Project }) {
+  return (
+    <>
+      <Button
+        size="sm"
+        variant="secondary"
+        render={<a href={p.demo} target="_blank" rel="noopener noreferrer" />}
+        nativeButton={false}
+      >
+        Preview
+        <ArrowUpRightIcon data-icon="inline-end" className="rtl:-scale-x-100" />
+        <span className="sr-only">{p.name} (opens in a new tab)</span>
+      </Button>
+      {!p.personal && (
+        <Button size="sm" render={<a href={buyHref(p)} target="_blank" rel="noopener noreferrer" />} nativeButton={false}>
+          Buy
+          <span className="sr-only">{p.name} (opens in a new tab)</span>
+        </Button>
+      )}
+    </>
+  );
+}
+
+// Every template as a laptop and a phone showing its live demo, its name, its
+// price and the two things to do with it — preview, buy — in two columns, the
+// second set half a card lower. A press on the devices opens the template over
+// the page, the way Dribbble opens a shot, and the arrows walk to its
+// neighbours without closing.
 export function Templates() {
   const [open, setOpen] = useState<number | null>(null);
   const current = open === null ? null : projects[open];
@@ -60,7 +99,7 @@ export function Templates() {
     >
       <Eyebrow>Templates</Eyebrow>
       <SectionHeading id="templates-title" className="mt-4">
-        Ten templates, each one finished
+        {NUMBERS[forSale] ?? forSale} templates, each one finished
       </SectionHeading>
       <Lede className="mt-2">Open one to see it closer. Every template runs as a live demo.</Lede>
 
@@ -70,7 +109,8 @@ export function Templates() {
             <li key={p.slug}>
               <DialogTrigger
                 onClick={() => setOpen(i)}
-                className="group/card flex w-full flex-col gap-4 rounded-lg text-start"
+                aria-label={`Open ${p.name}`}
+                className="group/card block w-full rounded-lg text-start"
               >
                 {p.live ? (
                   <DeviceMockup
@@ -89,11 +129,16 @@ export function Templates() {
                     />
                   </span>
                 )}
-                <span className="flex items-baseline justify-between gap-4 px-1">
-                  <span className="text-sm font-medium">{p.name}</span>
-                  <span className="text-sm text-muted-foreground tabular-nums">{price(p)}</span>
-                </span>
               </DialogTrigger>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-1">
+                <p className="text-sm">
+                  <span className="font-medium">{p.name}</span>
+                  <span className="ms-3 text-muted-foreground tabular-nums">{price(p)}</span>
+                </p>
+                <div className="flex gap-2">
+                  <Actions p={p} />
+                </div>
+              </div>
             </li>
           ))}
         </ul>
@@ -113,11 +158,13 @@ export function Templates() {
                   {current.live && (
                     <Frame src={current.live.mobile} alt={`${current.name} on a phone`} sizes="16rem" />
                   )}
-                  <Frame
-                    src={current.shots[1]}
-                    alt={`${current.name}, an inner page`}
-                    className={current.live ? undefined : "sm:col-span-2"}
-                  />
+                  {current.shots[1] && (
+                    <Frame
+                      src={current.shots[1]}
+                      alt={`${current.name}, an inner page`}
+                      className={current.live ? undefined : "sm:col-span-2"}
+                    />
+                  )}
                 </div>
               </DialogBody>
               <DialogFooter className="justify-between">
@@ -131,23 +178,7 @@ export function Templates() {
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="text-sm text-muted-foreground tabular-nums">{price(current)}</span>
-                  <Button
-                    variant="secondary"
-                    render={<a href={current.demo} target="_blank" rel="noopener noreferrer" />}
-                    nativeButton={false}
-                  >
-                    Live demo
-                    <ArrowUpRightIcon data-icon="inline-end" className="rtl:-scale-x-100" />
-                    <span className="sr-only">(opens in a new tab)</span>
-                  </Button>
-                  <Button
-                    render={<a href={current.market.url} target="_blank" rel="noopener noreferrer" />}
-                    nativeButton={false}
-                  >
-                    Buy on ThemeForest
-                    <ArrowUpRightIcon data-icon="inline-end" className="rtl:-scale-x-100" />
-                    <span className="sr-only">(opens in a new tab)</span>
-                  </Button>
+                  <Actions p={current} />
                 </div>
               </DialogFooter>
             </>
