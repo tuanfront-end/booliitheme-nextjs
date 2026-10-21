@@ -19,7 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { platforms, projects, type Project } from "@/lib/data/projects";
+import { platforms, priceOf, projects, type Project } from "@/lib/data/projects";
 import { formatMoney } from "@/lib/format";
 
 // A capture in a hairline frame, the way every picture in the overlay sits.
@@ -41,16 +41,15 @@ function Frame({
   );
 }
 
-const price = (p: Project) =>
-  p.personal
-    ? "Personal project"
-    : p.market.price
-      ? formatMoney(p.market.price, undefined, { maximumFractionDigits: 0 })
-      : "On ThemeForest";
+const price = (p: Project) => {
+  const usd = priceOf(p);
+  if (p.personal) return "Personal project";
+  return usd ? formatMoney(usd, undefined, { maximumFractionDigits: 0 }) : "On ThemeForest";
+};
 
 // Every Buy goes to the template's Polar checkout; the marketplace page stands
 // in until a checkout is set.
-const buyHref = (p: Project) => p.checkout ?? p.market.url;
+const buyHref = (p: Project) => p.checkout?.url ?? p.market.url;
 
 const NUMBERS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
   "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty"];

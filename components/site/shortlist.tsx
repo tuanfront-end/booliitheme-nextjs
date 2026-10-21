@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/drawer";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
-import { platforms, projectBySlug, type Project } from "@/lib/data/projects";
+import { platforms, priceOf, projectBySlug, type Project } from "@/lib/data/projects";
 import { formatMoney } from "@/lib/format";
 import { clearShortlist, toggleShortlist, useShortlist } from "@/lib/shortlist";
 
@@ -75,11 +75,11 @@ export function ShortlistButton() {
                     {p.name}
                   </DrawerClose>
                   <span className="text-muted-foreground">{p.platforms.map((x) => platforms[x]).join(" + ")}</span>
-                  {p.market.price ? (
+                  {priceOf(p) != null && (
                     <span className="text-muted-foreground tabular-nums">
-                      {formatMoney(p.market.price, "USD", { maximumFractionDigits: 0 })}
+                      {formatMoney(priceOf(p) ?? 0, "USD", { maximumFractionDigits: 0 })}
                     </span>
-                  ) : null}
+                  )}
                 </span>
                 <IconButton aria-label={`Remove ${p.name}`} onClick={() => toggleShortlist(p.slug)}>
                   <HugeiconsIcon icon={Cancel01Icon} strokeWidth={1.5} className="size-4" />

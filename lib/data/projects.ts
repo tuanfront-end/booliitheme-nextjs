@@ -102,14 +102,19 @@ export type Project = {
   live?: { desktop: StaticImageData; mobile: StaticImageData };
   stack: Dependency[];
   isNew?: boolean;
-  /** The Polar checkout every Buy button on the site goes to. */
-  checkout?: string;
+  /** The Polar checkout every Buy button on the site goes to, and the price
+   *  it charges in USD. */
+  checkout?: { url: string; price: number };
   /** A site of the studio's own, shown beside the templates and not for sale. */
   personal?: boolean;
   market: Market;
 };
 
 const tf = (path: string) => `https://themeforest.net/item/${path}`;
+const polar = (link: string, price: number) => ({ url: `https://buy.polar.sh/${link}`, price });
+
+/** What the site asks for a template: its Polar price, else its marketplace price. */
+export const priceOf = (p: Project) => p.checkout?.price ?? p.market.price;
 
 /** Newest first — the order the catalogue opens on. */
 export const projects: Project[] = [
@@ -126,6 +131,7 @@ export const projects: Project[] = [
     live: { desktop: doorlistLiveDesktop, mobile: doorlistLiveMobile },
     stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
     isNew: true,
+    checkout: polar("polar_cl_gRBg19pFFQbrN5TFAJQVI09p6Y2oHRs749tBw2ZJqws", 49),
     market: {
       url: "https://themeforest.net/user/booliitheme",
       price: 49,
@@ -144,6 +150,7 @@ export const projects: Project[] = [
     shots: [waypointLiveDesktop],
     live: { desktop: waypointLiveDesktop, mobile: waypointLiveMobile },
     stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    checkout: polar("polar_cl_ChFvoSYiZKrUXfVh1d40ecmMQFrM9K4o1ukER3wJZO2", 39),
     market: {
       url: "https://themeforest.net/user/booliitheme",
       price: 49,
@@ -162,6 +169,7 @@ export const projects: Project[] = [
     shots: [ofenLiveDesktop],
     live: { desktop: ofenLiveDesktop, mobile: ofenLiveMobile },
     stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    checkout: polar("polar_cl_jvuNIyDeM1vIt29es6yLhvA25Iwio8VU5rCiV4Sxvn1", 39),
     market: {
       url: "https://themeforest.net/user/booliitheme",
       price: 39,
@@ -180,6 +188,7 @@ export const projects: Project[] = [
     shots: [saalLiveDesktop],
     live: { desktop: saalLiveDesktop, mobile: saalLiveMobile },
     stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    checkout: polar("polar_cl_BW7YSAPrUkVLE13S7Dl5X9nGnvw0QjURV0t9v0IBK79", 39),
     market: {
       url: "https://themeforest.net/user/booliitheme",
       price: 39,
@@ -204,6 +213,7 @@ export const projects: Project[] = [
       { name: "Interactivity API" },
     ],
     isNew: true,
+    checkout: polar("polar_cl_wbxS6yMPU9b1ykSe87Bd2FpxjP8V6pc48JDzS42ADqA", 39),
     market: {
       url: tf("bitpan-multipurpose-woocommerce-fse-block-theme/60678648"),
       price: 39,
@@ -230,6 +240,7 @@ export const projects: Project[] = [
       { name: "Interactivity API" },
     ],
     isNew: true,
+    checkout: polar("polar_cl_fizjgo16XKrRTLAmhjwjyg5LUc58hMJWhQUcY11Z6bk", 39),
     market: {
       url: tf("ciseco-multipurpose-woocommerce-fse-block-theme/60978921"),
       asOf: "2026-01-28",
@@ -252,6 +263,7 @@ export const projects: Project[] = [
       { name: "Gutenberg blocks" },
       { name: "Interactivity API" },
     ],
+    checkout: polar("polar_cl_qQX5vqOnvDlh7JAXnxs85yCmEx6KNhn41VaIX2WjA6s", 39),
     market: {
       url: tf("ncmaz-blog-magazine-wordpress-theme/34122841"),
       price: 39,
@@ -279,6 +291,7 @@ export const projects: Project[] = [
       { name: "tailwindcss", version: "3" },
       { name: "typescript", version: "5" },
     ],
+    checkout: polar("polar_cl_WgG1OzbF7yUX8oq1dY2aZrA1B8uv99MClwq7b0DS472", 49),
     market: {
       url: tf("ncmaz-nextjs-headless-wordpress-blog-magazine/47815656"),
       price: 49,
@@ -305,6 +318,7 @@ export const projects: Project[] = [
       { name: "tailwindcss", version: "3" },
       { name: "typescript", version: "5" },
     ],
+    checkout: polar("polar_cl_yz7wtrLEevKorf9wHXE6Q7SquNaL9CDIIQmPW1zP6Mj", 49),
     market: {
       url: tf("ciseco-hydrogen-shopifys-headless-storefront-template/52088296"),
       price: 49,
@@ -330,6 +344,7 @@ export const projects: Project[] = [
       { name: "tailwindcss", version: "3" },
       { name: "typescript", version: "5" },
     ],
+    checkout: polar("polar_cl_L70X4wesYPQCQFWcjfIg18CFWhGWvmN99HaqO0MMK5p", 39),
     market: {
       url: tf("ncmaz-blog-news-magazine-nextjs-template/44412092"),
       price: 29,
@@ -357,6 +372,7 @@ export const projects: Project[] = [
       { name: "tailwindcss", version: "4" },
       { name: "typescript", version: "5" },
     ],
+    checkout: polar("polar_cl_9lk6dfw8VeQ8meZJnt4Xd23D5BokEUZHOolno2dzDZf", 39),
     market: {
       url: tf("ciseco-shop-ecommerce-nextjs-template/44210635"),
       price: 29,
@@ -384,6 +400,7 @@ export const projects: Project[] = [
       { name: "tailwindcss", version: "4" },
       { name: "typescript", version: "5" },
     ],
+    checkout: polar("polar_cl_OXvYo8NIarrH6Xl5RXktEPbL7S212cZbl9ByX05S1SA", 39),
     market: {
       url: tf("chisfis-online-booking-nextjs-template/43399526"),
       price: 29,
@@ -411,6 +428,7 @@ export const projects: Project[] = [
       { name: "tailwindcss", version: "4" },
       { name: "typescript", version: "5" },
     ],
+    checkout: polar("polar_cl_s2L3FaBAvpxrWOH1SMUobhbKUfUtqfzy9eiyA06o2fw", 39),
     market: {
       url: tf("bitpan-multipurpose-ecommerce-nextjs-template/57992846"),
       price: 29,
@@ -435,6 +453,7 @@ export const projects: Project[] = [
       { name: "tailwindcss", version: "3" },
       { name: "typescript", version: "5" },
     ],
+    checkout: polar("polar_cl_LfmyzTro1CWZV5ZtBr03fbu8GLz6jRO7SNcLR4XBoAo", 39),
     market: {
       url: tf("ciscryp-nft-marketplace-react-template/36906743"),
       price: 19,
