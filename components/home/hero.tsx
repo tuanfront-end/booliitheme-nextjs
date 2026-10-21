@@ -14,12 +14,28 @@ const shown = ["chisfis", "ciseco", "ncmaz"]
   .filter((p) => p !== undefined);
 
 // Who we are and what we do, anchored low on the start side; three templates
-// cascade off the far edge on hairline stripes. Below the actions, the
+// cascade off the far edge on a sheet of graph paper. Below the actions, the
 // portfolio's real figures in mono.
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden">
-      <div className="ground-stripes absolute inset-0" aria-hidden />
+      {/* Graph paper: a 24px grid in a faint line, every fifth line a step
+          firmer, fading out at the foot so the sheet ends before the next
+          section. */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          backgroundImage: [
+            "linear-gradient(to right, color-mix(in oklab, var(--border) 70%, transparent) 1px, transparent 1px)",
+            "linear-gradient(to bottom, color-mix(in oklab, var(--border) 70%, transparent) 1px, transparent 1px)",
+            "linear-gradient(to right, color-mix(in oklab, var(--border) 35%, transparent) 1px, transparent 1px)",
+            "linear-gradient(to bottom, color-mix(in oklab, var(--border) 35%, transparent) 1px, transparent 1px)",
+          ].join(", "),
+          backgroundSize: "120px 120px, 120px 120px, 24px 24px, 24px 24px",
+          maskImage: "linear-gradient(to bottom, black 70%, transparent)",
+        }}
+      />
       <div className="relative mx-auto grid max-w-7xl items-end gap-16 px-6 pt-16 pb-12 sm:px-8 lg:min-h-[44rem] lg:grid-cols-[6fr_6fr] lg:pt-24">
         <div className="pb-2">
           <Eyebrow>Design studio · since {since}</Eyebrow>
