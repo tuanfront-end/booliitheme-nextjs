@@ -12,10 +12,9 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogBody,
+  DialogCloseButton,
   DialogContent,
   DialogDescription,
-  DialogFooter,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -83,8 +82,8 @@ function Actions({ p }: { p: Project }) {
 // Every template as a laptop and a phone showing its live demo, its name, its
 // price and the two things to do with it — preview, buy — in two columns, the
 // second set half a card lower. A press on the devices opens the template over
-// the page, the way Dribbble opens a shot, and the arrows walk to its
-// neighbours without closing.
+// the page, the way Dribbble opens a shot; the arrows and the three templates at
+// its foot walk on without closing.
 export function Templates() {
   const [open, setOpen] = useState<number | null>(null);
   const current = open === null ? null : projects[open];
@@ -142,44 +141,84 @@ export function Templates() {
           ))}
         </ul>
 
-        <DialogContent className="sm:max-w-5xl">
+        {/* Open, a template takes the screen the way a Dribbble shot does: a
+            sheet rising almost to the top, its name and the things to do with it
+            in a bar across the head, the pictures large below, and three more
+            templates at the foot to walk on to. */}
+        <DialogContent className="sm:-mb-6 sm:h-[calc(100dvh-2.5rem)] sm:max-h-none sm:max-w-none sm:self-end sm:rounded-b-none sm:rounded-t-xl sm:data-starting-style:translate-y-16 sm:data-ending-style:translate-y-16">
           {current && (
             <>
-              <DialogHeader>
-                <DialogTitle className="font-heading text-4xl font-normal">{current.name}</DialogTitle>
-                <DialogDescription>
-                  {current.tagline} · {current.platforms.map((pl) => platforms[pl]).join(", ")}
-                </DialogDescription>
-              </DialogHeader>
-              <DialogBody className="flex flex-col gap-4">
-                <Frame src={current.live?.desktop ?? current.shots[0]} alt={`${current.name}, home page`} />
-                <div className="grid gap-4 sm:grid-cols-[1fr_3fr]">
-                  {current.live && (
-                    <Frame src={current.live.mobile} alt={`${current.name} on a phone`} sizes="16rem" />
-                  )}
-                  {current.shots[1] && (
-                    <Frame
-                      src={current.shots[1]}
-                      alt={`${current.name}, an inner page`}
-                      className={current.live ? undefined : "sm:col-span-2"}
-                    />
-                  )}
+              <div className="flex shrink-0 flex-wrap items-center gap-x-6 gap-y-3 border-b px-6 py-4 sm:px-8">
+                <div className="me-auto flex min-w-0 flex-col gap-0.5">
+                  <DialogTitle className="font-heading text-3xl font-normal">{current.name}</DialogTitle>
+                  <DialogDescription>
+                    {current.tagline} · {current.platforms.map((pl) => platforms[pl]).join(", ")}
+                  </DialogDescription>
                 </div>
-              </DialogBody>
-              <DialogFooter className="justify-between">
-                <div className="flex gap-1">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-sm text-muted-foreground tabular-nums">{price(current)}</span>
+                  <Actions p={current} />
+                </div>
+                <div className="flex items-center gap-1 max-sm:order-first max-sm:w-full max-sm:justify-end">
                   <Button variant="ghost" size="icon" aria-label="Previous template" onClick={() => step(-1)}>
                     <ArrowLeftIcon className="rtl:-scale-x-100" />
                   </Button>
                   <Button variant="ghost" size="icon" aria-label="Next template" onClick={() => step(1)}>
                     <ArrowRightIcon className="rtl:-scale-x-100" />
                   </Button>
+                  <DialogCloseButton className="ms-2" />
                 </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="text-sm text-muted-foreground tabular-nums">{price(current)}</span>
-                  <Actions p={current} />
+              </div>
+              {/* Keyed by template, so walking on starts the next one at its top. */}
+              <DialogBody key={current.slug} className="py-10 sm:py-14">
+                <div className="mx-auto flex max-w-6xl flex-col gap-6">
+                  <div className="grid items-start gap-6 sm:grid-cols-[3fr_1fr]">
+                    <Frame
+                      src={current.live?.desktop ?? current.shots[0]}
+                      alt={`${current.name}, home page`}
+                      sizes="(min-width: 1024px) 54rem, 100vw"
+                      className={current.live ? "w-full" : "w-full sm:col-span-2"}
+                    />
+                    {current.live && (
+                      <Frame src={current.live.mobile} alt={`${current.name} on a phone`} sizes="18rem" className="w-full" />
+                    )}
+                  </div>
+                  {current.shots[1] && (
+                    <Frame src={current.shots[1]} alt={`${current.name}, an inner page`} className="w-full" />
+                  )}
+
+                  <div className="mt-16 border-t border-border pt-8">
+                    <h3 className="text-sm font-medium">More templates</h3>
+                    <ul className="mt-6 grid gap-6 sm:grid-cols-3">
+                      {[1, 2, 3].map((by) => {
+                        const at = ((open ?? 0) + by) % projects.length;
+                        const next = projects[at];
+                        return (
+                          <li key={next.slug}>
+                            <DialogTrigger
+                              onClick={() => setOpen(at)}
+                              className="group/more block w-full rounded-md text-start"
+                            >
+                              <span className="block overflow-hidden rounded-md border border-border p-1 transition-colors duration-answer ease-answer group-hover/more:border-[color-mix(in_oklab,var(--foreground)_20%,transparent)]">
+                                <Image
+                                  src={next.live?.desktop ?? next.shots[0]}
+                                  alt=""
+                                  sizes="24rem"
+                                  className="aspect-[16/10] w-full rounded-[4px] object-cover object-top"
+                                />
+                              </span>
+                              <span className="mt-3 flex justify-between gap-3 px-1 text-sm">
+                                <span className="font-medium">{next.name}</span>
+                                <span className="text-muted-foreground tabular-nums">{price(next)}</span>
+                              </span>
+                            </DialogTrigger>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </div>
-              </DialogFooter>
+              </DialogBody>
             </>
           )}
         </DialogContent>
