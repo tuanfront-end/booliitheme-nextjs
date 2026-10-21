@@ -5,6 +5,7 @@ import { Skin } from "@/components/dev/switch-control";
 import { Hero } from "@/components/home/hero";
 import { Templates } from "@/components/home/templates";
 import { WorkWithUs } from "@/components/home/work-with-us";
+import { GraphPaper } from "@/components/site/graph-paper";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -21,7 +22,8 @@ export const dynamic = "force-dynamic";
 export default async function Home({ searchParams }: { searchParams: Promise<{ v?: string | string[] }> }) {
   return (
     <Skin saved={await readPicks()} preview={versions((await searchParams).v)}>
-      <main id="content" className="flex flex-col gap-32 lg:gap-40">
+      <main id="content" className="relative isolate flex flex-col gap-32 lg:gap-40">
+        <GraphPaper className="absolute inset-0 -z-10" />
         <Hero />
         <Templates />
         <WorkWithUs />

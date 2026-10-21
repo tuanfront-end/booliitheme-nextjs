@@ -4,9 +4,9 @@
 // one hue give it depth without a gradient. Every cell is decided from its
 // position, so the server and the browser draw the same figure.
 
-// The layout below is drawn on a 56 × 34 sketch and set on a grid 1.4 times
-// finer, so the characters read as a texture rather than as type.
-const SCALE = 1.4;
+// The layout below is drawn on a 56 × 34 sketch and set on a grid twice as
+// fine, so the characters read as a texture rather than as type.
+const SCALE = 2;
 const COLS = Math.round(56 * SCALE);
 const ROWS = Math.round(34 * SCALE);
 const CW = 6.6; // IBM Plex Mono's advance at 11px
@@ -88,6 +88,7 @@ export function HeroFigure({ className }: { className?: string }) {
   return (
     <svg
       viewBox={`0 0 ${COLS * CW} ${ROWS * LH}`}
+      preserveAspectRatio="xMaxYMax meet"
       className={className}
       aria-hidden
       focusable="false"
