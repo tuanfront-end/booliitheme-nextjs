@@ -24,8 +24,8 @@ import { formatMoney } from "@/lib/format";
 const price = (p: Project) =>
   p.market.price ? formatMoney(p.market.price, undefined, { maximumFractionDigits: 0 }) : "On ThemeForest";
 
-// Every template as a picture, its name and its price, in one hairline panel —
-// nothing else on the card. A press opens the template over the page, the way
+// Every template as a picture, its name and its price on paper, in two
+// columns, the second set half a card lower — nothing else on the card. A press opens the template over the page, the way
 // Dribbble opens a shot, and the arrows walk to its neighbours without closing.
 export function Templates() {
   const [open, setOpen] = useState<number | null>(null);
@@ -45,19 +45,19 @@ export function Templates() {
       <Lede className="mt-2">Open one to see it closer. Every template runs as a live demo.</Lede>
 
       <Dialog open={open !== null} onOpenChange={(o) => !o && setOpen(null)}>
-        <ul className="mt-16 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:mt-24">
+        <ul className="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 sm:pb-40 sm:[&>li:nth-child(even)]:translate-y-40 lg:mt-24 lg:gap-x-12">
           {projects.map((p, i) => (
-            <li key={p.slug} className="bg-background">
+            <li key={p.slug}>
               <DialogTrigger
                 onClick={() => setOpen(i)}
-                className="group/card flex w-full flex-col gap-4 p-4 text-start transition-colors duration-answer ease-answer hover:bg-muted focus-visible:-outline-offset-2 sm:p-5"
+                className="group/card flex w-full flex-col gap-4 rounded-lg text-start"
               >
-                <span className="block overflow-hidden border border-border bg-background p-1">
+                <span className="block overflow-hidden rounded-lg border border-border bg-background p-1.5 transition-colors duration-answer ease-answer group-hover/card:border-[color-mix(in_oklab,var(--foreground)_20%,transparent)]">
                   <Image
                     src={p.shots[0]}
                     alt=""
                     sizes="(min-width: 640px) 40rem, 100vw"
-                    className="aspect-[16/11] w-full object-cover object-top transition-transform duration-arrive ease-arrive group-hover/card:scale-[1.015]"
+                    className="aspect-[16/11] w-full rounded-[calc(var(--radius)-6px)] object-cover object-top transition-transform duration-arrive ease-arrive group-hover/card:scale-[1.015]"
                   />
                 </span>
                 <span className="flex items-baseline justify-between gap-4 px-1">
