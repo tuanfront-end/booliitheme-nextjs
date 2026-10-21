@@ -94,6 +94,9 @@ export type Project = {
   platforms: Platform[];
   industry: Industry;
   tagline: string;
+  /** Two sentences on who the template is for and what it does, shown when
+   *  it is opened. */
+  about: string;
   demo: string;
   /** The home page first; a second shot, when there is one, is an inner page. */
   shots: StaticImageData[];
@@ -126,6 +129,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "events",
     tagline: "Event ticketing marketplace template",
+    about:
+      "Doorlist is for a ticket marketplace. Visitors search by what, where and when, open an event and choose their tickets.",
     demo: "https://doorlist-eight.vercel.app",
     shots: [doorlistLiveDesktop],
     live: { desktop: doorlistLiveDesktop, mobile: doorlistLiveMobile },
@@ -146,6 +151,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "education",
     tagline: "AI course marketplace template",
+    about:
+      "Waypoint is for an online course marketplace with an AI tutor beside every lesson. Learners find a course by subject and ask questions while they watch.",
     demo: "https://waypoint-puce-seven.vercel.app",
     shots: [waypointLiveDesktop],
     live: { desktop: waypointLiveDesktop, mobile: waypointLiveMobile },
@@ -165,6 +172,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "real-estate",
     tagline: "Real estate brokerage template",
+    about:
+      "Ofen is for a residential brokerage, an estate agency or a property listing site. Twelve routes ship built and filled, with search, a compare frame, a viewing scheduler and a payment calculator.",
     demo: "https://template-ofen.vercel.app",
     shots: [ofenLiveDesktop],
     live: { desktop: ofenLiveDesktop, mobile: ofenLiveMobile },
@@ -184,6 +193,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "education",
     tagline: "Tutor marketplace template",
+    about:
+      "Saal is a directory of tutors rather than a catalogue of courses. Visitors filter a roster, read profiles, compare three side by side and book a slot from a real availability grid.",
     demo: "https://template-saal.vercel.app",
     shots: [saalLiveDesktop],
     live: { desktop: saalLiveDesktop, mobile: saalLiveMobile },
@@ -203,6 +214,8 @@ export const projects: Project[] = [
     platforms: ["wordpress"],
     industry: "ecommerce",
     tagline: "Multipurpose WooCommerce block theme",
+    about:
+      "Bitpan's design as a WooCommerce block theme. The whole shop is edited in the WordPress site editor, with no page builder.",
     demo: "https://bitpan-fse.booliitheme.com",
     shots: [bitpan, bitpan2],
     live: { desktop: bitpanWoocommerceLiveDesktop, mobile: bitpanWoocommerceLiveMobile },
@@ -230,6 +243,8 @@ export const projects: Project[] = [
     platforms: ["wordpress"],
     industry: "ecommerce",
     tagline: "Multipurpose WooCommerce block theme",
+    about:
+      "Ciseco's design as a WooCommerce block theme, for a shop that runs on WordPress. Every template and part is edited in the site editor.",
     demo: "https://ciseco-fse.booliitheme.com",
     shots: [cisecoFse, cisecoFse2],
     live: { desktop: cisecoWoocommerceLiveDesktop, mobile: cisecoWoocommerceLiveMobile },
@@ -254,6 +269,8 @@ export const projects: Project[] = [
     platforms: ["wordpress"],
     industry: "magazine",
     tagline: "News and magazine block theme",
+    about:
+      "Ncmaz as a WordPress block theme, for a blog, a news site or a magazine. Writers stay in the WordPress editor they already know.",
     demo: "https://ncmaz-fse.booliitheme.com",
     shots: [ncmazFse, ncmazFse2],
     live: { desktop: ncmazWordpressLiveDesktop, mobile: ncmazWordpressLiveMobile },
@@ -282,6 +299,8 @@ export const projects: Project[] = [
     platforms: ["nextjs", "wordpress"],
     industry: "magazine",
     tagline: "Next.js front end for a headless WordPress",
+    about:
+      "Ncmaz's front end in Next.js, reading its posts from a headless WordPress. Editors keep WordPress; readers get a fast site.",
     demo: "https://ncmaz-faust-delta.vercel.app",
     shots: [ncmazFaust, ncmazFaust2],
     live: { desktop: ncmazHeadlessWordpressLiveDesktop, mobile: ncmazHeadlessWordpressLiveMobile },
@@ -310,6 +329,8 @@ export const projects: Project[] = [
     platforms: ["shopify"],
     industry: "ecommerce",
     tagline: "Headless storefront for Shopify Hydrogen",
+    about:
+      "Ciseco as a headless Shopify storefront on Hydrogen. Products, cart and checkout come from the Shopify store behind it.",
     demo: "https://ciseco-h2.booliitheme.com",
     shots: [cisecoH2, cisecoH22],
     stack: [
@@ -335,6 +356,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "magazine",
     tagline: "Blog, news and magazine template",
+    about:
+      "Ncmaz is a Next.js template for a blog, a news site or a magazine. It ships home layouts with category, author and article pages.",
     demo: "https://ncmaz-nextjs.vercel.app",
     shots: [ncmaz, ncmaz2],
     live: { desktop: ncmazLiveDesktop, mobile: ncmazLiveMobile },
@@ -363,6 +386,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "ecommerce",
     tagline: "Shop and ecommerce template",
+    about:
+      "Ciseco is a Next.js template for an online shop. It covers collections, product pages, the cart and checkout.",
     demo: "https://ciseco-nextjs.vercel.app",
     shots: [ciseco, ciseco2],
     live: { desktop: cisecoLiveDesktop, mobile: cisecoLiveMobile },
@@ -391,6 +416,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "booking",
     tagline: "Online booking template for stays, cars and experiences",
+    about:
+      "Chisfis is a Next.js booking template for stays, car rentals and experiences. It runs from search to listing to checkout.",
     demo: "https://chisfis-nextjs.vercel.app",
     shots: [chisfis, chisfis2],
     live: { desktop: chisfisLiveDesktop, mobile: chisfisLiveMobile },
@@ -419,6 +446,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "ecommerce",
     tagline: "Multipurpose ecommerce template",
+    about:
+      "Bitpan is a multipurpose ecommerce template in Next.js. Its pages suit a shop of almost any kind.",
     demo: "https://bitpan-ecommerce-nextjs-template.vercel.app",
     shots: [bitpan, bitpan2],
     live: { desktop: bitpanLiveDesktop, mobile: bitpanLiveMobile },
@@ -444,6 +473,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "nft",
     tagline: "NFT marketplace template",
+    about:
+      "Ciscryp is a Next.js template for an NFT marketplace. It covers collections, item pages and creator profiles.",
     demo: "https://ciscryp-nextjs.vercel.app",
     shots: [ciscryp, ciscryp2],
     live: { desktop: ciscrypLiveDesktop, mobile: ciscrypLiveMobile },
@@ -472,6 +503,8 @@ export const projects: Project[] = [
     platforms: ["nextjs"],
     industry: "media",
     tagline: "Ambient sound, mixed by you",
+    about:
+      "Loopmere is a project of our own, an ambient sound mixer. Pick a few sounds, set each one's level and let it play.",
     demo: "https://loopmere.vercel.app",
     shots: [loopmereLiveDesktop],
     live: { desktop: loopmereLiveDesktop, mobile: loopmereLiveMobile },

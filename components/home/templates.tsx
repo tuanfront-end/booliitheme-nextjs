@@ -8,6 +8,7 @@ import { DeviceMockup } from "@/components/site/device-mockup";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Lede } from "@/components/site/lede";
 import { SectionHeading } from "@/components/site/section-heading";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,8 +19,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { platforms, priceOf, projects, type Project } from "@/lib/data/projects";
-import { formatMoney } from "@/lib/format";
+import { industries, platforms, priceOf, projects, type Project } from "@/lib/data/projects";
+import { formatDate, formatMoney, formatNumber } from "@/lib/format";
 
 // A capture in a hairline frame, the way every picture in the overlay sits.
 function Frame({
@@ -49,6 +50,37 @@ const price = (p: Project) => {
 // Every Buy goes to the template's Polar checkout; the marketplace page stands
 // in until a checkout is set.
 const buyHref = (p: Project) => p.checkout?.url ?? p.market.url;
+
+// The facts under an open template, in the order a buyer asks them. A row
+// whose figure the marketplace does not give is left out.
+function details(p: Project): [string, React.ReactNode][] {
+  const rows: [string, React.ReactNode][] = [
+    ["Built with", p.build],
+    ["Category", industries[p.industry]],
+    [
+      "Stack",
+      <span key="stack" className="flex flex-wrap justify-end gap-1.5">
+        {p.stack.map((d) => (
+          <Badge key={d.name}>
+            {d.name}
+            {d.version && <span className="text-muted-foreground tabular-nums">{d.version}</span>}
+          </Badge>
+        ))}
+      </span>,
+    ],
+  ];
+  if (p.market.updated) rows.push(["Last updated", formatDate(p.market.updated)]);
+  if (p.market.sales) rows.push(["Sales", <span key="sales" className="tabular-nums">{formatNumber(p.market.sales)}</span>]);
+  if (p.market.rating)
+    rows.push([
+      "Rating",
+      <span key="rating" className="tabular-nums">
+        {p.market.rating.toFixed(2)}
+        {p.market.ratings ? <span className="text-muted-foreground"> from {p.market.ratings}</span> : null}
+      </span>,
+    ]);
+  return rows;
+}
 
 const NUMBERS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
   "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty"];
@@ -186,6 +218,23 @@ export function Templates() {
                   {current.shots[1] && (
                     <Frame src={current.shots[1]} alt={`${current.name}, an inner page`} className="w-full" />
                   )}
+
+                  {/* What it is, then the facts a buyer checks before paying,
+                      in a hairline list beside it. */}
+                  <div className="mt-10 grid gap-10 md:grid-cols-[3fr_2fr] md:gap-16">
+                    <div>
+                      <h3 className="text-sm font-medium">About {current.name}</h3>
+                      <p className="mt-3 max-w-prose text-base text-muted-foreground">{current.about}</p>
+                    </div>
+                    <dl className="divide-y divide-border border-y border-border text-sm">
+                      {details(current).map(([term, value]) => (
+                        <div key={term} className="flex items-baseline justify-between gap-6 py-3">
+                          <dt className="text-muted-foreground">{term}</dt>
+                          <dd className="text-end">{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
 
                   <div className="mt-16 border-t border-border pt-8">
                     <h3 className="text-sm font-medium">More templates</h3>
