@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon, ArrowUpRightIcon } from "@heroicons/react/24/outline";
 
+import { DeviceMockup } from "@/components/site/device-mockup";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Lede } from "@/components/site/lede";
 import { SectionHeading } from "@/components/site/section-heading";
@@ -20,6 +21,25 @@ import {
 } from "@/components/ui/dialog";
 import { platforms, projects, type Project } from "@/lib/data/projects";
 import { formatMoney } from "@/lib/format";
+
+// A capture in a hairline frame, the way every picture in the overlay sits.
+function Frame({
+  src,
+  alt,
+  sizes = "(min-width: 1024px) 60rem, 100vw",
+  className,
+}: {
+  src: StaticImageData;
+  alt: string;
+  sizes?: string;
+  className?: string;
+}) {
+  return (
+    <span className={`block self-start overflow-hidden rounded-md border border-border p-1 ${className ?? ""}`}>
+      <Image src={src} alt={alt} sizes={sizes} className="w-full rounded-[4px]" />
+    </span>
+  );
+}
 
 const price = (p: Project) =>
   p.market.price ? formatMoney(p.market.price, undefined, { maximumFractionDigits: 0 }) : "On ThemeForest";
@@ -52,14 +72,23 @@ export function Templates() {
                 onClick={() => setOpen(i)}
                 className="group/card flex w-full flex-col gap-4 rounded-lg text-start"
               >
-                <span className="block overflow-hidden rounded-lg border border-border bg-background p-1.5 transition-colors duration-answer ease-answer group-hover/card:border-[color-mix(in_oklab,var(--foreground)_20%,transparent)]">
-                  <Image
-                    src={p.shots[0]}
+                {p.live ? (
+                  <DeviceMockup
+                    desktop={p.live.desktop}
+                    mobile={p.live.mobile}
                     alt=""
-                    sizes="(min-width: 640px) 40rem, 100vw"
-                    className="aspect-[16/11] w-full rounded-[calc(var(--radius)-6px)] object-cover object-top transition-transform duration-arrive ease-arrive group-hover/card:scale-[1.015]"
+                    className="transition-transform duration-arrive ease-arrive group-hover/card:-translate-y-1"
                   />
-                </span>
+                ) : (
+                  <span className="block overflow-hidden rounded-lg border border-border bg-background p-1.5 transition-colors duration-answer ease-answer group-hover/card:border-[color-mix(in_oklab,var(--foreground)_20%,transparent)]">
+                    <Image
+                      src={p.shots[0]}
+                      alt=""
+                      sizes="(min-width: 640px) 40rem, 100vw"
+                      className="aspect-[16/11] w-full rounded-[calc(var(--radius)-6px)] object-cover object-top"
+                    />
+                  </span>
+                )}
                 <span className="flex items-baseline justify-between gap-4 px-1">
                   <span className="text-sm font-medium">{p.name}</span>
                   <span className="text-sm text-muted-foreground tabular-nums">{price(p)}</span>
@@ -79,16 +108,17 @@ export function Templates() {
                 </DialogDescription>
               </DialogHeader>
               <DialogBody className="flex flex-col gap-4">
-                {current.shots.map((shot, i) => (
-                  <span key={i} className="block overflow-hidden rounded-md border border-border p-1">
-                    <Image
-                      src={shot}
-                      alt={`${current.name}, ${i === 0 ? "home page" : "an inner page"}`}
-                      sizes="(min-width: 1024px) 60rem, 100vw"
-                      className="w-full rounded-[4px]"
-                    />
-                  </span>
-                ))}
+                <Frame src={current.live?.desktop ?? current.shots[0]} alt={`${current.name}, home page`} />
+                <div className="grid gap-4 sm:grid-cols-[1fr_3fr]">
+                  {current.live && (
+                    <Frame src={current.live.mobile} alt={`${current.name} on a phone`} sizes="16rem" />
+                  )}
+                  <Frame
+                    src={current.shots[1]}
+                    alt={`${current.name}, an inner page`}
+                    className={current.live ? undefined : "sm:col-span-2"}
+                  />
+                </div>
               </DialogBody>
               <DialogFooter className="justify-between">
                 <div className="flex gap-1">

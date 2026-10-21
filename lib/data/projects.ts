@@ -18,6 +18,24 @@ import ncmazFaust from "@/images/work/ncmazfaust.png";
 import ncmazFaust2 from "@/images/work/ncmazfaust2.png";
 import ncmazFse from "@/images/work/ncmazfse.png";
 import ncmazFse2 from "@/images/work/ncmazfse2.png";
+import bitpanWoocommerceLiveDesktop from "@/images/live/bitpan-woocommerce-desktop.jpg";
+import bitpanWoocommerceLiveMobile from "@/images/live/bitpan-woocommerce-mobile.jpg";
+import cisecoWoocommerceLiveDesktop from "@/images/live/ciseco-woocommerce-desktop.jpg";
+import cisecoWoocommerceLiveMobile from "@/images/live/ciseco-woocommerce-mobile.jpg";
+import ncmazWordpressLiveDesktop from "@/images/live/ncmaz-wordpress-desktop.jpg";
+import ncmazWordpressLiveMobile from "@/images/live/ncmaz-wordpress-mobile.jpg";
+import ncmazHeadlessWordpressLiveDesktop from "@/images/live/ncmaz-headless-wordpress-desktop.jpg";
+import ncmazHeadlessWordpressLiveMobile from "@/images/live/ncmaz-headless-wordpress-mobile.jpg";
+import ncmazLiveDesktop from "@/images/live/ncmaz-desktop.jpg";
+import ncmazLiveMobile from "@/images/live/ncmaz-mobile.jpg";
+import cisecoLiveDesktop from "@/images/live/ciseco-desktop.jpg";
+import cisecoLiveMobile from "@/images/live/ciseco-mobile.jpg";
+import chisfisLiveDesktop from "@/images/live/chisfis-desktop.jpg";
+import chisfisLiveMobile from "@/images/live/chisfis-mobile.jpg";
+import bitpanLiveDesktop from "@/images/live/bitpan-desktop.jpg";
+import bitpanLiveMobile from "@/images/live/bitpan-mobile.jpg";
+import ciscrypLiveDesktop from "@/images/live/ciscryp-desktop.jpg";
+import ciscrypLiveMobile from "@/images/live/ciscryp-mobile.jpg";
 
 // Every figure below is one ThemeForest shows publicly, read off an archived
 // copy of the page named in `asOf` — the live pages sit behind a bot wall.
@@ -64,6 +82,9 @@ export type Project = {
   tagline: string;
   demo: string;
   shots: [StaticImageData, StaticImageData];
+  /** The live demo captured at 1440 × 900 and 390 × 844, shown in the device
+   *  mockup. Absent while a demo is down. */
+  live?: { desktop: StaticImageData; mobile: StaticImageData };
   stack: Dependency[];
   isNew?: boolean;
   market: Market;
@@ -83,6 +104,7 @@ export const projects: Project[] = [
     tagline: "Multipurpose WooCommerce block theme",
     demo: "https://bitpan-fse.booliitheme.com",
     shots: [bitpan, bitpan2],
+    live: { desktop: bitpanWoocommerceLiveDesktop, mobile: bitpanWoocommerceLiveMobile },
     stack: [
       { name: "WordPress", version: "6.9" },
       { name: "WooCommerce", version: "10.4" },
@@ -108,6 +130,7 @@ export const projects: Project[] = [
     tagline: "Multipurpose WooCommerce block theme",
     demo: "https://ciseco-fse.booliitheme.com",
     shots: [cisecoFse, cisecoFse2],
+    live: { desktop: cisecoWoocommerceLiveDesktop, mobile: cisecoWoocommerceLiveMobile },
     stack: [
       { name: "WordPress", version: "6.9" },
       { name: "WooCommerce", version: "10.4" },
@@ -130,6 +153,7 @@ export const projects: Project[] = [
     tagline: "News and magazine block theme",
     demo: "https://ncmaz-fse.booliitheme.com",
     shots: [ncmazFse, ncmazFse2],
+    live: { desktop: ncmazWordpressLiveDesktop, mobile: ncmazWordpressLiveMobile },
     stack: [
       { name: "WordPress", version: "6.8" },
       { name: "Full Site Editing" },
@@ -156,6 +180,7 @@ export const projects: Project[] = [
     tagline: "Next.js front end for a headless WordPress",
     demo: "https://ncmaz-faust-delta.vercel.app",
     shots: [ncmazFaust, ncmazFaust2],
+    live: { desktop: ncmazHeadlessWordpressLiveDesktop, mobile: ncmazHeadlessWordpressLiveMobile },
     stack: [
       { name: "WordPress", version: "6.8" },
       { name: "next", version: "14" },
@@ -206,6 +231,7 @@ export const projects: Project[] = [
     tagline: "Blog, news and magazine template",
     demo: "https://ncmaz-nextjs.vercel.app",
     shots: [ncmaz, ncmaz2],
+    live: { desktop: ncmazLiveDesktop, mobile: ncmazLiveMobile },
     stack: [
       { name: "next", version: "14" },
       { name: "react", version: "18" },
@@ -232,6 +258,7 @@ export const projects: Project[] = [
     tagline: "Shop and ecommerce template",
     demo: "https://ciseco-nextjs.vercel.app",
     shots: [ciseco, ciseco2],
+    live: { desktop: cisecoLiveDesktop, mobile: cisecoLiveMobile },
     stack: [
       { name: "next", version: "15" },
       { name: "react", version: "19" },
@@ -258,6 +285,7 @@ export const projects: Project[] = [
     tagline: "Online booking template for stays, cars and experiences",
     demo: "https://chisfis-nextjs.vercel.app",
     shots: [chisfis, chisfis2],
+    live: { desktop: chisfisLiveDesktop, mobile: chisfisLiveMobile },
     stack: [
       { name: "next", version: "15" },
       { name: "react", version: "19" },
@@ -284,6 +312,7 @@ export const projects: Project[] = [
     tagline: "Multipurpose ecommerce template",
     demo: "https://bitpan-ecommerce-nextjs-template.vercel.app",
     shots: [bitpan, bitpan2],
+    live: { desktop: bitpanLiveDesktop, mobile: bitpanLiveMobile },
     stack: [
       { name: "next", version: "15" },
       { name: "react", version: "19" },
@@ -307,6 +336,7 @@ export const projects: Project[] = [
     tagline: "NFT marketplace template",
     demo: "https://ciscryp-nextjs.vercel.app",
     shots: [ciscryp, ciscryp2],
+    live: { desktop: ciscrypLiveDesktop, mobile: ciscrypLiveMobile },
     stack: [
       { name: "next", version: "14" },
       { name: "react", version: "18" },
