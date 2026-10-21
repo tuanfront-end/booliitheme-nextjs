@@ -1,44 +1,57 @@
-// A website half-built, drawn in 0s and 1s: the browser bar, a headline, a
-// button, a picture and three cards, each a block of characters in the brand
-// on flat paper. Edges dissolve a cell at a time, and three strengths of the
-// one hue give it depth without a gradient. Every cell is decided from its
-// position, so the server and the browser draw the same figure.
+// Two people in profile, face to face, drawn in 0s and 1s: the two of us, and
+// the drafting a machine does for us. Each head is one outline, the second a
+// mirror of the first with a bun added; the characters are firmest on the face, where the two
+// look at each other, and thin out towards the back of the head. Edges
+// dissolve a cell at a time. Every cell is decided from its position, so the
+// server and the browser draw the same figure.
 
-// The layout below is drawn on a 56 × 34 sketch and set on a grid twice as
-// fine, so the characters read as a texture rather than as type.
-const SCALE = 2;
-const COLS = Math.round(56 * SCALE);
-const ROWS = Math.round(34 * SCALE);
 const CW = 6.6; // IBM Plex Mono's advance at 11px
 const LH = 11;
+const ROWS = 72;
+const H = ROWS * LH; // one head's height
+const W = H * 0.85; // and its width
+const X2 = W * 0.84; // where the mirrored head starts, noses a little apart
+const BUN = { u: 0.1, v: 0.3, r: 0.1 * H }; // the second head's, in its own box
+const COLS = Math.ceil((X2 + (1 - BUN.u) * W + BUN.r) / CW);
 
-type Block = { x0: number; y0: number; x1: number; y1: number; tier: 0 | 1 | 2; fill: number };
-
-// tier 0 is the firmest ink, 2 the faintest; fill is how much of the block is set.
-const BLOCKS: Block[] = [
-  { x0: 0, y0: 0, x1: 55, y1: 2, tier: 1, fill: 0.9 }, // the browser bar
-  { x0: 0, y0: 3, x1: 0, y1: 33, tier: 2, fill: 0.8 }, // its frame
-  { x0: 55, y0: 3, x1: 55, y1: 33, tier: 2, fill: 0.8 },
-  { x0: 0, y0: 33, x1: 55, y1: 33, tier: 2, fill: 0.8 },
-  { x0: 3, y0: 4, x1: 8, y1: 4, tier: 1, fill: 1 }, // the logo
-  { x0: 33, y0: 4, x1: 52, y1: 4, tier: 2, fill: 0.6 }, // the nav
-  { x0: 3, y0: 7, x1: 27, y1: 9, tier: 0, fill: 0.95 }, // the headline
-  { x0: 3, y0: 10, x1: 20, y1: 12, tier: 0, fill: 0.95 },
-  { x0: 3, y0: 14, x1: 26, y1: 15, tier: 2, fill: 0.55 }, // the lede
-  { x0: 3, y0: 17, x1: 13, y1: 18, tier: 0, fill: 1 }, // the button
-  { x0: 31, y0: 6, x1: 52, y1: 19, tier: 1, fill: 0.85 }, // the picture
-  { x0: 3, y0: 22, x1: 16, y1: 27, tier: 1, fill: 0.8 }, // three cards
-  { x0: 3, y0: 29, x1: 13, y1: 29, tier: 0, fill: 0.9 },
-  { x0: 3, y0: 30, x1: 15, y1: 30, tier: 2, fill: 0.5 },
-  { x0: 20, y0: 22, x1: 34, y1: 27, tier: 1, fill: 0.8 },
-  { x0: 20, y0: 29, x1: 30, y1: 29, tier: 0, fill: 0.9 },
-  { x0: 20, y0: 30, x1: 33, y1: 30, tier: 2, fill: 0.5 },
-  { x0: 38, y0: 22, x1: 52, y1: 27, tier: 1, fill: 0.8 },
-  { x0: 38, y0: 29, x1: 48, y1: 29, tier: 0, fill: 0.9 },
-  { x0: 38, y0: 30, x1: 51, y1: 30, tier: 2, fill: 0.5 },
+// One head facing the end side, in a unit box: up the back of the neck, over
+// the crown, down the brow, nose, lips and chin, and out along the shoulder.
+const HEAD: [number, number][] = [
+  [0.02, 1], [0.08, 0.9], [0.2, 0.83], [0.3, 0.76], [0.29, 0.68], [0.22, 0.61],
+  [0.16, 0.52], [0.13, 0.4], [0.15, 0.28], [0.22, 0.17], [0.33, 0.09], [0.46, 0.05],
+  [0.58, 0.06], [0.68, 0.11], [0.74, 0.19], [0.77, 0.28], [0.78, 0.34], [0.74, 0.38],
+  [0.76, 0.41], [0.82, 0.46], [0.88, 0.51], [0.83, 0.535], [0.8, 0.545], [0.81, 0.575],
+  [0.84, 0.59], [0.8, 0.61], [0.83, 0.635], [0.79, 0.66], [0.78, 0.68], [0.81, 0.71],
+  [0.78, 0.745], [0.7, 0.76], [0.62, 0.765], [0.59, 0.8], [0.6, 0.86], [0.7, 0.92],
+  [0.84, 0.97], [0.9, 1],
 ];
 
+function inHead(u: number, v: number) {
+  let inside = false;
+  for (let i = 0, j = HEAD.length - 1; i < HEAD.length; j = i++) {
+    const [xi, yi] = HEAD[i];
+    const [xj, yj] = HEAD[j];
+    if (yi > v !== yj > v && u < ((xj - xi) * (v - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+// Where a point sits on either head: its depth from the face (0) to the back
+// of the head (1), or null outside both.
+function depth(px: number, py: number): number | null {
+  const v = py / H;
+  const left = px / W;
+  if (left <= 1 && inHead(left, v)) return 1 - left / 0.88;
+  const right = 1 - (px - X2) / W;
+  if (right >= 0 && right <= 1 && inHead(right, v)) return 1 - right / 0.88;
+  // The second head wears its hair up, so the two are two people and not a
+  // reflection: a bun at the back, in the middle strength.
+  if (Math.hypot((right - BUN.u) * W, (v - BUN.v) * H) < BUN.r) return 0.45;
+  return null;
+}
+
 const OPACITY = ["1", "0.62", "0.32"];
+const KEEP = [0.92, 0.78, 0.56];
 
 // A stable pseudo-random number in [0, 1) for a cell.
 function hash(x: number, y: number, salt: number) {
@@ -48,21 +61,22 @@ function hash(x: number, y: number, salt: number) {
 }
 
 function cell(gx: number, gy: number): { ch: string; tier: number } | null {
-  const x = Math.floor(gx / SCALE);
-  const y = Math.floor(gy / SCALE);
-  for (const b of BLOCKS) {
-    if (x < b.x0 || x > b.x1 || y < b.y0 || y > b.y1) continue;
-    // Cells on a block's edge are dropped more often, so the shape dissolves.
-    const edge = x === b.x0 || x === b.x1 || y === b.y0 || y === b.y1;
-    const keep = edge ? b.fill * 0.6 : b.fill;
-    if (hash(gx, gy, 1) > keep) return null;
-    return { ch: hash(gx, gy, 2) < 0.62 ? "0" : "1", tier: b.tier };
-  }
-  return null;
+  const px = (gx + 0.5) * CW;
+  const py = (gy + 0.5) * LH;
+  const d = depth(px, py);
+  if (d === null) return null;
+  const tier = d < 0.3 ? 0 : d < 0.6 ? 1 : 2;
+  // A cell with a neighbour outside the outline is on the edge, and dropped
+  // more often, so the silhouette dissolves rather than ends; the face's
+  // edge less so, or the nose and lips would go with it.
+  const edge = [[CW, 0], [-CW, 0], [0, LH], [0, -LH]].some(([dx, dy]) => depth(px + dx, py + dy) === null);
+  const keep = edge ? KEEP[tier] * (tier === 0 ? 0.85 : 0.45) : KEEP[tier];
+  if (hash(gx, gy, 1) > keep) return null;
+  return { ch: hash(gx, gy, 2) < 0.6 ? "0" : "1", tier };
 }
 
-// One <text> per row and tier, the empty cells as spaces, so the whole figure
-// is a hundred-odd text runs rather than two thousand nodes.
+// One <text> per row and tier, the empty cells as spaces, so the figure is a
+// couple of hundred text runs rather than thousands of nodes.
 function rows() {
   const out: { y: number; tier: number; text: string }[] = [];
   for (let y = 0; y < ROWS; y++) {
@@ -87,7 +101,7 @@ const RUNS = rows();
 export function HeroFigure({ className }: { className?: string }) {
   return (
     <svg
-      viewBox={`0 0 ${COLS * CW} ${ROWS * LH}`}
+      viewBox={`0 0 ${COLS * CW} ${H}`}
       preserveAspectRatio="xMaxYMax meet"
       className={className}
       aria-hidden

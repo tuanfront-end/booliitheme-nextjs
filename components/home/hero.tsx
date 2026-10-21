@@ -17,13 +17,13 @@ export function Hero() {
     <section aria-labelledby="hero-title" className="relative overflow-hidden">
       <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-6 pt-12 pb-12 sm:px-8 lg:min-h-[calc(100svh-4rem)] lg:justify-end lg:pt-24 lg:pb-16">
         <div
-          className="flex justify-center lg:absolute lg:inset-e-8 lg:bottom-0 lg:aspect-[739/748] lg:max-h-[92%] lg:w-[48%]"
+          className="flex justify-center lg:absolute lg:inset-e-4 lg:bottom-0 lg:aspect-[1254/792] lg:max-h-[94%] lg:w-[64%]"
           style={{ maskImage: "linear-gradient(to bottom, black 70%, transparent)" }}
         >
-          <HeroFigure className="h-auto w-full max-w-md lg:h-full lg:max-w-none" />
+          <HeroFigure className="h-auto w-full max-w-xl lg:h-full lg:max-w-none" />
         </div>
 
-        <div className="relative lg:max-w-[46%]">
+        <div className="relative lg:max-w-[38%]">
           <Eyebrow>Design studio · since {since}</Eyebrow>
           <h1
             id="hero-title"
@@ -31,7 +31,7 @@ export function Hero() {
           >
             Two designers, finishing websites
           </h1>
-          <p className="mt-5 max-w-xl text-base text-muted-foreground">
+          <p className="mt-5 max-w-xl text-base text-balance text-muted-foreground">
             BooliiTheme is a studio of two. We design templates for Next.js, Shopify and WordPress,
             and let AI take the drafting so our hours go into the details.
           </p>
