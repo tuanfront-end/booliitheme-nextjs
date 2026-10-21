@@ -1,20 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
+import { HeroFigure } from "@/components/home/hero-figure";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/ui/button";
-import { author, projects } from "@/lib/data/projects";
+import { author } from "@/lib/data/projects";
 import { formatNumber } from "@/lib/format";
 
 const since = author.since.slice(0, 4);
-// Three builds from three families, the newest at the front.
-const shown = ["chisfis", "ciseco", "ncmaz"]
-  .map((slug) => projects.find((p) => p.slug === slug))
-  .filter((p) => p !== undefined);
-
-// Who we are and what we do, anchored low on the start side; three templates
-// cascade off the far edge on a sheet of graph paper. Below the actions, the
+// Who we are and what we do, anchored low on the start side; across from it a
+// website half-built in 0s and 1s, on a sheet of graph paper. Below the actions, the
 // portfolio's real figures in mono.
 export function Hero() {
   return (
@@ -75,22 +70,8 @@ export function Hero() {
           </dl>
         </div>
 
-        <div className="relative h-[22rem] sm:h-[30rem] lg:h-[36rem]" aria-hidden>
-          {shown.map((p, i) => (
-            <div
-              key={p.slug}
-              className="absolute w-[78%] rounded-lg border border-border bg-background p-1.5 shadow-soft-lg sm:w-[70%] lg:w-[76%]"
-              style={{ insetInlineStart: `${i * 16}%`, top: `${(2 - i) * 14}%`, zIndex: 3 - i }}
-            >
-              <Image
-                src={p.shots[0]}
-                alt=""
-                sizes="(min-width: 1024px) 40rem, 80vw"
-                priority={i === 0}
-                className="aspect-[16/11] w-full rounded-md object-cover object-top"
-              />
-            </div>
-          ))}
+        <div className="flex justify-center lg:justify-end">
+          <HeroFigure className="h-auto w-full max-w-[34rem]" />
         </div>
       </div>
     </section>
