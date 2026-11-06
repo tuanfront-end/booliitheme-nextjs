@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 import { DialogBody, DialogCloseButton, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { listed, TemplateDetail, TemplateSteps } from "@/components/templates/detail";
 
-export { generateMetadata } from "@/app/templates/[slug]/page";
+// The sheet's own route is prerendered like the page it opens over: without
+// the params, the build leaves it to render on every request.
+export { generateMetadata, generateStaticParams } from "@/app/templates/[slug]/page";
+export const dynamicParams = false;
 
 // A card pressed on the home page lands here instead of on the template's own
 // page: the same template, drawn in the sheet the layout beside this file
