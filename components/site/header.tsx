@@ -41,7 +41,7 @@ function Disc({ label, href, className }: { label: string; href: string; classNa
           />
         }
       >
-        <HugeiconsIcon icon={glyphs[label]} strokeWidth={1.5} className="size-5" />
+        <HugeiconsIcon icon={glyphs[label]} strokeWidth={1.5} aria-hidden className="size-5" />
       </TooltipTrigger>
       <TooltipContent>{label}</TooltipContent>
     </Tooltip>
@@ -88,7 +88,7 @@ export function SiteHeader() {
                 />
               }
             >
-              <HugeiconsIcon icon={ShoppingBag01Icon} strokeWidth={1.5} data-icon="inline-start" className="size-5" />
+              <HugeiconsIcon icon={ShoppingBag01Icon} strokeWidth={1.5} aria-hidden data-icon="inline-start" className="size-5" />
               {/* One span, so the figure and its unit sit a word space apart
                   rather than the pill's gap. */}
               <span>

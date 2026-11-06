@@ -81,7 +81,7 @@ export function TeamPanel() {
     <section className="mx-auto w-full max-w-7xl px-8 py-24">
       <div className="flex gap-6">
         {/* The rail is the softest tint on the ladder, not the darkest. */}
-        <nav className="hidden w-56 shrink-0 rounded-lg bg-accent p-3 md:block">
+        <nav aria-label="Workspace" className="hidden w-56 shrink-0 rounded-lg bg-accent p-3 md:block">
           <Eyebrow className="px-3 pt-2 pb-4">
             Northwind
           </Eyebrow>

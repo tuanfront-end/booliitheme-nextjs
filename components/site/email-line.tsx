@@ -41,10 +41,15 @@ export function EmailLine({ className }: { className?: string }) {
         </a>
         <Tooltip>
           <TooltipTrigger render={<IconButton size="sm" aria-label={copied ? "Address copied" : "Copy address"} onClick={copy} />}>
-            <HugeiconsIcon icon={copied ? Tick02Icon : Copy01Icon} strokeWidth={1.5} className="size-4" />
+            <HugeiconsIcon icon={copied ? Tick02Icon : Copy01Icon} strokeWidth={1.5} aria-hidden className="size-4" />
           </TooltipTrigger>
           <TooltipContent>{copied ? "Copied" : "Copy address"}</TooltipContent>
         </Tooltip>
+        {/* The button's own name changes, which a screen reader does not
+            announce unprompted; a polite status line says it. */}
+        <span role="status" className="sr-only">
+          {copied ? "Address copied" : ""}
+        </span>
       </div>
     </TooltipProvider>
   );

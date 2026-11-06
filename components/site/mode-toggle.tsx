@@ -41,8 +41,8 @@ export function ModeToggle() {
       <TooltipTrigger
         render={<IconButton variant="soft" aria-label={label} onClick={flip} />}
       >
-        <HugeiconsIcon icon={Sun03Icon} strokeWidth={1.5} className={`${icon} dark:hidden`} />
-        <HugeiconsIcon icon={Moon02Icon} strokeWidth={1.5} className={`${icon} hidden dark:block`} />
+        <HugeiconsIcon icon={Sun03Icon} strokeWidth={1.5} aria-hidden className={`${icon} dark:hidden`} />
+        <HugeiconsIcon icon={Moon02Icon} strokeWidth={1.5} aria-hidden className={`${icon} hidden dark:block`} />
       </TooltipTrigger>
       <TooltipContent>{label}</TooltipContent>
     </Tooltip>

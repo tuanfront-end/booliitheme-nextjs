@@ -204,7 +204,7 @@ function Calendar({
       showOutsideDays={showOutsideDays}
       captionLayout={captionLayout}
       footer={legend}
-      className={cn("relative w-fit [--cell-size:--spacing(10)]", className)}
+      className={cn("[--cell-size:--spacing(10)]", className)}
       formatters={{
         // One letter a column, the way a printed month heads them; the full
         // name is on each column for a screen reader.

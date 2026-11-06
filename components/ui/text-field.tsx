@@ -208,6 +208,7 @@ export function TextField({
           value={value}
           defaultValue={defaultValue}
           maxLength={maxLength}
+          type={multiline ? undefined : (props.type ?? "text")}
           onValueChange={(next, details) => {
             setTyped(next.length);
             onValueChange?.(next, details);
