@@ -37,10 +37,10 @@ const buyHref = (p: Project) => p.checkout?.url ?? p.market.url;
 
 // The desktop capture in a window set high in a tinted panel and cut by its
 // foot, and the phone capture over the window's end corner, cut the same way,
-// so a website reads as a shot of one on two screens. The desktop capture runs
-// twice the window's height, so a hover scrolls it a little way down the page
-// and its foot never shows; the phone lifts and casts a deep shadow, so it
-// reads as standing over the desktop rather than pasted on it.
+// so a website reads as a shot of one on two screens. A hover lifts both
+// screens together, the window running 8px under the panel's foot so the lift
+// never shows its end; the phone casts a deep shadow, so it reads as standing
+// over the desktop rather than pasted on it.
 export function Shot({
   p,
   sizes,
@@ -56,7 +56,7 @@ export function Shot({
   return (
     <span className={`relative block aspect-[5/3] overflow-hidden rounded-lg bg-muted ${className ?? ""}`}>
       <span
-        className={`absolute start-[5%] top-[14%] bottom-0 overflow-hidden rounded-t-sm bg-background shadow-soft ${
+        className={`absolute start-[5%] top-[14%] -bottom-2 overflow-hidden rounded-t-sm bg-background shadow-soft transition-transform duration-arrive ease-arrive group-hover/shot:-translate-y-2 motion-reduce:transition-none ${
           p.live ? "w-[82%]" : "w-[90%]"
         }`}
       >
@@ -65,7 +65,7 @@ export function Shot({
           alt=""
           sizes={sizes}
           preload={preload}
-          className="w-full transition-transform duration-browse ease-sheet group-hover/shot:-translate-y-[8%] motion-reduce:transition-none"
+          className="w-full"
         />
       </span>
       {p.live && (

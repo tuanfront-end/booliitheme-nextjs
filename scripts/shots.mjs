@@ -1,6 +1,6 @@
 // Captures every template's live demo, as the cards and the open template show
 // it: the desktop on a 1440 × 900 screen, taken 1800 tall — taller than any
-// card, so a card can scroll it under a hover without reaching its foot, while
+// card's window, so the window never reaches the capture's foot, while
 // a hero sized to the screen keeps the screen's height — and the phone at
 // 390 × 844, drawn at twice the density. Written over images/live/, the files
 // lib/data/projects.ts imports.
