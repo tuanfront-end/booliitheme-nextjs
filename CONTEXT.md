@@ -373,16 +373,8 @@ carries neither.
 
 ## The bench
 
-**`/lab`** — the route where a rule is tested before it is written down. A type
-specimen and four sections; thirty faces on the heading half and fifteen
-on the body half, ten pairings, three grounds, all switchable. Every finding in the style's current
-revision was made by changing one of those controls and looking at the same
-component again.
+**`/lab`** — gone from this site on 2026-11-06. It was the starter's test bench
+for a rule before it is written down (a type specimen and four sections), not a
+page of the product, and it is deleted with its dead controls. The bench for the
+style lives with the skills, not in a site that ships.
 
-**`/bench`** — the route where the *build process* would be tested rather than
-a rule: one page carried end to end through the brief, the shuffle, the ledger
-and the per-page rules. `/lab` answers *does this rule hold*; `/bench` would
-answer *does the process survive a page*, and four sections cannot reach the
-per-page caps, so the first is not evidence for the second. **It does not exist
-yet** — ADR 0002 in the skills repo is what is waiting on it. Named here because
-a word with no referent is worse found in a build than in a glossary.

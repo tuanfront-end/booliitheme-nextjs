@@ -9,10 +9,9 @@ Tailwind CSS 4 and Base UI, set in Geist, Geist Serif and Geist Mono.
 | Route | What it is |
 | --- | --- |
 | `/` | Intro, every template, About, Stack, the CV panel |
-| `/templates/[slug]` | One page per template (15 templates and side projects). From the home page a card opens the same template in a sheet over the page; a shared link or a refresh opens the page itself. |
+| `/templates/[slug]` | One page per template (templates and side projects, one each). From the home page a card opens the same template in a sheet over the page; a shared link or a refresh opens the page itself. |
 | `/cv` | The CV as an A4 sheet, the one `public/booliitheme-cv.pdf` is printed from |
 | `/design-system` | Every token and component, drawn live. Not indexed. |
-| `/lab` | A bench of sections the style most often fails on. Not indexed. |
 
 ## Run it
 

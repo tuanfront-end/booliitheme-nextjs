@@ -1,22 +1,14 @@
 import type { StaticImageData } from "next/image";
 
-import bitpan from "@/images/work/bitpan.png";
 import bitpan2 from "@/images/work/bitpan2.png";
-import chisfis from "@/images/work/chisfis.png";
 import chisfis2 from "@/images/work/chisfis2.png";
-import ciscryp from "@/images/work/ciscryp.png";
 import ciscryp2 from "@/images/work/ciscryp2.png";
-import ciseco from "@/images/work/ciseco.png";
 import ciseco2 from "@/images/work/ciseco2.png";
-import cisecoFse from "@/images/work/cisecoFSE1.png";
 import cisecoFse2 from "@/images/work/cisecoFSE2.png";
 import cisecoH2 from "@/images/work/cisecoh2.png";
 import cisecoH22 from "@/images/work/cisecoh2-2.png";
-import ncmaz from "@/images/work/ncmaz.png";
 import ncmaz2 from "@/images/work/ncmaz2.png";
-import ncmazFaust from "@/images/work/ncmazfaust.png";
 import ncmazFaust2 from "@/images/work/ncmazfaust2.png";
-import ncmazFse from "@/images/work/ncmazfse.png";
 import ncmazFse2 from "@/images/work/ncmazfse2.png";
 import bitpanWoocommerceLiveDesktop from "@/images/live/bitpan-woocommerce-desktop.jpg";
 import bitpanWoocommerceLiveMobile from "@/images/live/bitpan-woocommerce-mobile.jpg";
@@ -239,7 +231,7 @@ export const projects: Project[] = [
     about:
       "Bitpan's design as a WooCommerce block theme. The whole shop is edited in the WordPress site editor, with no page builder.",
     demo: "https://bitpan-fse.booliitheme.com",
-    shots: [bitpan, bitpan2],
+    shots: [bitpanWoocommerceLiveDesktop, bitpan2],
     live: { desktop: bitpanWoocommerceLiveDesktop, mobile: bitpanWoocommerceLiveMobile },
     stack: [
       { name: "WordPress", version: "6.9" },
@@ -268,7 +260,7 @@ export const projects: Project[] = [
     about:
       "Ciseco's design as a WooCommerce block theme, for a shop that runs on WordPress. Every template and part is edited in the site editor.",
     demo: "https://ciseco-fse.booliitheme.com",
-    shots: [cisecoFse, cisecoFse2],
+    shots: [cisecoWoocommerceLiveDesktop, cisecoFse2],
     live: { desktop: cisecoWoocommerceLiveDesktop, mobile: cisecoWoocommerceLiveMobile },
     stack: [
       { name: "WordPress", version: "6.9" },
@@ -294,7 +286,7 @@ export const projects: Project[] = [
     about:
       "Ncmaz as a WordPress block theme, for a blog, a news site or a magazine. Writers stay in the WordPress editor they already know.",
     demo: "https://ncmaz-fse.booliitheme.com",
-    shots: [ncmazFse, ncmazFse2],
+    shots: [ncmazWordpressLiveDesktop, ncmazFse2],
     live: { desktop: ncmazWordpressLiveDesktop, mobile: ncmazWordpressLiveMobile },
     stack: [
       { name: "WordPress", version: "6.8" },
@@ -324,7 +316,7 @@ export const projects: Project[] = [
     about:
       "Ncmaz's front end in Next.js, reading its posts from a headless WordPress. Editors keep WordPress; readers get a fast site.",
     demo: "https://ncmaz-faust-delta.vercel.app",
-    shots: [ncmazFaust, ncmazFaust2],
+    shots: [ncmazHeadlessWordpressLiveDesktop, ncmazFaust2],
     live: { desktop: ncmazHeadlessWordpressLiveDesktop, mobile: ncmazHeadlessWordpressLiveMobile },
     stack: [
       { name: "WordPress", version: "6.8" },
@@ -353,7 +345,7 @@ export const projects: Project[] = [
     tagline: "Headless storefront for Shopify Hydrogen",
     about:
       "Ciseco as a headless Shopify storefront on Hydrogen. Products, cart and checkout come from the Shopify store behind it.",
-    demo: "https://ciseco-h2.booliitheme.com",
+    demo: "https://ciseco-nextjs.vercel.app",
     shots: [cisecoH2, cisecoH22],
     stack: [
       { name: "Shopify Hydrogen" },
@@ -381,7 +373,7 @@ export const projects: Project[] = [
     about:
       "Ncmaz is a Next.js template for a blog, a news site or a magazine. It ships home layouts with category, author and article pages.",
     demo: "https://ncmaz-nextjs.vercel.app",
-    shots: [ncmaz, ncmaz2],
+    shots: [ncmazLiveDesktop, ncmaz2],
     live: { desktop: ncmazLiveDesktop, mobile: ncmazLiveMobile },
     stack: [
       { name: "Next.js", version: "14" },
@@ -411,7 +403,7 @@ export const projects: Project[] = [
     about:
       "Ciseco is a Next.js template for an online shop. It covers collections, product pages, the cart and checkout.",
     demo: "https://ciseco-nextjs.vercel.app",
-    shots: [ciseco, ciseco2],
+    shots: [cisecoLiveDesktop, ciseco2],
     live: { desktop: cisecoLiveDesktop, mobile: cisecoLiveMobile },
     stack: [
       { name: "Next.js", version: "15" },
@@ -441,7 +433,7 @@ export const projects: Project[] = [
     about:
       "Chisfis is a Next.js booking template for stays, car rentals and experiences. It runs from search to listing to checkout.",
     demo: "https://chisfis-nextjs.vercel.app",
-    shots: [chisfis, chisfis2],
+    shots: [chisfisLiveDesktop, chisfis2],
     live: { desktop: chisfisLiveDesktop, mobile: chisfisLiveMobile },
     stack: [
       { name: "Next.js", version: "15" },
@@ -471,7 +463,7 @@ export const projects: Project[] = [
     about:
       "Bitpan is a multipurpose ecommerce template in Next.js. Its pages suit a shop of almost any kind.",
     demo: "https://bitpan-ecommerce-nextjs-template.vercel.app",
-    shots: [bitpan, bitpan2],
+    shots: [bitpanLiveDesktop, bitpan2],
     live: { desktop: bitpanLiveDesktop, mobile: bitpanLiveMobile },
     stack: [
       { name: "Next.js", version: "15" },
@@ -498,7 +490,7 @@ export const projects: Project[] = [
     about:
       "Ciscryp is a Next.js template for an NFT marketplace. It covers collections, item pages and creator profiles.",
     demo: "https://ciscryp-nextjs.vercel.app",
-    shots: [ciscryp, ciscryp2],
+    shots: [ciscrypLiveDesktop, ciscryp2],
     live: { desktop: ciscrypLiveDesktop, mobile: ciscrypLiveMobile },
     stack: [
       { name: "Next.js", version: "14" },

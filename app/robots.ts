@@ -6,8 +6,8 @@ import { abs } from "@/lib/site";
 // A `Disallow` here on a path the sitemap submits is the two files disagreeing
 // in the two places a crawler checks before it reads a single page.
 //
-// Nothing is disallowed on purpose: /design-system and /lab keep themselves out
-// of the index with their own `noindex`, and a crawler only reads that on a page
+// Nothing is disallowed on purpose: /design-system keeps itself out of the
+// index with its own `noindex`, and a crawler only reads that on a page
 // robots.txt lets it fetch.
 //
 // A disallowed path is not a private one. Everything under one is served to

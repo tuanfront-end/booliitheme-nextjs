@@ -29,3 +29,17 @@ không đóng gói bán). Chỉ ghi những chỗ về sau đọc code sẽ th�
   đều dùng qua `ShareMenu`); `aria-current` trên ba nút tròn của header (cần
   chuyển header thành client chỉ để đánh dấu một trang); `themeColor` (đổi màu
   thanh trình duyệt trên điện thoại).
+
+## Dọn dẹp theo lời anh Tuấn (cùng ngày)
+
+- **Xoá `/lab`** (`app/lab`, `components/lab`) và mọi tham chiếu: nó là bàn thử của
+  skill, không thuộc sản phẩm, có nút chết và ô search mất focus ring.
+- **Xoá file chết:** `shortlist.tsx` + `lib/shortlist.ts` (link tới `/work/<slug>`
+  không tồn tại), `reveal.tsx` cùng khối CSS `[data-reveal]`, `h1280.png`,
+  `h390.png`, SVG create-next-app, logo SVG không ai dùng, `public/fonts/README.md`.
+- **Tám PNG trong `images/work/`** (14,7 MB) chỉ là `shots[0]` của các template có
+  `live`, mà thẻ và sheet đã vẽ `live.desktop`. `shots[0]` của các template đó giờ
+  trỏ thẳng vào `live.desktop`, đúng ảnh đang hiển thị; `shots[1]` (trang trong)
+  giữ nguyên.
+- **"Live preview" của Ciseco Hydrogen** dùng lại demo của Ciseco Next.js, vì
+  `ciseco-h2.booliitheme.com` trả 404.

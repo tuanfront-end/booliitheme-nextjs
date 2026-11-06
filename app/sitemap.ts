@@ -14,8 +14,6 @@ import { abs } from "@/lib/site";
 // sitemap that submits a page the page itself asks not to index is a site
 // arguing with itself in the first file a crawler opens.
 //
-// `/lab` is the starter's own page and is not in the product.
-//
 // **`lastModified` goes on rows that have a date and nowhere else.** A build
 // stamping `new Date()` across every route tells a crawler the whole site
 // changed on deploy, and a sitemap caught in that has all its dates ignored —

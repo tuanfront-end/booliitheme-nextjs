@@ -931,59 +931,6 @@
   }
 }
 
-/* Section reveal. Progressive enhancement, and every part of it is chosen for
-   the failure mode rather than for the effect:
-
-     - The hidden state is keyed to a data attribute that only JavaScript ever
-       sets. No JavaScript, hydration that never lands, a crashed observer —
-       all of them leave the page rendered, which is the one thing this must
-       not be able to break.
-     - reveal.tsx skips any section already on screen when it arms, so nothing
-       above the fold flashes out and back in.
-     - It also skips everything under prefers-reduced-motion, and the blanket
-       rule above is the second line of defence if it somehow does not.
-
-   The alternative was `animation-timeline: view()` — no JavaScript at all, and
-   genuinely the better technique. It is not here because its hidden state is
-   CSS, so a browser that supports the property but resolves the timeline
-   differently renders a blank section, and that is a failure a sold template
-   cannot carry.
-
-   Transform and opacity only: the two a compositor runs without laying out
-   the page again. */
-[data-reveal="pending"] {
-  opacity: 0;
-  transform: translateY(1.25rem);
-}
-
-/* 900ms on a cubic ease-out, and the curve did more of the work than the
-   number. This ran 600ms on cubic-bezier(0.22, 1, 0.36, 1) — a *quintic* ease
-   out, which spends about nine tenths of the distance in the first third of the
-   time, so the rise was perceptually over in a quarter of a second whatever the
-   duration said. Lengthening it alone buys less than it looks: 600 to 900 moves
-   the nine-tenths mark from 254ms to 375. Softening the curve at the same 900
-   moves it to 523, because a cubic rides the distance out instead of bolting
-   and then coasting. */
-[data-reveal="shown"] {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity var(--duration-arrive) var(--ease-arrive),
-    transform var(--duration-arrive) var(--ease-arrive);
-}
-
-/* Printing does not scroll, so nothing ever reveals: every section still
-   pending when the dialog opens would print as a hole in the page. Save as PDF
-   goes through the same path, and in these niches a printed page is a real
-   artefact — a ticket, an itinerary, a booking confirmation, an invoice.
-   !important because print is one-way: there is no second look at the output. */
-@media print {
-  [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
 /* ── Right to left ─────────────────────────────────────────────
    With `dir="rtl"` on <html> the layout mirrors, and the copy stays English.
    A paragraph inside a right-to-left page then reads its English words left
