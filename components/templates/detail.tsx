@@ -7,7 +7,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { industries, priceOf, projects, type Project } from "@/lib/data/projects";
-import { formatDate, formatMoney, formatNumber } from "@/lib/format";
+import { formatMoney } from "@/lib/format";
 
 /** A template built on Next.js alone — the builds the home page leads with. */
 export const isNextOnly = (p: Project) => p.platforms.length === 1 && p.platforms[0] === "nextjs";
@@ -122,20 +122,14 @@ function Picture({ src, alt }: { src: StaticImageData; alt: string }) {
   );
 }
 
-// The facts a buyer checks before paying, in the order they ask them. A row
-// whose figure the marketplace does not give is left out.
+// What the template is, in the order a buyer asks it.
 function details(p: Project): [string, string][] {
-  const rows: [string, string][] = [
+  return [
     ["Built with", p.build],
     ["Category", industries[p.industry]],
     // A name and its version never part at a line end: "Tailwind CSS 4" is one.
     ["Stack", p.stack.map((d) => [d.name, d.version].filter(Boolean).join(" ").replace(/ /g, "\u00a0")).join(", ")],
   ];
-  if (p.market.updated) rows.push(["Last updated", formatDate(p.market.updated)]);
-  if (p.market.sales) rows.push(["Sales", formatNumber(p.market.sales)]);
-  if (p.market.rating)
-    rows.push(["Rating", `${p.market.rating.toFixed(2)}${p.market.ratings ? ` from ${p.market.ratings}` : ""}`]);
-  return rows;
 }
 
 const at = (p: Project, by: number) => listed[(listed.indexOf(p) + by + listed.length) % listed.length];
