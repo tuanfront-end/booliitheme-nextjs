@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { GeistSerif } from "geist/font/serif";
+import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import { GridOverlay } from "@/components/grid-overlay";
 import "./globals.css";
@@ -20,6 +20,18 @@ import { siteName, siteUrl } from "@/lib/site";
 const geistSans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
+});
+
+// Geist Serif's variable file and nothing else. `geist/font/serif` declares
+// five faces, and each one it declares is preloaded on every route: four of
+// them (Regular, Square, Triangle, Heart) are never set in, 183 KB a page.
+// Same options as the package's own GeistSerif.
+const GeistSerif = localFont({
+  src: "../node_modules/geist/dist/fonts/geist-serif/GeistSerifVF.woff2",
+  variable: "--font-geist-serif",
+  weight: "400",
+  fallback: ["Times New Roman", "Times", "serif"],
+  adjustFontFallback: "Times New Roman",
 });
 
 const geistMono = Geist_Mono({
