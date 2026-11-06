@@ -227,6 +227,8 @@
      morph   the header changing shape on the first scroll.
      arrive  a section revealed once on scroll. Cubic rather than quintic: an
              arrival nobody is waiting on rides the distance out.
+     browse  a capture scrolling inside its frame under a hover, slow enough
+             to read as a page being looked down rather than a jump.
 
    `static` so every variable ships whether or not a utility uses it — the
    reveal and `press` below read them as plain var()s. */
@@ -241,6 +243,7 @@
   --duration-sheet: 450ms;
   --duration-morph: 700ms;
   --duration-arrive: 900ms;
+  --duration-browse: 2400ms;
 
   /* A bare `transition-colors` reads these, so a transition nobody gave a
      length still answers like every other one on the page. */
@@ -270,6 +273,11 @@
 @utility duration-arrive {
   --tw-duration: var(--duration-arrive);
   transition-duration: var(--duration-arrive);
+}
+
+@utility duration-browse {
+  --tw-duration: var(--duration-browse);
+  transition-duration: var(--duration-browse);
 }
 
 /* The pressed state of a control: it sinks 3% while held and springs back on

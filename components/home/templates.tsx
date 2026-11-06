@@ -1,8 +1,8 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useState } from "react";
-import { ArrowLeftIcon, ArrowRightIcon, ArrowUpRightIcon } from "@heroicons/react/24/outline";
+import { useRef, useState } from "react";
+import { ArrowLeftIcon, ArrowRightIcon, ArrowUpRightIcon, ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
 
 import { Column } from "@/components/site/column";
 import { Eyebrow } from "@/components/site/eyebrow";
@@ -32,31 +32,65 @@ const price = (p: Project) => {
 // in until a checkout is set.
 const buyHref = (p: Project) => p.checkout?.url ?? p.market.url;
 
-// The desktop capture standing in a tinted panel, set high and cut by the
-// panel's foot, and the phone capture over its end corner, cut the same way, so
-// a website reads as a shot of one on two screens. The phone sits lower than
-// the desktop and lifts further under a hover, so the two move apart a little.
+// The desktop capture in a window set high in a tinted panel and cut by its
+// foot, and the phone capture over the window's end corner, cut the same way,
+// so a website reads as a shot of one on two screens. The desktop capture runs
+// twice the window's height, so a hover scrolls it down the page slowly and
+// its foot never shows; the phone lifts a little and casts a deep shadow, so it
+// reads as standing over the desktop rather than pasted on it.
 function Shot({ p, sizes, className }: { p: Project; sizes: string; className?: string }) {
   return (
     <span className={`relative block aspect-[5/3] overflow-hidden rounded-lg bg-muted ${className ?? ""}`}>
-      <Image
-        src={p.live?.desktop ?? p.shots[0]}
-        alt=""
-        sizes={sizes}
-        className={`absolute start-[5%] top-[14%] rounded-t-sm shadow-soft transition-transform duration-arrive ease-arrive group-hover/shot:-translate-y-1 motion-reduce:transition-none ${
+      <span
+        className={`absolute start-[5%] top-[14%] bottom-0 overflow-hidden rounded-t-sm bg-background shadow-soft ${
           p.live ? "w-[82%]" : "w-[90%]"
         }`}
-      />
+      >
+        <Image
+          src={p.live?.desktop ?? p.shots[0]}
+          alt=""
+          sizes={sizes}
+          className="w-full transition-transform duration-browse ease-sheet group-hover/shot:-translate-y-[22%] motion-reduce:transition-none"
+        />
+      </span>
       {p.live && (
         <Image
           src={p.live.mobile}
           alt=""
           sizes="8rem"
-          className="absolute end-[5%] top-[26%] w-[22%] rounded-t-[12px] shadow-soft-lg ring-4 ring-background transition-transform duration-arrive ease-arrive group-hover/shot:-translate-y-2.5 motion-reduce:transition-none"
+          className="absolute end-[5%] top-[26%] w-[22%] rounded-t-[12px] shadow-2xl ring-4 ring-background transition-transform duration-arrive ease-arrive group-hover/shot:-translate-y-2 motion-reduce:transition-none"
         />
       )}
     </span>
   );
+}
+
+// The pointer over the grid on a mouse: an ink pill saying what a press does,
+// riding the pointer in place of the arrow and growing in as it enters a card.
+// The cards move it by writing its transform straight to the element, so it
+// keeps up with the pointer without a render a frame. A touch screen never sees
+// it, and it is `inert`: a pointer, not part of the page.
+function ViewCursor({ ref }: { ref: React.Ref<HTMLSpanElement> }) {
+  return (
+    <span
+      ref={ref}
+      aria-hidden
+      inert
+      data-on="false"
+      className="pointer-events-none fixed top-0 left-0 z-40 -mt-5 -ms-5 opacity-0 data-[on=true]:opacity-100"
+    >
+      <span className="flex h-10 origin-top-left scale-50 items-center gap-1.5 rounded-full bg-foreground ps-4 pe-3 text-sm font-medium text-background shadow-soft-lg transition-[scale] duration-spring ease-spring [[data-on=true]>&]:scale-100 motion-reduce:transition-none">
+        View
+        <ArrowsPointingOutIcon className="size-4" />
+      </span>
+    </span>
+  );
+}
+
+function follow(cursor: HTMLSpanElement | null, e: React.PointerEvent, on?: boolean) {
+  if (e.pointerType !== "mouse" || !cursor) return;
+  cursor.style.translate = `${e.clientX}px ${e.clientY}px`;
+  if (on !== undefined) cursor.dataset.on = String(on);
 }
 
 // The facts a buyer checks before paying, in the order they ask them. A row
@@ -102,6 +136,7 @@ export function Templates() {
   const [open, setOpen] = useState<number | null>(null);
   const current = open === null ? null : forSale[open];
   const step = (by: number) => setOpen((i) => (i === null ? i : (i + by + forSale.length) % forSale.length));
+  const cursor = useRef<HTMLSpanElement>(null);
 
   return (
     <Column as="section" id="templates" aria-labelledby="templates-title">
@@ -116,7 +151,10 @@ export function Templates() {
             <li key={p.slug}>
               <DialogTrigger
                 onClick={() => setOpen(i)}
-                className="group/shot block w-full cursor-zoom-in rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                onPointerEnter={(e) => follow(cursor.current, e, true)}
+                onPointerMove={(e) => follow(cursor.current, e)}
+                onPointerLeave={(e) => follow(cursor.current, e, false)}
+                className="group/shot block w-full rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring pointer-fine:cursor-none"
               >
                 <Shot p={p} sizes="(min-width: 640px) 30rem, 100vw" />
                 <span className="mt-4 flex items-baseline justify-between gap-4 px-1 text-sm">
@@ -127,6 +165,7 @@ export function Templates() {
             </li>
           ))}
         </ul>
+        <ViewCursor ref={cursor} />
 
         {/* Open, a template takes the screen the way a Dribbble shot does: a
             sheet rising almost to the top, its name and the things to do with
@@ -162,17 +201,7 @@ export function Templates() {
                     </div>
                   </div>
 
-                  <div className="mt-10 grid items-start gap-4 sm:grid-cols-[3fr_1fr]">
-                    <Picture
-                      src={current.live?.desktop ?? current.shots[0]}
-                      alt={`${current.name}, home page`}
-                      sizes="(min-width: 1024px) 46rem, 100vw"
-                      className={current.live ? undefined : "sm:col-span-2"}
-                    />
-                    {current.live && (
-                      <Picture src={current.live.mobile} alt={`${current.name} on a phone`} sizes="15rem" />
-                    )}
-                  </div>
+                  <Showcase p={current} className="mt-10" />
                   {current.shots[1] && (
                     <Picture src={current.shots[1]} alt={`${current.name}, an inner page`} sizes="64rem" className="mt-4" />
                   )}
@@ -199,7 +228,7 @@ export function Templates() {
                           <li key={next.slug}>
                             <DialogTrigger
                               onClick={() => setOpen(at)}
-                              className="group/shot block w-full cursor-zoom-in rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                              className="group/shot block w-full rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
                             >
                               <Shot p={next} sizes="20rem" />
                               <span className="mt-3 flex justify-between gap-3 px-1 text-sm">
@@ -219,6 +248,37 @@ export function Templates() {
         </DialogContent>
       </Dialog>
     </Column>
+  );
+}
+
+// The open template's two captures as one picture, the way its card draws
+// them, at the sheet's full width: the desktop in a window cut by the panel's
+// foot and scrolling down the page under a hover, the phone standing whole over
+// its end corner with the deep shadow that lifts it off the desktop.
+function Showcase({ p, className }: { p: Project; className?: string }) {
+  return (
+    <div className={`group/shot relative aspect-[16/10] overflow-hidden rounded-lg bg-muted ${className ?? ""}`}>
+      <div
+        className={`absolute start-[4%] top-[7%] bottom-0 overflow-hidden rounded-t-md bg-background shadow-soft ${
+          p.live ? "w-[76%]" : "w-[92%]"
+        }`}
+      >
+        <Image
+          src={p.live?.desktop ?? p.shots[0]}
+          alt={`${p.name}, home page`}
+          sizes="(min-width: 1024px) 48rem, 100vw"
+          className="w-full transition-transform duration-browse ease-sheet group-hover/shot:-translate-y-[22%] motion-reduce:transition-none"
+        />
+      </div>
+      {p.live && (
+        <Image
+          src={p.live.mobile}
+          alt={`${p.name} on a phone`}
+          sizes="14rem"
+          className="absolute end-[4%] top-[16%] w-[21%] rounded-[22px] shadow-2xl ring-[6px] ring-background"
+        />
+      )}
+    </div>
   );
 }
 
