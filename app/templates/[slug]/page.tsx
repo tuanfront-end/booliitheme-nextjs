@@ -6,7 +6,8 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Column } from "@/components/site/column";
 import { listed, TemplateDetail, TemplateSteps, templateHref } from "@/components/templates/detail";
 import { Button } from "@/components/ui/button";
-import { pageMeta } from "@/lib/seo";
+import { clip, pageMeta } from "@/lib/seo";
+import { siteName } from "@/lib/site";
 
 // A template's own page: what a shared link, a refresh or a search result
 // opens. The home page's cards open the same template in a sheet instead —
@@ -21,7 +22,12 @@ export async function generateMetadata({ params }: PageProps<"/templates/[slug]"
   const { slug } = await params;
   const p = listed.find((t) => t.slug === slug);
   if (!p) return {};
-  return pageMeta({ title: `${p.name}, ${p.tagline}`, description: p.about, path: templateHref(p) });
+  // The tagline rides along while the tab still fits a search result (60
+  // characters with the site name the template appends); otherwise the name
+  // alone. The description is cut to a result's 160, the page keeps its copy.
+  const full = `${p.name}, ${p.tagline}`;
+  const title = `${full} · ${siteName}`.length <= 60 ? full : p.name;
+  return pageMeta({ title, description: clip(p.about), path: templateHref(p) });
 }
 
 export default async function TemplatePage({ params }: PageProps<"/templates/[slug]">) {

@@ -64,7 +64,11 @@ export function pageMeta({
   const social = `${title} · ${siteName}`;
   // A page's `openGraph` replaces its parent's whole, so the site's card in
   // app/opengraph-image.png reaches a route only when it is named here.
-  const images = [image ?? "/opengraph-image.png"];
+  // The site's own card is 1200×630; a card named by `image` is the caller's,
+  // whose size this file does not know.
+  const images = image
+    ? [image]
+    : [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: `${siteName}: website templates by one person` }];
 
   return {
     // `title.template` applies to *child* segments, and `app/layout.tsx` and
@@ -94,7 +98,7 @@ export function pageMeta({
       card: "summary_large_image",
       title: social,
       description,
-      images,
+      images: images.map((i) => (typeof i === "string" ? i : i.url)),
     },
   };
 }
@@ -175,3 +179,32 @@ export const breadcrumbLd = (
     ...(crumb.href && { item: abs(crumb.href) }),
   })),
 });
+
+/** The person behind the site — what the home page says in its first line.
+ *  `sameAs` is the marketplace author page, the one profile the data file
+ *  holds. */
+export const personLd = (name: string, jobTitle: string, sameAs: string[]): Schema => ({
+  "@type": "Person",
+  "@id": abs("/#person"),
+  name,
+  url: siteUrl,
+  jobTitle,
+  worksFor: { "@id": abs("/#organization") },
+  sameAs,
+});
+
+/** A description that fits a search result: the whole text when it does, else
+ *  the sentences that fit, else the words that fit. The page keeps its full
+ *  copy; only the tag is cut. */
+export function clip(text: string, max = 160) {
+  if (text.length <= max) return text;
+  const sentences = text.match(/[^.!?]+[.!?]+(\s|$)/g) ?? [];
+  let out = "";
+  for (const s of sentences) {
+    if ((out + s).trim().length > max) break;
+    out += s;
+  }
+  if (out.trim().length >= 70) return out.trim();
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
+}

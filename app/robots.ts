@@ -2,10 +2,13 @@ import type { MetadataRoute } from "next";
 
 import { abs } from "@/lib/site";
 
-// The same exclusions `sitemap.ts` makes, said the other way round — and they
-// have to be the same ones. A `Disallow` here on a path the sitemap submits is
-// the two files disagreeing in the two places a crawler checks before it reads
-// a single page.
+// The same exclusions `sitemap.ts` makes — and they have to be the same ones.
+// A `Disallow` here on a path the sitemap submits is the two files disagreeing
+// in the two places a crawler checks before it reads a single page.
+//
+// Nothing is disallowed on purpose: /design-system and /lab keep themselves out
+// of the index with their own `noindex`, and a crawler only reads that on a page
+// robots.txt lets it fetch.
 //
 // A disallowed path is not a private one. Everything under one is served to
 // anybody who asks; the rule says only that there is nothing there worth a

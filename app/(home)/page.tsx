@@ -4,7 +4,9 @@ import { About, Stack } from "@/components/home/about";
 import { CvCta } from "@/components/home/cv-cta";
 import { Intro } from "@/components/home/intro";
 import { Templates } from "@/components/home/templates";
-import { pageMeta } from "@/lib/seo";
+import { JsonLd } from "@/components/site/json-ld";
+import { author } from "@/lib/data/projects";
+import { pageMeta, personLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
   title: "Website templates by Tuan",
@@ -23,6 +25,7 @@ export default function Home() {
       <About />
       <Stack />
       <CvCta />
+      <JsonLd schema={personLd("Tuan", "Designer and developer of website templates", [author.url])} />
     </main>
   );
 }
