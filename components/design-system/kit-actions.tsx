@@ -140,6 +140,12 @@ function ButtonBlock() {
               <ArrowRightIcon data-icon="inline-end" className="rtl:-scale-x-100" />
             </Button>
           </Row>
+          <Row label="Soft, on the page">
+            <Button variant="soft">
+              <HugeiconsIcon icon={Calendar03Icon} strokeWidth={1.5} aria-hidden="true" data-icon="inline-start" />
+              Add dates
+            </Button>
+          </Row>
           <Row label="As a link">
             <Button variant="secondary" render={<Link href="#button" />}>
               Browse stays

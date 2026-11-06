@@ -1,7 +1,7 @@
 import { Column } from "@/components/site/column";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { SectionHeading } from "@/components/site/section-heading";
-import { about, figuresAsOf, figures, stack } from "@/lib/data/studio";
+import { about, experience, figuresAsOf, figures, stack } from "@/lib/data/studio";
 
 // Two sections on one frame: the kicker and heading on the start side, what
 // they head across from them, so About and Stack read as two pages of the same
@@ -41,6 +41,14 @@ export function About() {
           </p>
         ))}
       </div>
+      <dl className="mt-10 text-sm">
+        {experience.map(([when, what]) => (
+          <div key={when} className="grid grid-cols-[7rem_1fr] gap-4 py-1.5">
+            <dt className="text-muted-foreground tabular-nums">{when}</dt>
+            <dd>{what}</dd>
+          </div>
+        ))}
+      </dl>
       <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-5 text-sm">
         {figures.map(([term, value]) => (
           <div key={term}>

@@ -31,7 +31,7 @@ export function ModeToggle() {
   return (
     <Tooltip>
       <TooltipTrigger
-        render={<IconButton variant="secondary" aria-label={label} onClick={() => setTheme(dark ? "light" : "dark")} />}
+        render={<IconButton variant="soft" aria-label={label} onClick={() => setTheme(dark ? "light" : "dark")} />}
       >
         <HugeiconsIcon icon={Sun03Icon} strokeWidth={1.5} className={`${glyph} dark:hidden`} />
         <HugeiconsIcon icon={Moon02Icon} strokeWidth={1.5} className={`${glyph} hidden dark:block`} />

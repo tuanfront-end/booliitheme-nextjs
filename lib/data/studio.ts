@@ -11,6 +11,13 @@ export const about = [
   "Need a site no template covers? I’ll design and build it for you.",
 ];
 
+/** Where I have worked and studied, newest first. */
+export const experience: [string, string][] = [
+  ["2021 – now", "Solo, designing and building templates as BooliiTheme"],
+  ["2016 – 2021", "Web developer in a website development team"],
+  ["Education", "University degree in Information Technology"],
+];
+
 /** ThemeForest's own figures for the author page, and the month they were read. */
 export const figures: [string, string][] = [
   ["Selling since", formatMonth(author.since)],

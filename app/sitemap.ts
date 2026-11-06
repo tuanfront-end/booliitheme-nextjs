@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { forSale, templateHref } from "@/components/templates/detail";
 import { abs } from "@/lib/site";
 
 // Every page a search engine should land somebody on, which is not every route
@@ -23,5 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: abs("/"), priority: 1, changeFrequency: "weekly" },
     { url: abs("/cv"), priority: 0.5, changeFrequency: "monthly" },
+    ...forSale.map((p) => ({ url: abs(templateHref(p)), priority: 0.8 })),
   ];
 }

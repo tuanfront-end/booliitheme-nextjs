@@ -50,7 +50,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children, modal }: LayoutProps<"/">) {
   // data-scroll-behavior: Next 16 stopped neutralising the `scroll-behavior:
   // smooth` in globals.css around a route transition; the attribute asks for
   // the pre-16 behaviour back.
@@ -75,6 +75,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <SiteHeader />
             {children}
             <SiteFooter />
+            {/* A template opened from a card, over the page — app/@modal. */}
+            {modal}
             <Toaster />
           </Direction>
           {/* The two site-wide objects, here so they are on every route. */}

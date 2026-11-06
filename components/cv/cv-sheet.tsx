@@ -2,7 +2,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { LogoMark } from "@/components/site/logo-mark";
 import { buildLabel } from "@/lib/data/catalogue";
 import { author, industries, projects } from "@/lib/data/projects";
-import { about, figures, stack } from "@/lib/data/studio";
+import { about, experience, figures, stack } from "@/lib/data/studio";
 import { formatMonth } from "@/lib/format";
 import { email, socials } from "@/lib/nav";
 import { cn } from "@/lib/utils";
@@ -18,8 +18,8 @@ const contacts = [
 ];
 
 const services: [string, string][] = [
-  ["A template of your own", "Designed for one niche and one buyer, and not sold to anyone else."],
-  ["A site built to order", "Designed and built start to finish on my stack, then handed over to you."],
+  ["A template of your own", "One niche, one buyer, never resold."],
+  ["A site built to order", "Designed, built and handed over."],
 ];
 
 // One row of the sheet: its label in the narrow column, its matter beside it.
@@ -39,7 +39,7 @@ export function CvSheet({ className }: { className?: string }) {
   return (
     <article
       className={cn(
-        "mx-auto flex h-[297mm] w-[210mm] shrink-0 flex-col bg-card px-[14mm] pt-[13mm] pb-[11mm] text-foreground",
+        "mx-auto flex h-[297mm] w-[210mm] shrink-0 flex-col bg-card px-[14mm] pt-[12mm] pb-[10mm] text-foreground",
         className,
       )}
     >
@@ -62,12 +62,24 @@ export function CvSheet({ className }: { className?: string }) {
 
       <Row label="Profile">
         <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-          {about.map((line, i) => (
+          {/* The third line is the offer, which the sheet's last row makes. */}
+          {about.slice(0, 2).map((line, i) => (
             <p key={i} className={i === 0 ? "text-foreground" : undefined}>
               {line}
             </p>
           ))}
         </div>
+      </Row>
+
+      <Row label="Experience">
+        <dl className="text-sm">
+          {experience.map(([when, what]) => (
+            <div key={when} className="grid grid-cols-[42mm_1fr] gap-3">
+              <dt className="text-muted-foreground tabular-nums">{when}</dt>
+              <dd>{what}</dd>
+            </div>
+          ))}
+        </dl>
       </Row>
 
       <Row label="ThemeForest">

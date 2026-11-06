@@ -33,7 +33,7 @@ function Disc({ label, href, className }: { label: string; href: string; classNa
       <TooltipTrigger
         render={
           <IconButton
-            variant="secondary"
+            variant="soft"
             aria-label={away ? `${label} (opens in a new tab)` : label}
             className={className}
             nativeButton={false}
@@ -57,7 +57,9 @@ const sales = new Intl.NumberFormat("en-US", { notation: "compact", maximumFract
 // ThemeForest — in a pill that goes there.
 export function SiteHeader() {
   return (
-    <TooltipProvider>
+    // The discs carry no words, so their names come up almost at once: 120ms
+    // is long enough that sweeping across the row does not flash every one.
+    <TooltipProvider delay={120}>
       <Column as="header" className="py-6 print:hidden" innerClassName="flex items-center justify-between gap-3">
         <nav aria-label="Primary">
           <ul className="flex gap-1.5 min-[380px]:gap-2">
@@ -80,7 +82,7 @@ export function SiteHeader() {
             <TooltipTrigger
               render={
                 <Button
-                  variant="secondary"
+                  variant="soft"
                   nativeButton={false}
                   render={<a href={author.url} target="_blank" rel="noopener noreferrer" />}
                 />
