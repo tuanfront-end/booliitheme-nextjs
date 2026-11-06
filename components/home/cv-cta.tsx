@@ -35,7 +35,7 @@ export function CvCta() {
           <Image
             src={cvPage}
             alt="The first page of the BooliiTheme CV"
-            sizes="20rem"
+            sizes="(min-width: 768px) 20rem, calc(100vw - 8rem)"
             className="absolute inset-x-8 top-10 w-[calc(100%-4rem)] rotate-2 rounded-xs shadow-soft-lg md:inset-x-0 md:top-12 md:w-[calc(100%-2.5rem)]"
           />
         </div>
