@@ -1,0 +1,346 @@
+{
+  "doorlist": {
+    "repo": "doorlist",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "waypoint": {
+    "repo": "waypoint",
+    "ref": "v1.0.0",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "ofen": {
+    "repo": "template-ofen",
+    "ref": "v1.2.0",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "saal": {
+    "repo": "template-saal",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "ceepii": {
+    "repo": "ceepii-nextjs-template",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "bitpan-woocommerce": {
+    "repo": "bitpan-wp-fse",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "WordPress",
+        "version": "6.9"
+      },
+      {
+        "name": "WooCommerce",
+        "version": "10.7"
+      }
+    ]
+  },
+  "ciseco-woocommerce": {
+    "repo": "ciseco-woocommerce-theme",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "WordPress",
+        "version": "6.9"
+      },
+      {
+        "name": "WooCommerce",
+        "version": "10.7"
+      }
+    ]
+  },
+  "ncmaz-wordpress": {
+    "repo": "ncmaz-fse-theme",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "WordPress",
+        "version": "6.9"
+      }
+    ]
+  },
+  "ncmaz-headless-wordpress": {
+    "repo": "ncmaz-faust",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "15.5"
+      },
+      {
+        "name": "Faust.js",
+        "version": "3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "ciseco-hydrogen": {
+    "repo": "ciseco-hydrogen-vite",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Shopify Hydrogen",
+        "version": "2025.1"
+      },
+      {
+        "name": "React",
+        "version": "18"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "3"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "ncmaz": {
+    "repo": "ncmaz-nextjs",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "6"
+      }
+    ]
+  },
+  "ciseco": {
+    "repo": "ciseco-nextjs",
+    "ref": "v2.4.0",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "chisfis": {
+    "repo": "chisfis-nextjs",
+    "ref": "v2.4.0",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "bitpan": {
+    "repo": "bitpan-ecommerce-nextjs-template",
+    "ref": "v2.1.0",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "ciscryp": {
+    "repo": "ciscryp-nextjs",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  },
+  "loopmere": {
+    "repo": "loopmere",
+    "ref": "main",
+    "read": "2026-11-06",
+    "stack": [
+      {
+        "name": "Next.js",
+        "version": "16.3"
+      },
+      {
+        "name": "React",
+        "version": "19"
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4"
+      },
+      {
+        "name": "TypeScript",
+        "version": "5"
+      }
+    ]
+  }
+}

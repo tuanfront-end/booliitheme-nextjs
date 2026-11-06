@@ -1,5 +1,7 @@
 import type { StaticImageData } from "next/image";
 
+import stacks from "./stack.json";
+
 import bitpan2 from "@/images/work/bitpan2.png";
 import chisfis2 from "@/images/work/chisfis2.png";
 import ciscryp2 from "@/images/work/ciscryp2.png";
@@ -44,7 +46,8 @@ import loopmereLiveMobile from "@/images/live/loopmere-mobile.jpg";
 // Every figure below is one ThemeForest shows publicly, read off an archived
 // copy of the page named in `asOf` — the live pages sit behind a bot wall.
 // A field left out is one no page showed; the UI prints nothing in its place
-// rather than a guess.
+// rather than a guess. The stack is the exception: it is read off each
+// template's own repo by `npm run stack`, into stack.json.
 
 export type Platform = "nextjs" | "wordpress" | "shopify";
 export type Industry = "ecommerce" | "booking" | "magazine" | "nft" | "real-estate" | "education" | "events" | "media";
@@ -97,6 +100,10 @@ export type Project = {
   /** The live demo captured at 1440 × 900 and 390 × 844, shown in the device
    *  mockup. Absent while a demo is down. */
   live?: { desktop: StaticImageData; mobile: StaticImageData };
+  /** The repo under github.com/tuanfront-end the template is built from. */
+  repo: string;
+  /** The versions read off the repo, then what the build is that a version
+   *  does not say. */
   stack: Dependency[];
   isNew?: boolean;
   /** The Polar checkout every Buy button on the site goes to, and the price
@@ -113,10 +120,17 @@ const polar = (link: string, price: number) => ({ url: `https://buy.polar.sh/${l
 /** What the site asks for a template: its Polar price, else its marketplace price. */
 export const priceOf = (p: Project) => p.checkout?.price ?? p.market.price;
 
+/** As the data file writes a template: what it is built with comes from its
+ *  repo, and only what a version cannot say is written here. */
+type Source = Omit<Project, "stack"> & { features?: string[] };
+
+const read: Record<string, { stack: Dependency[] } | undefined> = stacks;
+
 /** Newest first — the order the catalogue opens on. */
-export const projects: Project[] = [
+const sources: Source[] = [
   {
     slug: "doorlist",
+    repo: "doorlist",
     name: "Doorlist",
     family: "doorlist",
     build: "Next.js",
@@ -128,7 +142,6 @@ export const projects: Project[] = [
     demo: "https://doorlist-eight.vercel.app",
     shots: [doorlistLiveDesktop],
     live: { desktop: doorlistLiveDesktop, mobile: doorlistLiveMobile },
-    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
     isNew: true,
     checkout: polar("polar_cl_gRBg19pFFQbrN5TFAJQVI09p6Y2oHRs749tBw2ZJqws", 49),
     market: {
@@ -139,6 +152,7 @@ export const projects: Project[] = [
   },
   {
     slug: "waypoint",
+    repo: "waypoint",
     name: "Waypoint",
     family: "waypoint",
     build: "Next.js",
@@ -150,7 +164,6 @@ export const projects: Project[] = [
     demo: "https://waypoint-puce-seven.vercel.app",
     shots: [waypointLiveDesktop],
     live: { desktop: waypointLiveDesktop, mobile: waypointLiveMobile },
-    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
     checkout: polar("polar_cl_ChFvoSYiZKrUXfVh1d40ecmMQFrM9K4o1ukER3wJZO2", 39),
     market: {
       url: "https://themeforest.net/user/booliitheme",
@@ -160,6 +173,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ofen",
+    repo: "template-ofen",
     name: "Ofen",
     family: "ofen",
     build: "Next.js",
@@ -171,7 +185,6 @@ export const projects: Project[] = [
     demo: "https://template-ofen.vercel.app",
     shots: [ofenLiveDesktop],
     live: { desktop: ofenLiveDesktop, mobile: ofenLiveMobile },
-    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
     checkout: polar("polar_cl_jvuNIyDeM1vIt29es6yLhvA25Iwio8VU5rCiV4Sxvn1", 39),
     market: {
       url: "https://themeforest.net/user/booliitheme",
@@ -181,6 +194,7 @@ export const projects: Project[] = [
   },
   {
     slug: "saal",
+    repo: "template-saal",
     name: "Saal",
     family: "saal",
     build: "Next.js",
@@ -192,7 +206,6 @@ export const projects: Project[] = [
     demo: "https://template-saal.vercel.app",
     shots: [saalLiveDesktop],
     live: { desktop: saalLiveDesktop, mobile: saalLiveMobile },
-    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
     checkout: polar("polar_cl_BW7YSAPrUkVLE13S7Dl5X9nGnvw0QjURV0t9v0IBK79", 39),
     market: {
       url: "https://themeforest.net/user/booliitheme",
@@ -202,6 +215,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ceepii",
+    repo: "ceepii-nextjs-template",
     name: "Ceepii",
     family: "ceepii",
     build: "Next.js",
@@ -213,7 +227,6 @@ export const projects: Project[] = [
     demo: "https://ceepii-nextjs-template.vercel.app",
     shots: [ceepiiLiveDesktop],
     live: { desktop: ceepiiLiveDesktop, mobile: ceepiiLiveMobile },
-    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
     checkout: polar("polar_cl_r0L4rCW06jNlucvhgPVMIg1UiafyQbyuUKCmX4dFrOJ", 39),
     market: {
       url: "https://themeforest.net/user/booliitheme",
@@ -222,6 +235,7 @@ export const projects: Project[] = [
   },
   {
     slug: "bitpan-woocommerce",
+    repo: "bitpan-wp-fse",
     name: "Bitpan WooCommerce",
     family: "bitpan",
     build: "WooCommerce block theme",
@@ -233,12 +247,7 @@ export const projects: Project[] = [
     demo: "https://bitpan-fse.booliitheme.com",
     shots: [bitpanWoocommerceLiveDesktop, bitpan2],
     live: { desktop: bitpanWoocommerceLiveDesktop, mobile: bitpanWoocommerceLiveMobile },
-    stack: [
-      { name: "WordPress", version: "6.9" },
-      { name: "WooCommerce", version: "10.4" },
-      { name: "Full Site Editing" },
-      { name: "Interactivity API" },
-    ],
+    features: ["Full Site Editing", "Interactivity API"],
     isNew: true,
     checkout: polar("polar_cl_wbxS6yMPU9b1ykSe87Bd2FpxjP8V6pc48JDzS42ADqA", 39),
     market: {
@@ -251,6 +260,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ciseco-woocommerce",
+    repo: "ciseco-woocommerce-theme",
     name: "Ciseco WooCommerce",
     family: "ciseco",
     build: "WooCommerce block theme",
@@ -262,12 +272,7 @@ export const projects: Project[] = [
     demo: "https://ciseco-fse.booliitheme.com",
     shots: [cisecoWoocommerceLiveDesktop, cisecoFse2],
     live: { desktop: cisecoWoocommerceLiveDesktop, mobile: cisecoWoocommerceLiveMobile },
-    stack: [
-      { name: "WordPress", version: "6.9" },
-      { name: "WooCommerce", version: "10.4" },
-      { name: "Full Site Editing" },
-      { name: "Interactivity API" },
-    ],
+    features: ["Full Site Editing", "Interactivity API"],
     isNew: true,
     checkout: polar("polar_cl_fizjgo16XKrRTLAmhjwjyg5LUc58hMJWhQUcY11Z6bk", 39),
     market: {
@@ -277,6 +282,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ncmaz-wordpress",
+    repo: "ncmaz-fse-theme",
     name: "Ncmaz WordPress",
     family: "ncmaz",
     build: "WordPress block theme",
@@ -288,12 +294,7 @@ export const projects: Project[] = [
     demo: "https://ncmaz-fse.booliitheme.com",
     shots: [ncmazWordpressLiveDesktop, ncmazFse2],
     live: { desktop: ncmazWordpressLiveDesktop, mobile: ncmazWordpressLiveMobile },
-    stack: [
-      { name: "WordPress", version: "6.8" },
-      { name: "Full Site Editing" },
-      { name: "Gutenberg blocks" },
-      { name: "Interactivity API" },
-    ],
+    features: ["Full Site Editing", "Gutenberg blocks", "Interactivity API"],
     checkout: polar("polar_cl_qQX5vqOnvDlh7JAXnxs85yCmEx6KNhn41VaIX2WjA6s", 39),
     market: {
       url: tf("ncmaz-blog-magazine-wordpress-theme/34122841"),
@@ -307,6 +308,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ncmaz-headless-wordpress",
+    repo: "ncmaz-faust",
     name: "Ncmaz Headless",
     family: "ncmaz",
     build: "Headless WordPress",
@@ -318,12 +320,6 @@ export const projects: Project[] = [
     demo: "https://ncmaz-faust-delta.vercel.app",
     shots: [ncmazHeadlessWordpressLiveDesktop, ncmazFaust2],
     live: { desktop: ncmazHeadlessWordpressLiveDesktop, mobile: ncmazHeadlessWordpressLiveMobile },
-    stack: [
-      { name: "WordPress", version: "6.8" },
-      { name: "Next.js", version: "14" },
-      { name: "Tailwind CSS", version: "3" },
-      { name: "TypeScript", version: "5" },
-    ],
     checkout: polar("polar_cl_WgG1OzbF7yUX8oq1dY2aZrA1B8uv99MClwq7b0DS472", 49),
     market: {
       url: tf("ncmaz-nextjs-headless-wordpress-blog-magazine/47815656"),
@@ -337,6 +333,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ciseco-hydrogen",
+    repo: "ciseco-hydrogen-vite",
     name: "Ciseco Hydrogen",
     family: "ciseco",
     build: "Shopify Hydrogen",
@@ -347,12 +344,6 @@ export const projects: Project[] = [
       "Ciseco as a headless Shopify storefront on Hydrogen. Products, cart and checkout come from the Shopify store behind it.",
     demo: "https://ciseco-nextjs.vercel.app",
     shots: [cisecoH2, cisecoH22],
-    stack: [
-      { name: "Shopify Hydrogen" },
-      { name: "React", version: "18" },
-      { name: "Tailwind CSS", version: "3" },
-      { name: "TypeScript", version: "5" },
-    ],
     checkout: polar("polar_cl_yz7wtrLEevKorf9wHXE6Q7SquNaL9CDIIQmPW1zP6Mj", 49),
     market: {
       url: tf("ciseco-hydrogen-shopifys-headless-storefront-template/52088296"),
@@ -364,6 +355,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ncmaz",
+    repo: "ncmaz-nextjs",
     name: "Ncmaz",
     family: "ncmaz",
     build: "Next.js",
@@ -375,12 +367,6 @@ export const projects: Project[] = [
     demo: "https://ncmaz-nextjs.vercel.app",
     shots: [ncmazLiveDesktop, ncmaz2],
     live: { desktop: ncmazLiveDesktop, mobile: ncmazLiveMobile },
-    stack: [
-      { name: "Next.js", version: "14" },
-      { name: "React", version: "18" },
-      { name: "Tailwind CSS", version: "3" },
-      { name: "TypeScript", version: "5" },
-    ],
     checkout: polar("polar_cl_L70X4wesYPQCQFWcjfIg18CFWhGWvmN99HaqO0MMK5p", 39),
     market: {
       url: tf("ncmaz-blog-news-magazine-nextjs-template/44412092"),
@@ -394,6 +380,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ciseco",
+    repo: "ciseco-nextjs",
     name: "Ciseco",
     family: "ciseco",
     build: "Next.js",
@@ -405,12 +392,6 @@ export const projects: Project[] = [
     demo: "https://ciseco-nextjs.vercel.app",
     shots: [cisecoLiveDesktop, ciseco2],
     live: { desktop: cisecoLiveDesktop, mobile: cisecoLiveMobile },
-    stack: [
-      { name: "Next.js", version: "15" },
-      { name: "React", version: "19" },
-      { name: "Tailwind CSS", version: "4" },
-      { name: "TypeScript", version: "5" },
-    ],
     checkout: polar("polar_cl_9lk6dfw8VeQ8meZJnt4Xd23D5BokEUZHOolno2dzDZf", 39),
     market: {
       url: tf("ciseco-shop-ecommerce-nextjs-template/44210635"),
@@ -424,6 +405,7 @@ export const projects: Project[] = [
   },
   {
     slug: "chisfis",
+    repo: "chisfis-nextjs",
     name: "Chisfis",
     family: "chisfis",
     build: "Next.js",
@@ -435,12 +417,6 @@ export const projects: Project[] = [
     demo: "https://chisfis-nextjs.vercel.app",
     shots: [chisfisLiveDesktop, chisfis2],
     live: { desktop: chisfisLiveDesktop, mobile: chisfisLiveMobile },
-    stack: [
-      { name: "Next.js", version: "15" },
-      { name: "React", version: "19" },
-      { name: "Tailwind CSS", version: "4" },
-      { name: "TypeScript", version: "5" },
-    ],
     checkout: polar("polar_cl_OXvYo8NIarrH6Xl5RXktEPbL7S212cZbl9ByX05S1SA", 39),
     market: {
       url: tf("chisfis-online-booking-nextjs-template/43399526"),
@@ -454,6 +430,7 @@ export const projects: Project[] = [
   },
   {
     slug: "bitpan",
+    repo: "bitpan-ecommerce-nextjs-template",
     name: "Bitpan",
     family: "bitpan",
     build: "Next.js",
@@ -465,12 +442,6 @@ export const projects: Project[] = [
     demo: "https://bitpan-ecommerce-nextjs-template.vercel.app",
     shots: [bitpanLiveDesktop, bitpan2],
     live: { desktop: bitpanLiveDesktop, mobile: bitpanLiveMobile },
-    stack: [
-      { name: "Next.js", version: "15" },
-      { name: "React", version: "19" },
-      { name: "Tailwind CSS", version: "4" },
-      { name: "TypeScript", version: "5" },
-    ],
     checkout: polar("polar_cl_s2L3FaBAvpxrWOH1SMUobhbKUfUtqfzy9eiyA06o2fw", 39),
     market: {
       url: tf("bitpan-multipurpose-ecommerce-nextjs-template/57992846"),
@@ -481,6 +452,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ciscryp",
+    repo: "ciscryp-nextjs",
     name: "Ciscryp",
     family: "ciscryp",
     build: "Next.js",
@@ -492,12 +464,6 @@ export const projects: Project[] = [
     demo: "https://ciscryp-nextjs.vercel.app",
     shots: [ciscrypLiveDesktop, ciscryp2],
     live: { desktop: ciscrypLiveDesktop, mobile: ciscrypLiveMobile },
-    stack: [
-      { name: "Next.js", version: "14" },
-      { name: "React", version: "18" },
-      { name: "Tailwind CSS", version: "3" },
-      { name: "TypeScript", version: "5" },
-    ],
     checkout: polar("polar_cl_LfmyzTro1CWZV5ZtBr03fbu8GLz6jRO7SNcLR4XBoAo", 39),
     market: {
       url: tf("ciscryp-nft-marketplace-react-template/36906743"),
@@ -511,6 +477,7 @@ export const projects: Project[] = [
   },
   {
     slug: "loopmere",
+    repo: "loopmere",
     name: "Loopmere",
     family: "loopmere",
     build: "Next.js",
@@ -522,7 +489,6 @@ export const projects: Project[] = [
     demo: "https://loopmere.vercel.app",
     shots: [loopmereLiveDesktop],
     live: { desktop: loopmereLiveDesktop, mobile: loopmereLiveMobile },
-    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
     personal: true,
     market: {
       url: "https://themeforest.net/user/booliitheme",
@@ -530,6 +496,11 @@ export const projects: Project[] = [
     },
   },
 ];
+
+export const projects: Project[] = sources.map(({ features = [], ...p }) => ({
+  ...p,
+  stack: [...(read[p.slug]?.stack ?? []), ...features.map((name) => ({ name }))],
+}));
 
 /** The studio on ThemeForest, read off its archived profile. */
 export const author = {
