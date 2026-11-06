@@ -315,7 +315,7 @@ function IconButtonBlock() {
 function PhotoTile({ children }: { children: React.ReactNode }) {
   return (
     <span className="relative grid size-16 place-items-center overflow-hidden rounded-sm outline-none">
-      <Image src={PHOTO} alt="" fill sizes="64px" className="object-cover" />
+      <Image src={PHOTO} alt="" fill sizes="112px" className="object-cover" />
       <span className="relative inline-flex">{children}</span>
     </span>
   );
@@ -522,7 +522,7 @@ function CardCornerBlock() {
               src={PHOTO}
               alt={LISTING.alt}
               fill
-              sizes="320px"
+              sizes="400px"
               className="object-cover transition-transform duration-answer ease-answer group-hover/corner:scale-103 motion-reduce:transition-none"
             />
             <Badge tone="brand" ground="photo" className="absolute top-3 inset-s-3">

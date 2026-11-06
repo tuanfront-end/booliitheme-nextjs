@@ -95,7 +95,7 @@ function Showcase({ p }: { p: Project }) {
         <Image
           src={p.live?.desktop ?? p.shots[0]}
           alt={`${p.name}, home page`}
-          sizes="(min-width: 1024px) 48rem, 100vw"
+          sizes={`(min-width: 1024px) ${p.live ? "48rem" : "60rem"}, 100vw`}
           preload
           className="w-full"
         />
@@ -104,8 +104,7 @@ function Showcase({ p }: { p: Project }) {
         <Image
           src={p.live.mobile}
           alt={`${p.name} on a phone`}
-          sizes="14rem"
-          preload
+          sizes="(min-width: 640px) 14rem, 6rem"
           className="absolute end-[4%] top-[16%] w-[21%] rounded-[22px] shadow-2xl ring-[6px] ring-background"
         />
       )}
@@ -118,7 +117,7 @@ function Showcase({ p }: { p: Project }) {
 function Picture({ src, alt }: { src: StaticImageData; alt: string }) {
   return (
     <span className="mt-4 block overflow-hidden rounded-lg bg-muted p-1.5">
-      <Image src={src} alt={alt} sizes="64rem" className="w-full rounded-[18px]" />
+      <Image src={src} alt={alt} sizes="(min-width: 1024px) 64rem, 100vw" className="w-full rounded-[18px]" />
     </span>
   );
 }
