@@ -93,7 +93,9 @@ export function Signature() {
             >
               <path d="M88 8 Q40 6 10 52 M10 52 L11 40 M10 52 L21 47" />
             </svg>
-            <span className="absolute start-[16.25rem] top-1 text-sm text-muted-foreground">
+            {/* Right of the arrow's tail from `sm`; on a phone there is no room
+                right of it, so the note sits under the chip instead. */}
+            <span className="absolute start-0 top-full mt-2 text-sm text-muted-foreground sm:start-[16.25rem] sm:top-1 sm:mt-0">
               the versions it really ships
             </span>
           </div>
