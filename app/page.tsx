@@ -1,33 +1,28 @@
 import type { Metadata } from "next";
 
-import { readPicks, versions } from "@/components/dev/picks";
-import { Skin } from "@/components/dev/switch-control";
-import { Hero } from "@/components/home/hero";
+import { About, Stack } from "@/components/home/about";
+import { CvCta } from "@/components/home/cv-cta";
+import { Intro } from "@/components/home/intro";
 import { Templates } from "@/components/home/templates";
-import { WorkWithUs } from "@/components/home/work-with-us";
-import { GraphPaper } from "@/components/site/graph-paper";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
-  title: "A two-person website design studio",
+  title: "Website templates by a studio of two",
   description:
-    "BooliiTheme designs and builds templates for Next.js, Shopify and WordPress, and custom websites for teams who want their own.",
+    "BooliiTheme is two designers making website templates for Next.js, Shopify and WordPress, drafted with AI and finished by hand.",
   path: "/",
 });
 
-// Scaffolding: `versions`, `searchParams` and `dynamic` go at phase one's
-// harvest, `readPicks` with `<Skin>` at phase two's — switch.md § Taking it off.
-export const dynamic = "force-dynamic";
-
-export default async function Home({ searchParams }: { searchParams: Promise<{ v?: string | string[] }> }) {
+// Who we are, the templates, then the studio behind them and the CV. Where to
+// write sits in the footer, under a greeting, on every page.
+export default function Home() {
   return (
-    <Skin saved={await readPicks()} preview={versions((await searchParams).v)}>
-      <main id="content" className="relative isolate flex flex-col gap-32 lg:gap-40">
-        <GraphPaper className="absolute inset-0 -z-10" />
-        <Hero />
-        <Templates />
-        <WorkWithUs />
-      </main>
-    </Skin>
+    <main id="content" className="flex flex-col gap-28 sm:gap-36">
+      <Intro />
+      <Templates />
+      <About />
+      <Stack />
+      <CvCta />
+    </main>
   );
 }

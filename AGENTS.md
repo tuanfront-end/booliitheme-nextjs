@@ -20,13 +20,10 @@ The five canonical roles, each label string equal to its name. See `docs/agents/
 
 ### House style
 
-This template runs on **paper-hairline**, a local house style at
-`.claude/skills/paper-hairline/` (`docs/adr/0001`). Wherever a skill, an agent
-file or a dossier says to load or follow `soft-neutral`, load `paper-hairline`
-instead. From `soft-neutral/` read only the shared files: `references/copy.md`,
-`seo.md`, `direction.md`, `fetched-faces.md`, the mechanics in `switch.md`, and
-the ledger part of `sections.md`. Its scripts still run in `npm run check`
-beside paper-hairline's forks; `package.json` is the list.
+Soft Neutral, since the v3 rebuild (`docs/adr/0002`). The local
+`.claude/skills/paper-hairline/` belonged to v2 and stays for its history only.
+Where this template departs from Soft Neutral — the 14px reading size, Geist
+Mono kickers — the reason sits in `.soft-neutral.json` under `waive`.
 
 ### Design language
 

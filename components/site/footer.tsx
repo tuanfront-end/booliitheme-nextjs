@@ -1,59 +1,46 @@
-import Link from "next/link";
-import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
+import { Column } from "@/components/site/column";
+import { Eyebrow } from "@/components/site/eyebrow";
+import { HelloGrid } from "@/components/site/hello-grid";
+import { email, marketplaces, socials } from "@/lib/nav";
 
-import { CopyEmail } from "@/components/site/copy-email";
-import { Logo } from "@/components/site/logo";
-import { author } from "@/lib/data/projects";
-import { email, marketplaces, socials, studioLinks } from "@/lib/nav";
-
-const since = author.since.slice(0, 4);
 const linkClass =
-  "inline-flex min-h-10 items-center gap-1.5 rounded-control text-sm text-muted-foreground press hover:text-foreground";
+  "inline-flex min-h-10 items-center rounded-xs text-sm press hover:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
 
-// Paper to the end: the hairline above it, one line on who we are, the
-// studio's links, where the templates are sold, and the address.
+// The greeting in green squares, then the two offers in one line and the
+// address large enough to be the heading, then where else we are.
 export function SiteFooter() {
-  const external = [...marketplaces, ...socials];
   return (
-    <footer className="mx-auto mt-40 w-full max-w-7xl px-6 sm:px-8">
-      <div className="grid gap-10 border-t border-border py-12 md:grid-cols-[1fr_auto_auto] md:gap-16">
-        <div className="max-w-md">
-          <Logo aria-hidden className="h-6 w-auto" />
-          <p className="mt-4 text-sm text-muted-foreground">
-            A studio of two, designing websites and drawing them with AI.
-          </p>
-        </div>
-        <nav aria-label="Studio">
-          <ul>
-            {studioLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className={linkClass}>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+    <Column as="footer" id="contact" aria-labelledby="contact-title" className="mt-32 pb-10 sm:mt-40 print:hidden">
+      <HelloGrid className="h-auto w-full max-w-3xl" />
+
+      <Eyebrow as="h2" id="contact-title" className="mt-20 sm:mt-24">
+        Work with us
+      </Eyebrow>
+      <a
+        href={`mailto:${email}`}
+        className="mt-4 inline-block press font-heading text-2xl tracking-tight transition-colors duration-answer ease-answer hover:text-muted-foreground focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring min-[400px]:text-3xl sm:text-5xl sm:tracking-tighter"
+      >
+        {email}
+      </a>
+      <p className="mt-4 max-w-xl text-sm text-muted-foreground">
+        Ask for a template no one else has, or have the two of us build your site.
+      </p>
+
+      <div className="mt-20 flex flex-col-reverse gap-x-8 gap-y-4 sm:mt-28 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} BooliiTheme</p>
         <nav aria-label="Elsewhere">
-          <ul>
-            {external.map((link) => (
+          <ul className="flex flex-wrap gap-x-6">
+            {[...socials, ...marketplaces].map((link) => (
               <li key={link.label}>
                 <a href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   {link.label}
-                  <ArrowUpRightIcon aria-hidden="true" className="size-4 rtl:-scale-x-100" />
-                  <span className="sr-only">(opens in a new tab)</span>
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </li>
             ))}
           </ul>
         </nav>
       </div>
-      <div className="flex flex-col gap-3 border-t border-border py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          © {since}–{new Date().getFullYear()} BooliiTheme
-        </p>
-        <CopyEmail email={email} className="-mx-3 self-start sm:self-auto" />
-      </div>
-    </footer>
+    </Column>
   );
 }

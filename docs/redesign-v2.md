@@ -1,5 +1,7 @@
 # Redesign v2 — trang profile BooliiTheme (tối giản đúng nghĩa)
 
+> Đã thay bởi bản v3 trên Soft Neutral — xem `docs/adr/0002-back-to-soft-neutral.md`.
+
 Ghi lại ngày 2026-10-20, sau Stop 3 của bản v1. Anh Tuấn không hài lòng với
 bất kỳ section nào của trang chủ v1 và giao toàn quyền thiết kế lại từ đầu.
 

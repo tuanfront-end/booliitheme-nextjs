@@ -40,7 +40,7 @@ type PageMeta = {
    *  mid-flow, an account screen, somebody's own saved list. Keep `follow`
    *  true: the links out of those pages go to pages that should rank. */
   robots?: Metadata["robots"];
-  /** An absolute image URL for the card. */
+  /** An absolute image URL for the card; the site's own card otherwise. */
   image?: string;
   /** `article` only. */
   published?: string;
@@ -62,7 +62,9 @@ export function pageMeta({
   // a tab has the whole browser to say where you are, a card in a chat window
   // has nothing.
   const social = `${title} · ${siteName}`;
-  const images = image ? [image] : undefined;
+  // A page's `openGraph` replaces its parent's whole, so the site's card in
+  // app/opengraph-image.png reaches a route only when it is named here.
+  const images = [image ?? "/opengraph-image.png"];
 
   return {
     // `title.template` applies to *child* segments, and `app/layout.tsx` and

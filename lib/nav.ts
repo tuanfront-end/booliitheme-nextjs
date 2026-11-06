@@ -1,16 +1,13 @@
-import { author, platforms, projects, type Platform } from "@/lib/data/projects";
+import { author } from "@/lib/data/projects";
 
-// Every route and anchor the chrome links to, read by the header, its mobile
-// drawer and the footer, so the three never disagree about where a page lives.
+// Every place the chrome links to, read by the header and the footer, so the
+// two never disagree about where something lives.
 
-export const studioLinks = [
+export const sections = [
+  { label: "Home", href: "/" },
   { label: "Templates", href: "/#templates" },
-  { label: "Work with us", href: "/#work-with-us" },
-  { label: "Contact", href: "/#contact" },
-];
-
-/** The header bar's own links. */
-export const barLinks = studioLinks;
+  { label: "Write to us", href: "/#contact" },
+] as const;
 
 export const marketplaces = [
   { label: "ThemeForest", href: author.url },
@@ -18,22 +15,9 @@ export const marketplaces = [
 ];
 
 export const socials = [
-  { label: "Facebook", href: "https://www.facebook.com/people/Booliitheme/61577223687643/" },
-  { label: "X", href: "https://x.com/BooliiT62007" },
   { label: "Dribbble", href: "https://dribbble.com/booliitheme/" },
+  { label: "X", href: "https://x.com/BooliiT62007" },
+  { label: "Facebook", href: "https://www.facebook.com/people/Booliitheme/61577223687643/" },
 ];
 
 export const email = "booliitheme@gmail.com";
-
-// A headless build appears once, under the platform its buyer installs it on —
-// Ncmaz Headless is a WordPress site with a Next.js front end, and the person
-// looking for it is looking under WordPress.
-const home: Record<string, Platform> = { "ncmaz-headless-wordpress": "wordpress" };
-
-export const templatesByPlatform = (Object.keys(platforms) as Platform[]).map((platform) => ({
-  platform,
-  label: platforms[platform],
-  items: projects.filter((p) => (home[p.slug] ?? p.platforms[0]) === platform),
-}));
-
-export const newest = projects[0];

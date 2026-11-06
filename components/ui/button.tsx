@@ -12,10 +12,12 @@ import { cn } from "@/lib/utils";
 // --ring is the brand's ink, which clears 4.5:1 on the page. The halo shadcn generates,
 // ring-ring/50, measured 1.2:1 and was not a ring anyone could see.
 //
-// The default variant is the primary button: the page's ink, drawn by
-// `btn-ink` in globals.css with a faint gradient and a lit top edge so it
-// reads as pressable rather than as a black rectangle. The brand hue never
-// fills it. The secondary is paper with a hairline and the faintest lift.
+// The default variant is the primary button, and it wears --action rather
+// than the brand's fill. A template decides what its main call to action looks
+// like — the fill itself by default, so the button and the chosen states are
+// one colour; black; or, under a fill light by nature, a deep shade of the hue
+// with white type — and that is one token in globals.css, while every chosen
+// state in the kit keeps the bright --primary.
 //
 // Disabled lowers the ink, not the opacity, so it reads as off in both halves
 // instead of letting the page show through. It is written on data-disabled as
@@ -29,11 +31,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "btn-ink text-action-foreground disabled:border-transparent disabled:bg-muted disabled:bg-none disabled:shadow-none data-disabled:not-aria-busy:bg-muted data-disabled:not-aria-busy:bg-none data-disabled:not-aria-busy:shadow-none",
+          "bg-action text-action-foreground hover:bg-action-hover disabled:bg-muted data-disabled:not-aria-busy:bg-muted",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
-          "border-border bg-background text-foreground shadow-soft hover:border-[color-mix(in_oklab,var(--foreground)_20%,transparent)] aria-expanded:border-[color-mix(in_oklab,var(--foreground)_20%,transparent)]",
+          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:

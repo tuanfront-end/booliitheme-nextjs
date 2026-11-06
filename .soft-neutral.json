@@ -1,5 +1,4 @@
 {
-  "house": "paper-hairline",
   "colour": 2,
   "motion": 1,
   "pastel": 0,
@@ -17,8 +16,11 @@
   "spelling": "us",
   "neutral": "warm",
   "waive": {
-    "controls-check: an ink fill where the brand token belongs": "House rule 1 \u2014 the brand is Ink (locked at stop 2), so the action and every chosen state are the page's ink by design",
-    "responsive-check: 14px copy wrapping outside a product object": "paper-hairline: 14px is the one reading size, titles and descriptions alike (references/typography.md)",
-    "responsive-check: mono over words somebody chose": "paper-hairline: data figures \u2014 counts, ratings, versions \u2014 are set in mono (references/typography.md \u00a7 Mono)"
-  }
+    "controls-check: an ink fill where the brand token belongs": "House rule 1 — the brand is Ink (locked at stop 2), so the action and every chosen state are the page's ink by design",
+    "responsive-check: 14px copy wrapping outside a product object": "anh Tuấn's direction for the v3 profile (2026-11-05): an extremely quiet page read at 14px, the references' reading size",
+    "responsive-check: mono over words somebody chose": "anh Tuấn's direction for the v3 profile (2026-11-05): Geist Mono sets the kicker over each block, as the references do"
+  },
+  "appRoutes": [
+    "/cv"
+  ]
 }

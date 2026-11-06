@@ -1,68 +1,102 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
+import {
+  DribbbleIcon,
+  Home01Icon,
+  Layers01Icon,
+  Mail01Icon,
+  NewTwitterIcon,
+  ShoppingBag01Icon,
+} from "@hugeicons/core-free-icons";
 
-import { Logo } from "@/components/site/logo";
-import { LogoMark } from "@/components/site/logo-mark";
-import { MobileNav } from "@/components/site/mobile-nav";
+import { Column } from "@/components/site/column";
 import { ModeToggle } from "@/components/site/mode-toggle";
 import { Button } from "@/components/ui/button";
-import { barLinks } from "@/lib/nav";
-import { cn } from "@/lib/utils";
+import { IconButton } from "@/components/ui/icon-button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { author } from "@/lib/data/projects";
+import { formatNumber } from "@/lib/format";
+import { sections, socials } from "@/lib/nav";
 
-const linkClass =
-  "inline-flex h-10 items-center rounded-control px-3 text-sm text-muted-foreground press hover:text-foreground";
+const glyphs: Record<string, IconSvgElement> = {
+  Home: Home01Icon,
+  Templates: Layers01Icon,
+  "Write to us": Mail01Icon,
+  X: NewTwitterIcon,
+  Dribbble: DribbbleIcon,
+};
 
-// Paper, the logo, three anchors and one action. Past the first scroll the bar
-// draws its hairline underneath, and nothing else about it changes.
-export function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+// One glyph in a tinted disc, named by a tooltip. A link inside the site is a
+// <Link>; one that leaves it opens a new tab and says so aloud.
+function Disc({ label, href, className }: { label: string; href: string; className?: string }) {
+  const away = href.startsWith("http");
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 border-b bg-background/90 backdrop-blur-md transition-colors duration-answer ease-answer",
-        scrolled ? "border-border" : "border-transparent",
-      )}
-    >
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-6 px-6 sm:px-8">
-        <Link
-          href="/"
-          aria-label="BooliiTheme, home"
-          className="-mx-2 flex h-10 shrink-0 items-center gap-2 rounded-control px-2 text-foreground press hover:bg-accent"
-        >
-          <LogoMark className="size-8 shrink-0" />
-          <Logo aria-hidden className="h-5 w-auto max-[359px]:hidden" />
-        </Link>
+    <Tooltip>
+      <TooltipTrigger
+        render={
+          <IconButton
+            variant="secondary"
+            aria-label={away ? `${label} (opens in a new tab)` : label}
+            className={className}
+            nativeButton={false}
+            render={away ? <a href={href} target="_blank" rel="noopener noreferrer" /> : <Link href={href} />}
+          />
+        }
+      >
+        <HugeiconsIcon icon={glyphs[label]} strokeWidth={1.5} className="size-5" />
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
+  );
+}
 
-        <nav aria-label="Main" className="hidden md:block">
-          <ul className="flex items-center">
-            {barLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className={linkClass}>
-                  {link.label}
-                </Link>
+const sales = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 })
+  .format(author.sales)
+  .toLowerCase();
+
+// The way round the page as three discs on the start side; across from them
+// the mode, two places we post our work, and the one figure we let speak for
+// us — sales on ThemeForest — in a pill that goes there.
+export function SiteHeader() {
+  return (
+    <TooltipProvider>
+      <Column as="header" className="py-6 print:hidden" innerClassName="flex items-center justify-between gap-3">
+        <nav aria-label="Primary">
+          <ul className="flex gap-1.5 min-[380px]:gap-2">
+            {sections.map((s) => (
+              <li key={s.label} className={s.href === "/" ? "max-[359px]:hidden" : undefined}>
+                <Disc label={s.label} href={s.href} />
               </li>
             ))}
           </ul>
         </nav>
 
-        <div className="ms-auto flex items-center gap-1">
+        <div className="flex items-center gap-1.5 min-[380px]:gap-2">
           <ModeToggle />
-          <Button render={<Link href="/#contact" />} nativeButton={false} size="sm" className="ms-2 hidden sm:inline-flex">
-            Message us
-          </Button>
-          <MobileNav />
+          {socials
+            .filter((s) => s.label in glyphs)
+            .map((s) => (
+              <Disc key={s.label} label={s.label} href={s.href} className="max-sm:hidden" />
+            ))}
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant="secondary"
+                  nativeButton={false}
+                  render={<a href={author.url} target="_blank" rel="noopener noreferrer" />}
+                />
+              }
+            >
+              <HugeiconsIcon icon={ShoppingBag01Icon} strokeWidth={1.5} data-icon="inline-start" className="size-5" />
+              <span className="tabular-nums">{sales}</span>
+              <span className="max-[379px]:sr-only">sales</span>
+              <span className="sr-only">on ThemeForest (opens in a new tab)</span>
+            </TooltipTrigger>
+            <TooltipContent>{formatNumber(author.sales)} sales on ThemeForest</TooltipContent>
+          </Tooltip>
         </div>
-      </div>
-    </header>
+      </Column>
+    </TooltipProvider>
   );
 }

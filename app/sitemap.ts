@@ -20,5 +20,8 @@ import { abs } from "@/lib/site";
 // changed on deploy, and a sitemap caught in that has all its dates ignored —
 // including the true ones.
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: abs("/"), priority: 1, changeFrequency: "weekly" }];
+  return [
+    { url: abs("/"), priority: 1, changeFrequency: "weekly" },
+    { url: abs("/cv"), priority: 0.5, changeFrequency: "monthly" },
+  ];
 }

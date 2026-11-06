@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Be_Vietnam_Pro,
   Bodoni_Moda,
@@ -26,10 +26,9 @@ import {
   Source_Sans_3,
 } from "next/font/google";
 import localFont from "next/font/local";
+import { GeistSerif } from "geist/font/serif";
 import { ThemeProvider } from "next-themes";
 import { DemoBuyLink } from "@/components/demo/buy-link"; // demo-only
-import { readPicks } from "@/components/dev/picks";
-import { Skin } from "@/components/dev/switch-control";
 import { FontNotice } from "@/components/font-notice";
 import { GridOverlay } from "@/components/grid-overlay";
 import { PresetPanel, PresetScript } from "@/components/preset-panel";
@@ -46,8 +45,9 @@ import { siteName, siteUrl } from "@/lib/site";
 
 // The generated @theme inline maps --font-sans → var(--font-sans), so the
 // next/font variable has to be named --font-sans, not --font-geist-sans.
+// Geist is the body face: every reading line on the page is set in it.
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
@@ -98,9 +98,8 @@ const beVietnamPro = Be_Vietnam_Pro({
 
 // The five added for the heading/body split. All variable, so no weight list:
 // the pair is whatever the row asks for and the file already carries it.
-// The body face of the Paper Hairline style: every reading line is set in it.
 const instrumentSans = Instrument_Sans({
-  variable: "--font-sans",
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
 });
 
@@ -306,14 +305,13 @@ export const metadata: Metadata = {
     "Storefront, booking and magazine templates from BooliiTheme, each design built for Next.js, Shopify Hydrogen and WordPress block themes.",
 };
 
-// Scaffolding, with the two imports above, the `async` and <Skin> below: the
-// switch's picks are read off disk on every request, before the first paint,
-// so a reload never flashes the defaults and then swaps. All of it comes off at
-// phase two's harvest — switch.md § Taking it off.
-export const dynamic = "force-dynamic";
+// viewportFit: without `cover`, iOS reports every `env(safe-area-inset-*)` as
+// 0, so the toaster and the preset panel sit under the home indicator.
+export const viewport: Viewport = {
+  viewportFit: "cover",
+};
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const saved = await readPicks();
+export default function RootLayout({ children }: LayoutProps<"/">) {
   // data-scroll-behavior: Next 16 stopped neutralising the `scroll-behavior:
   // smooth` in globals.css around a route transition, so without the attribute
   // the new page renders at once and then animates up from wherever the old one
@@ -329,7 +327,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${googleSansFlex.variable} ${manrope.variable} ${outfit.variable} ${poppins.variable} ${beVietnamPro.variable} ${instrumentSans.variable} ${plexMono.variable} ${notoSerifDisplay.variable} ${schibstedGrotesk.variable} ${bricolageGrotesque.variable} ${newsreader.variable} ${fraunces.variable} ${instrumentSerif.variable} ${plusJakartaSans.variable} ${apfelGrotezk.variable} ${amiamie.variable} ${gatchina.variable} ${bodoniModa.variable} ${italiana.variable} ${prata.variable} ${facultyGlyphic.variable} ${sourceSans3.variable} ${elmsSans.variable} ${inter.variable} ${familjenGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${GeistSerif.variable} ${geistMono.variable} ${googleSansFlex.variable} ${manrope.variable} ${outfit.variable} ${poppins.variable} ${beVietnamPro.variable} ${instrumentSans.variable} ${plexMono.variable} ${notoSerifDisplay.variable} ${schibstedGrotesk.variable} ${bricolageGrotesque.variable} ${newsreader.variable} ${fraunces.variable} ${instrumentSerif.variable} ${plusJakartaSans.variable} ${apfelGrotezk.variable} ${amiamie.variable} ${gatchina.variable} ${bodoniModa.variable} ${italiana.variable} ${prata.variable} ${facultyGlyphic.variable} ${sourceSans3.variable} ${elmsSans.variable} ${inter.variable} ${familjenGrotesk.variable} h-full antialiased`}
     >
       <head>
         <PresetScript />
@@ -345,17 +343,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             them. Its target is `id="content"` on each `<main>`. */}
         <SkipLink />
         <Direction built={direction}>
-          {/* The switch, mounted here rather than in app/page.tsx because the
-              header and footer are: it has to wrap them for the brand, the
-              pairing, the radius and the header knob to reach them, and here
-              it wraps /lab and /design-system with the home. A page that needs
-              `?v=` renders its own <Skin>, which nests as a provider — see
-              components/dev/switch-control.tsx. */}
-          <Skin saved={saved}>
-            <SiteHeader />
-            {children}
-            <SiteFooter />
-          </Skin>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
           <Toaster />
         </Direction>
         {/* The two site-wide objects, here so they are on every route. Every

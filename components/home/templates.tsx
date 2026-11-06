@@ -4,12 +4,11 @@ import Image, { type StaticImageData } from "next/image";
 import { useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon, ArrowUpRightIcon } from "@heroicons/react/24/outline";
 
-import { DeviceMockup } from "@/components/site/device-mockup";
+import { Column } from "@/components/site/column";
 import { Eyebrow } from "@/components/site/eyebrow";
-import { Lede } from "@/components/site/lede";
 import { SectionHeading } from "@/components/site/section-heading";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { IconButton } from "@/components/ui/icon-button";
 import {
   Dialog,
   DialogBody,
@@ -19,31 +18,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { industries, platforms, priceOf, projects, type Project } from "@/lib/data/projects";
+import { industries, priceOf, projects, type Project } from "@/lib/data/projects";
 import { formatDate, formatMoney, formatNumber } from "@/lib/format";
 
-// A capture in a hairline frame, the way every picture in the overlay sits.
-function Frame({
-  src,
-  alt,
-  sizes = "(min-width: 1024px) 60rem, 100vw",
-  className,
-}: {
-  src: StaticImageData;
-  alt: string;
-  sizes?: string;
-  className?: string;
-}) {
-  return (
-    <span className={`block self-start overflow-hidden rounded-md border border-border p-1 ${className ?? ""}`}>
-      <Image src={src} alt={alt} sizes={sizes} className="w-full rounded-[4px]" />
-    </span>
-  );
-}
+const forSale = projects.filter((p) => !p.personal);
 
 const price = (p: Project) => {
   const usd = priceOf(p);
-  if (p.personal) return "Personal project";
   return usd ? formatMoney(usd, undefined, { maximumFractionDigits: 0 }) : "On ThemeForest";
 };
 
@@ -51,211 +32,164 @@ const price = (p: Project) => {
 // in until a checkout is set.
 const buyHref = (p: Project) => p.checkout?.url ?? p.market.url;
 
-// The facts under an open template, in the order a buyer asks them. A row
+// A capture standing in a tinted panel, set high and cut by the panel's foot,
+// so a website reads as a shot of one rather than a screenshot pasted down.
+function Shot({ src, sizes, className }: { src: StaticImageData; sizes: string; className?: string }) {
+  return (
+    <span className={`relative block aspect-[5/3] overflow-hidden rounded-lg bg-muted ${className ?? ""}`}>
+      <Image
+        src={src}
+        alt=""
+        sizes={sizes}
+        className="absolute inset-x-[6%] top-[13%] w-[88%] rounded-t-sm shadow-soft transition-transform duration-arrive ease-arrive group-hover/shot:-translate-y-1.5 motion-reduce:transition-none"
+      />
+    </span>
+  );
+}
+
+// The facts a buyer checks before paying, in the order they ask them. A row
 // whose figure the marketplace does not give is left out.
-function details(p: Project): [string, React.ReactNode][] {
-  const rows: [string, React.ReactNode][] = [
+function details(p: Project): [string, string][] {
+  const rows: [string, string][] = [
     ["Built with", p.build],
     ["Category", industries[p.industry]],
-    [
-      "Stack",
-      <span key="stack" className="flex flex-wrap justify-end gap-1.5">
-        {p.stack.map((d) => (
-          <Badge key={d.name}>
-            {d.name}
-            {d.version && <span className="text-muted-foreground tabular-nums">{d.version}</span>}
-          </Badge>
-        ))}
-      </span>,
-    ],
+    ["Stack", p.stack.map((d) => [d.name, d.version].filter(Boolean).join(" ")).join(", ")],
   ];
   if (p.market.updated) rows.push(["Last updated", formatDate(p.market.updated)]);
-  if (p.market.sales) rows.push(["Sales", <span key="sales" className="tabular-nums">{formatNumber(p.market.sales)}</span>]);
+  if (p.market.sales) rows.push(["Sales", formatNumber(p.market.sales)]);
   if (p.market.rating)
-    rows.push([
-      "Rating",
-      <span key="rating" className="tabular-nums">
-        {p.market.rating.toFixed(2)}
-        {p.market.ratings ? <span className="text-muted-foreground"> from {p.market.ratings}</span> : null}
-      </span>,
-    ]);
+    rows.push(["Rating", `${p.market.rating.toFixed(2)}${p.market.ratings ? ` from ${p.market.ratings}` : ""}`]);
   return rows;
 }
 
-const NUMBERS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-  "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty"];
-const forSale = projects.filter((p) => !p.personal).length;
-
-// Preview opens the live demo in a new tab; Buy goes to checkout. A personal
-// project has the preview alone.
+// Preview opens the live demo in a new tab; Buy goes to checkout.
 function Actions({ p }: { p: Project }) {
   return (
     <>
       <Button
-        size="sm"
         variant="secondary"
         render={<a href={p.demo} target="_blank" rel="noopener noreferrer" />}
         nativeButton={false}
       >
-        Preview
+        Live preview
         <ArrowUpRightIcon data-icon="inline-end" className="rtl:-scale-x-100" />
+        <span className="sr-only">of {p.name} (opens in a new tab)</span>
+      </Button>
+      <Button render={<a href={buyHref(p)} target="_blank" rel="noopener noreferrer" />} nativeButton={false}>
+        Buy for {price(p)}
         <span className="sr-only">{p.name} (opens in a new tab)</span>
       </Button>
-      {!p.personal && (
-        <Button size="sm" render={<a href={buyHref(p)} target="_blank" rel="noopener noreferrer" />} nativeButton={false}>
-          Buy
-          <span className="sr-only">{p.name} (opens in a new tab)</span>
-        </Button>
-      )}
     </>
   );
 }
 
-// Every template as a laptop and a phone showing its live demo, its name, its
-// price and the two things to do with it — preview, buy — in two columns, the
-// second set half a card lower. A press on the devices opens the template over
-// the page, the way Dribbble opens a shot; the arrows and the three templates at
-// its foot walk on without closing.
+// Every template we sell as a picture, its name and its price, two to a row.
+// A press opens it over the page the way Dribbble opens a shot; the arrows and
+// the three at its foot walk on without closing.
 export function Templates() {
   const [open, setOpen] = useState<number | null>(null);
-  const current = open === null ? null : projects[open];
-  const step = (by: number) => setOpen((i) => (i === null ? i : (i + by + projects.length) % projects.length));
+  const current = open === null ? null : forSale[open];
+  const step = (by: number) => setOpen((i) => (i === null ? i : (i + by + forSale.length) % forSale.length));
 
   return (
-    <section
-      id="templates"
-      aria-labelledby="templates-title"
-      className="mx-auto w-full max-w-7xl px-6 sm:px-8"
-    >
-      <Eyebrow>Templates</Eyebrow>
-      <SectionHeading id="templates-title" className="mt-4">
-        {NUMBERS[forSale] ?? forSale} templates, each one finished
+    <Column as="section" id="templates" aria-labelledby="templates-title">
+      <Eyebrow>(01) Templates</Eyebrow>
+      <SectionHeading id="templates-title" className="mt-3">
+        Every template we sell
       </SectionHeading>
-      <Lede className="mt-2">Open one to see it closer. Every template runs as a live demo.</Lede>
 
       <Dialog open={open !== null} onOpenChange={(o) => !o && setOpen(null)}>
-        <ul className="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 sm:pb-40 sm:[&>li:nth-child(even)]:translate-y-40 lg:mt-24 lg:gap-x-12">
-          {projects.map((p, i) => (
+        <ul className="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-16">
+          {forSale.map((p, i) => (
             <li key={p.slug}>
               <DialogTrigger
                 onClick={() => setOpen(i)}
-                aria-label={`Open ${p.name}`}
-                className="group/card block w-full rounded-lg text-start"
+                className="group/shot block w-full rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
               >
-                {p.live ? (
-                  <DeviceMockup
-                    desktop={p.live.desktop}
-                    mobile={p.live.mobile}
-                    alt=""
-                    className="transition-transform duration-arrive ease-arrive group-hover/card:-translate-y-1"
-                  />
-                ) : (
-                  <span className="block overflow-hidden rounded-lg border border-border bg-background p-1.5 transition-colors duration-answer ease-answer group-hover/card:border-[color-mix(in_oklab,var(--foreground)_20%,transparent)]">
-                    <Image
-                      src={p.shots[0]}
-                      alt=""
-                      sizes="(min-width: 640px) 40rem, 100vw"
-                      className="aspect-[16/11] w-full rounded-[calc(var(--radius)-6px)] object-cover object-top"
-                    />
-                  </span>
-                )}
-              </DialogTrigger>
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-1">
-                <p className="text-sm">
+                <Shot src={p.live?.desktop ?? p.shots[0]} sizes="(min-width: 640px) 30rem, 100vw" />
+                <span className="mt-4 flex items-baseline justify-between gap-4 px-1 text-sm">
                   <span className="font-medium">{p.name}</span>
-                  <span className="ms-3 text-muted-foreground tabular-nums">{price(p)}</span>
-                </p>
-                <div className="flex gap-2">
-                  <Actions p={p} />
-                </div>
-              </div>
+                  <span className="text-muted-foreground tabular-nums">{price(p)}</span>
+                </span>
+              </DialogTrigger>
             </li>
           ))}
         </ul>
 
         {/* Open, a template takes the screen the way a Dribbble shot does: a
-            sheet rising almost to the top, its name and the things to do with it
-            in a bar across the head, the pictures large below, and three more
-            templates at the foot to walk on to. */}
+            sheet rising almost to the top, its name and the things to do with
+            it across the head, the pictures large below, and three more at the
+            foot to walk on to. */}
         <DialogContent className="sm:-mb-6 sm:h-[calc(100dvh-2.5rem)] sm:max-h-none sm:max-w-none sm:self-end sm:rounded-b-none sm:rounded-t-xl sm:data-starting-style:translate-y-16 sm:data-ending-style:translate-y-16">
           {current && (
             <>
-              <div className="flex shrink-0 flex-wrap items-center gap-x-6 gap-y-3 border-b px-6 py-4 sm:px-8">
-                <div className="me-auto flex min-w-0 flex-col gap-0.5">
-                  <DialogTitle className="font-heading text-3xl font-normal">{current.name}</DialogTitle>
-                  <DialogDescription>
-                    {current.tagline} · {current.platforms.map((pl) => platforms[pl]).join(", ")}
-                  </DialogDescription>
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="text-sm text-muted-foreground tabular-nums">{price(current)}</span>
-                  <Actions p={current} />
-                </div>
-                <div className="flex items-center gap-1 max-sm:order-first max-sm:w-full max-sm:justify-end">
-                  <Button variant="ghost" size="icon" aria-label="Previous template" onClick={() => step(-1)}>
-                    <ArrowLeftIcon className="rtl:-scale-x-100" />
-                  </Button>
-                  <Button variant="ghost" size="icon" aria-label="Next template" onClick={() => step(1)}>
-                    <ArrowRightIcon className="rtl:-scale-x-100" />
-                  </Button>
-                  <DialogCloseButton className="ms-2" />
-                </div>
+              <div className="flex shrink-0 items-center justify-end gap-1 px-4 pt-4 sm:px-6">
+                <IconButton aria-label="Previous template" onClick={() => step(-1)}>
+                  <ArrowLeftIcon className="rtl:-scale-x-100" />
+                </IconButton>
+                <IconButton aria-label="Next template" onClick={() => step(1)}>
+                  <ArrowRightIcon className="rtl:-scale-x-100" />
+                </IconButton>
+                <DialogCloseButton className="ms-2" />
               </div>
+
               {/* Keyed by template, so walking on starts the next one at its top. */}
-              <DialogBody key={current.slug} className="py-10 sm:py-14">
-                <div className="mx-auto flex max-w-6xl flex-col gap-6">
-                  <div className="grid items-start gap-6 sm:grid-cols-[3fr_1fr]">
-                    <Frame
+              <DialogBody key={current.slug} className="pt-6 pb-16 sm:pt-8">
+                <div className="mx-auto flex max-w-5xl flex-col">
+                  <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-6">
+                    <div>
+                      <DialogTitle className="text-3xl font-normal tracking-tight sm:text-4xl sm:tracking-tighter">
+                        {current.name}
+                      </DialogTitle>
+                      <DialogDescription className="mt-2 text-sm text-muted-foreground">
+                        {current.tagline}
+                      </DialogDescription>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Actions p={current} />
+                    </div>
+                  </div>
+
+                  <div className="mt-10 grid items-start gap-4 sm:grid-cols-[3fr_1fr]">
+                    <Picture
                       src={current.live?.desktop ?? current.shots[0]}
                       alt={`${current.name}, home page`}
-                      sizes="(min-width: 1024px) 54rem, 100vw"
-                      className={current.live ? "w-full" : "w-full sm:col-span-2"}
+                      sizes="(min-width: 1024px) 46rem, 100vw"
+                      className={current.live ? undefined : "sm:col-span-2"}
                     />
                     {current.live && (
-                      <Frame src={current.live.mobile} alt={`${current.name} on a phone`} sizes="18rem" className="w-full" />
+                      <Picture src={current.live.mobile} alt={`${current.name} on a phone`} sizes="15rem" />
                     )}
                   </div>
                   {current.shots[1] && (
-                    <Frame src={current.shots[1]} alt={`${current.name}, an inner page`} className="w-full" />
+                    <Picture src={current.shots[1]} alt={`${current.name}, an inner page`} sizes="64rem" className="mt-4" />
                   )}
 
-                  {/* What it is, then the facts a buyer checks before paying,
-                      in a hairline list beside it. */}
-                  <div className="mt-10 grid gap-10 md:grid-cols-[3fr_2fr] md:gap-16">
-                    <div>
-                      <h3 className="text-sm font-medium">About {current.name}</h3>
-                      <p className="mt-3 max-w-prose text-base text-muted-foreground">{current.about}</p>
-                    </div>
-                    <dl className="divide-y divide-border border-y border-border text-sm">
+                  <div className="mt-12 grid gap-10 md:grid-cols-[3fr_2fr] md:gap-16">
+                    <p className="max-w-prose text-sm text-muted-foreground">{current.about}</p>
+                    <dl className="text-sm">
                       {details(current).map(([term, value]) => (
-                        <div key={term} className="flex items-baseline justify-between gap-6 py-3">
+                        <div key={term} className="flex items-baseline justify-between gap-6 py-1.5">
                           <dt className="text-muted-foreground">{term}</dt>
-                          <dd className="text-end">{value}</dd>
+                          <dd className="text-end tabular-nums">{value}</dd>
                         </div>
                       ))}
                     </dl>
                   </div>
 
-                  <div className="mt-16 border-t border-border pt-8">
-                    <h3 className="text-sm font-medium">More templates</h3>
+                  <div className="mt-20">
+                    <Eyebrow as="h3">More templates</Eyebrow>
                     <ul className="mt-6 grid gap-6 sm:grid-cols-3">
                       {[1, 2, 3].map((by) => {
-                        const at = ((open ?? 0) + by) % projects.length;
-                        const next = projects[at];
+                        const at = ((open ?? 0) + by) % forSale.length;
+                        const next = forSale[at];
                         return (
                           <li key={next.slug}>
                             <DialogTrigger
                               onClick={() => setOpen(at)}
-                              className="group/more block w-full rounded-md text-start"
+                              className="group/shot block w-full rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
                             >
-                              <span className="block overflow-hidden rounded-md border border-border p-1 transition-colors duration-answer ease-answer group-hover/more:border-[color-mix(in_oklab,var(--foreground)_20%,transparent)]">
-                                <Image
-                                  src={next.live?.desktop ?? next.shots[0]}
-                                  alt=""
-                                  sizes="24rem"
-                                  className="aspect-[16/10] w-full rounded-[4px] object-cover object-top"
-                                />
-                              </span>
+                              <Shot src={next.live?.desktop ?? next.shots[0]} sizes="20rem" />
                               <span className="mt-3 flex justify-between gap-3 px-1 text-sm">
                                 <span className="font-medium">{next.name}</span>
                                 <span className="text-muted-foreground tabular-nums">{price(next)}</span>
@@ -272,6 +206,26 @@ export function Templates() {
           )}
         </DialogContent>
       </Dialog>
-    </section>
+    </Column>
+  );
+}
+
+// A picture inside the open template: the capture on the panel's tint, 6px in
+// from its edge, so a white page still has an edge on the white sheet.
+function Picture({
+  src,
+  alt,
+  sizes,
+  className,
+}: {
+  src: StaticImageData;
+  alt: string;
+  sizes: string;
+  className?: string;
+}) {
+  return (
+    <span className={`block overflow-hidden rounded-lg bg-muted p-1.5 ${className ?? ""}`}>
+      <Image src={src} alt={alt} sizes={sizes} className="w-full rounded-[18px]" />
+    </span>
   );
 }
