@@ -12,10 +12,12 @@ import { formatDate, formatMoney, formatNumber } from "@/lib/format";
 /** A template built on Next.js alone — the builds the home page leads with. */
 export const isNextOnly = (p: Project) => p.platforms.length === 1 && p.platforms[0] === "nextjs";
 
-/** Every template on sale, the Next.js ones first, each half in the order the
- *  data file keeps it. The grid and the sheet's arrows both walk this order. */
-export const forSale = [
+/** Everything the grid shows: the Next.js templates first, then the sites of my
+ *  own, then the other builds, each in the order the data file keeps it. The
+ *  grid, the sheet's arrows and the template pages all walk this order. */
+export const listed = [
   ...projects.filter((p) => !p.personal && isNextOnly(p)),
+  ...projects.filter((p) => p.personal),
   ...projects.filter((p) => !p.personal && !isNextOnly(p)),
 ];
 
@@ -23,6 +25,8 @@ export const forSale = [
 export const templateHref = (p: Project) => `/templates/${p.slug}`;
 
 export const price = (p: Project) => {
+  // A site of my own sells nothing; its slot says what it is instead.
+  if (p.personal) return "Side project";
   const usd = priceOf(p);
   return usd ? formatMoney(usd, undefined, { maximumFractionDigits: 0 }) : "On ThemeForest";
 };
@@ -135,7 +139,7 @@ function details(p: Project): [string, string][] {
   return rows;
 }
 
-const at = (p: Project, by: number) => forSale[(forSale.indexOf(p) + by + forSale.length) % forSale.length];
+const at = (p: Project, by: number) => listed[(listed.indexOf(p) + by + listed.length) % listed.length];
 
 // A link to another template. Inside the sheet (`replace`) it is a soft
 // navigation that replaces the address, so the sheet stays and Back closes it.
@@ -211,14 +215,17 @@ export function TemplateDetail({
             render={<a href={p.demo} target="_blank" rel="noopener noreferrer" />}
             nativeButton={false}
           >
-            Live preview
+            {p.personal ? "Open the site" : "Live preview"}
             <ArrowUpRightIcon data-icon="inline-end" className="rtl:-scale-x-100" />
             <span className="sr-only">of {p.name} (opens in a new tab)</span>
           </Button>
-          <Button render={<a href={buyHref(p)} target="_blank" rel="noopener noreferrer" />} nativeButton={false}>
-            Buy for {price(p)}
-            <span className="sr-only">{p.name} (opens in a new tab)</span>
-          </Button>
+          {/* A site of my own has nothing to buy. */}
+          {!p.personal && (
+            <Button render={<a href={buyHref(p)} target="_blank" rel="noopener noreferrer" />} nativeButton={false}>
+              Buy for {price(p)}
+              <span className="sr-only">{p.name} (opens in a new tab)</span>
+            </Button>
+          )}
         </div>
       </div>
 

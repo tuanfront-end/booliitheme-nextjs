@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { DialogBody, DialogCloseButton, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { forSale, TemplateDetail, TemplateSteps } from "@/components/templates/detail";
+import { listed, TemplateDetail, TemplateSteps } from "@/components/templates/detail";
 
 export { generateMetadata } from "@/app/templates/[slug]/page";
 
@@ -10,7 +10,7 @@ export { generateMetadata } from "@/app/templates/[slug]/page";
 // holds open. Walking to another template swaps this page and keeps the sheet.
 export default async function TemplateModal({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const p = forSale.find((t) => t.slug === slug);
+  const p = listed.find((t) => t.slug === slug);
   if (!p) notFound();
 
   return (

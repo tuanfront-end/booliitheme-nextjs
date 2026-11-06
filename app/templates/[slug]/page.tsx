@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 import { Column } from "@/components/site/column";
-import { forSale, TemplateDetail, TemplateSteps, templateHref } from "@/components/templates/detail";
+import { listed, TemplateDetail, TemplateSteps, templateHref } from "@/components/templates/detail";
 import { Button } from "@/components/ui/button";
 import { pageMeta } from "@/lib/seo";
 
@@ -14,19 +14,19 @@ import { pageMeta } from "@/lib/seo";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return forSale.map((p) => ({ slug: p.slug }));
+  return listed.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/templates/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const p = forSale.find((t) => t.slug === slug);
+  const p = listed.find((t) => t.slug === slug);
   if (!p) return {};
   return pageMeta({ title: `${p.name}, ${p.tagline}`, description: p.about, path: templateHref(p) });
 }
 
 export default async function TemplatePage({ params }: PageProps<"/templates/[slug]">) {
   const { slug } = await params;
-  const p = forSale.find((t) => t.slug === slug);
+  const p = listed.find((t) => t.slug === slug);
   if (!p) notFound();
 
   return (

@@ -8,12 +8,12 @@ import { Column } from "@/components/site/column";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Button } from "@/components/ui/button";
-import { forSale, isNextOnly, price, Shot, templateHref } from "@/components/templates/detail";
+import { listed, isNextOnly, price, Shot, templateHref } from "@/components/templates/detail";
 import { joinList } from "@/lib/data/catalogue";
 import { platforms } from "@/lib/data/projects";
 
-const lead = forSale.filter(isNextOnly);
-const rest = forSale.filter((p) => !isNextOnly(p));
+const lead = listed.filter(isNextOnly);
+const rest = listed.filter((p) => !isNextOnly(p));
 // "WordPress and Shopify" — what the folded builds are built on, off the data.
 const restOn = joinList([...new Set(rest.map((p) => platforms[p.platforms.at(-1)!]))]);
 
@@ -62,7 +62,7 @@ export function Templates() {
     setAll(true);
     requestAnimationFrame(() => firstRest.current?.focus());
   };
-  const shown = all ? forSale : lead;
+  const shown = all ? listed : lead;
 
   return (
     <Column as="section" id="templates" aria-labelledby="templates-title">

@@ -524,9 +524,9 @@ export const projects: Project[] = [
     build: "Next.js",
     platforms: ["nextjs"],
     industry: "media",
-    tagline: "Ambient sound, mixed by you",
+    tagline: "A site for listening to ambient mixes",
     about:
-      "Loopmere is a project of our own, an ambient sound mixer. Pick a few sounds, set each one's level and let it play.",
+      "Loopmere is a site of my own, not a template: a place to listen to ambient mixes, or to make one by setting each sound's level and letting it play.",
     demo: "https://loopmere.vercel.app",
     shots: [loopmereLiveDesktop],
     live: { desktop: loopmereLiveDesktop, mobile: loopmereLiveMobile },
