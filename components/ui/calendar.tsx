@@ -52,6 +52,9 @@ const day =
   // A day gone or booked out drops below the quiet ink and is struck through,
   // and holds still under the pointer. The strike is what says it: lighter ink
   // alone reads as a weekend or a day in another month.
+  // Contrast, measured on the day cell: 2.98:1 in light and 4.22:1 in dark. A
+  // day that cannot be picked is not working text, and the strike is its cue
+  // beside the colour, so the ink stays this quiet.
   "disabled:cursor-not-allowed disabled:text-muted-foreground/70 disabled:line-through hover:disabled:bg-transparent " +
   "aria-disabled:cursor-not-allowed aria-disabled:text-muted-foreground/70 aria-disabled:line-through hover:aria-disabled:bg-transparent " +
   // Today shut is shut first: its brand ink would say it can be booked.

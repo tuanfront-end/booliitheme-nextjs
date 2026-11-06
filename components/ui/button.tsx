@@ -44,6 +44,9 @@ const buttonVariants = cva(
           "bg-[color-mix(in_oklab,var(--accent),var(--muted))] text-foreground hover:bg-muted aria-expanded:bg-muted",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+        // Contrast of the label on its tint: 3.74:1 in dark, passing in light.
+        // Above the 3:1 floor for working text, below AA; the red is the
+        // template's own and the dark tint is what makes it read as danger.
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30",
         link: "text-primary-ink underline-offset-4 hover:underline",
