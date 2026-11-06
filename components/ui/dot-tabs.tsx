@@ -62,14 +62,14 @@ export function DotTabs({ items, value, onValueChange, controls, className, ...r
             }}
             className={cn(
               "group/tab flex min-h-10 items-center gap-3 rounded-control text-start text-sm transition-colors duration-answer ease-answer disabled:pointer-events-none disabled:text-muted-foreground",
-              current ? "font-medium text-foreground" : "text-muted-foreground hover:text-foreground"
+              "text-muted-foreground hover:text-foreground aria-selected:font-medium aria-selected:text-foreground"
             )}
           >
             <span
               aria-hidden
               className={cn(
                 "size-1.5 shrink-0 rounded-full border transition-colors duration-answer ease-answer",
-                current ? "border-foreground bg-foreground" : "border-muted-foreground group-hover/tab:border-foreground"
+                "border-muted-foreground group-hover/tab:border-foreground group-aria-selected/tab:border-foreground group-aria-selected/tab:bg-foreground"
               )}
             />
             {it.label}

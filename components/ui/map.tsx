@@ -489,7 +489,7 @@ function MapPinPill({
         size === "area" ? "h-10 px-4 text-sm" : size === "area-compact" ? "h-8 px-3 text-xs" : "h-8 px-3 text-sm",
         // A lit pin grows a step over its neighbours; an area pill is the
         // only thing at its place and has nothing to stand out from.
-        lit && size === "pin" && "scale-110",
+        size === "pin" && "data-lit:scale-110",
         className,
       )}
     >

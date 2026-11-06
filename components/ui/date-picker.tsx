@@ -10,6 +10,7 @@ import { cva } from "class-variance-authority";
 import type { DateRange, Matcher } from "react-day-picker";
 
 import { Calendar } from "@/components/ui/calendar";
+import { frameInk } from "@/components/ui/filter-rail";
 import { cn } from "@/lib/utils";
 import { dateFormat } from "@/lib/format";
 
@@ -288,9 +289,10 @@ function DatePicker({
                             "flex min-w-0 items-baseline justify-between gap-3 rounded-sm border px-4 py-3 text-start transition-colors hover:bg-accent active:bg-muted",
                             "sm:flex-col sm:items-start sm:justify-start sm:gap-1 sm:rounded-lg sm:p-5",
                             ring,
-                            // The picked card is ringed in ink, two pixels: a
+                            // The picked card is framed in ink, two pixels: a
                             // state shown by its edge alone has to read.
-                            on ? "border-foreground inset-ring inset-ring-foreground" : "border-border",
+                            frameInk,
+                            "border-border aria-pressed:border-transparent aria-pressed:ring-2 aria-pressed:ring-inset aria-pressed:ring-(--frame-ink)",
                           )}
                         >
                           <span className="max-w-full truncate text-sm font-medium text-foreground sm:text-base">{p.label}</span>

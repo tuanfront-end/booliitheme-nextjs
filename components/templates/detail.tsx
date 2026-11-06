@@ -37,7 +37,18 @@ const buyHref = (p: Project) => p.checkout?.url ?? p.market.url;
 // twice the window's height, so a hover scrolls it a little way down the page
 // and its foot never shows; the phone lifts and casts a deep shadow, so it
 // reads as standing over the desktop rather than pasted on it.
-export function Shot({ p, sizes, className }: { p: Project; sizes: string; className?: string }) {
+export function Shot({
+  p,
+  sizes,
+  preload,
+  className,
+}: {
+  p: Project;
+  sizes: string;
+  /** The first row's pictures, painted on the first screen: fetched early. */
+  preload?: boolean;
+  className?: string;
+}) {
   return (
     <span className={`relative block aspect-[5/3] overflow-hidden rounded-lg bg-muted ${className ?? ""}`}>
       <span
@@ -49,6 +60,7 @@ export function Shot({ p, sizes, className }: { p: Project; sizes: string; class
           src={p.live?.desktop ?? p.shots[0]}
           alt=""
           sizes={sizes}
+          preload={preload}
           className="w-full transition-transform duration-browse ease-sheet group-hover/shot:-translate-y-[8%] motion-reduce:transition-none"
         />
       </span>
@@ -80,6 +92,7 @@ function Showcase({ p }: { p: Project }) {
           src={p.live?.desktop ?? p.shots[0]}
           alt={`${p.name}, home page`}
           sizes="(min-width: 1024px) 48rem, 100vw"
+          preload
           className="w-full"
         />
       </div>
@@ -88,6 +101,7 @@ function Showcase({ p }: { p: Project }) {
           src={p.live.mobile}
           alt={`${p.name} on a phone`}
           sizes="14rem"
+          preload
           className="absolute end-[4%] top-[16%] w-[21%] rounded-[22px] shadow-2xl ring-[6px] ring-background"
         />
       )}
@@ -111,7 +125,8 @@ function details(p: Project): [string, string][] {
   const rows: [string, string][] = [
     ["Built with", p.build],
     ["Category", industries[p.industry]],
-    ["Stack", p.stack.map((d) => [d.name, d.version].filter(Boolean).join(" ")).join(", ")],
+    // A name and its version never part at a line end: "Tailwind CSS 4" is one.
+    ["Stack", p.stack.map((d) => [d.name, d.version].filter(Boolean).join(" ").replace(/ /g, "\u00a0")).join(", ")],
   ];
   if (p.market.updated) rows.push(["Last updated", formatDate(p.market.updated)]);
   if (p.market.sales) rows.push(["Sales", formatNumber(p.market.sales)]);
@@ -122,25 +137,48 @@ function details(p: Project): [string, string][] {
 
 const at = (p: Project, by: number) => forSale[(forSale.indexOf(p) + by + forSale.length) % forSale.length];
 
-/** The arrows to the template before and after this one. Inside the sheet they
- *  replace the address rather than stack it, so Back closes the sheet. */
+// A link to another template. Inside the sheet (`replace`) it is a soft
+// navigation that replaces the address, so the sheet stays and Back closes it.
+// On a template's own page it is a plain link: a soft one to /templates/* is
+// caught by the home's sheet route wherever it starts, and would open the
+// sheet over the page.
+function to(href: string, replace?: boolean) {
+  return replace ? <Link href={href} replace scroll={false} /> : <a href={href} />;
+}
+
+/** The arrows to the template before and after this one. */
 export function TemplateSteps({ p, replace }: { p: Project; replace?: boolean }) {
   return (
     <>
       <IconButton
         aria-label={`Previous template, ${at(p, -1).name}`}
         nativeButton={false}
-        render={<Link href={templateHref(at(p, -1))} replace={replace} scroll={false} />}
+        render={to(templateHref(at(p, -1)), replace)}
       >
         <ArrowLeftIcon className="rtl:-scale-x-100" />
       </IconButton>
       <IconButton
         aria-label={`Next template, ${at(p, 1).name}`}
         nativeButton={false}
-        render={<Link href={templateHref(at(p, 1))} replace={replace} scroll={false} />}
+        render={to(templateHref(at(p, 1)), replace)}
       >
         <ArrowRightIcon className="rtl:-scale-x-100" />
       </IconButton>
+    </>
+  );
+}
+
+const moreCard =
+  "group/shot block rounded-lg press focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring";
+
+function MoreCard({ p }: { p: Project }) {
+  return (
+    <>
+      <Shot p={p} sizes="20rem" />
+      <span className="mt-3 flex justify-between gap-3 text-sm">
+        <span className="font-medium">{p.name}</span>
+        <span className="text-muted-foreground tabular-nums">{price(p)}</span>
+      </span>
     </>
   );
 }
@@ -209,18 +247,17 @@ export function TemplateDetail({
             const next = at(p, by);
             return (
               <li key={next.slug}>
-                <Link
-                  href={templateHref(next)}
-                  replace={replace}
-                  scroll={false}
-                  className="group/shot block rounded-lg press focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                >
-                  <Shot p={next} sizes="20rem" />
-                  <span className="mt-3 flex justify-between gap-3 px-1 text-sm">
-                    <span className="font-medium">{next.name}</span>
-                    <span className="text-muted-foreground tabular-nums">{price(next)}</span>
-                  </span>
-                </Link>
+                {/* Inside the sheet a soft link that keeps it; on the page a
+                    plain one, as the arrows do. */}
+                {replace ? (
+                  <Link href={templateHref(next)} replace scroll={false} className={moreCard}>
+                    <MoreCard p={next} />
+                  </Link>
+                ) : (
+                  <a href={templateHref(next)} className={moreCard}>
+                    <MoreCard p={next} />
+                  </a>
+                )}
               </li>
             );
           })}

@@ -9,7 +9,8 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 // rising almost to the top while the address changes to the template's own
 // page. Closing it — the button, Escape, the scrim — is Back, so the address
 // returns to where the visitor was and Forward opens the sheet again. The
-// route under @modal renders it; a fresh load of the address gets the page.
+// route under app/(home)/@modal renders it; a fresh load of the address gets
+// the page.
 //
 // The motion is the dialog's own: the sheet mounts closed and opens a frame
 // later, so it has a starting style to rise from, and a close waits for the

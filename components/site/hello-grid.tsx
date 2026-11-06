@@ -107,7 +107,7 @@ export function HelloGrid({ className }: { className?: string }) {
       <div
         role="img"
         aria-label="Hello, spelled in a year of green squares"
-        className="mt-5 grid grid-cols-[repeat(53,minmax(0,1fr))] gap-[2px] sm:grid-cols-[auto_repeat(53,minmax(0,1fr))] sm:gap-[3px]"
+        className="mt-5 grid grid-cols-[repeat(53,minmax(0,1fr))] gap-[2px] sm:grid-cols-[2rem_repeat(53,minmax(0,1fr))] sm:gap-[3px]"
       >
         {/* The months over their columns and the weekdays in the gutter, from
             `sm`; a phone's columns are too narrow to carry them. */}
@@ -127,7 +127,7 @@ export function HelloGrid({ className }: { className?: string }) {
 
       <div className="mt-4 flex items-center justify-end gap-4 text-xs text-muted-foreground min-[420px]:justify-between">
         {/* The hint gives way to the legend on a narrow phone. */}
-        <span className="max-[419px]:hidden">Read the darkest squares</span>
+        <span className="max-[419px]:hidden">Find the word inside</span>
         <span className="flex items-center gap-1.5" aria-hidden>
           Less
           {LEVELS.map((fill) => (
@@ -145,8 +145,10 @@ export function HelloGrid({ className }: { className?: string }) {
 function Week({ y }: { y: number }) {
   return (
     <>
-      <span aria-hidden className="flex items-center pe-2 text-xs text-muted-foreground max-sm:hidden">
-        {DAY_NAMES.get(y)}
+      {/* Out of the row's sizing, so a label never makes its row taller
+          than the squares and the grid stays square. */}
+      <span aria-hidden className="relative max-sm:hidden">
+        <span className="absolute end-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">{DAY_NAMES.get(y)}</span>
       </span>
       {weeks.map((w, x) => {
         const cell = w[y];

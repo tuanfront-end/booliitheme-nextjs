@@ -35,7 +35,7 @@ export function EmailLine({ className }: { className?: string }) {
       <div className={cn("flex items-center gap-1", className)}>
         <a
           href={`mailto:${email}`}
-          className="inline-flex h-10 items-center text-sm font-medium underline decoration-muted-foreground/50 decoration-dotted decoration-2 underline-offset-[6px] press transition-colors duration-answer ease-answer hover:text-muted-foreground focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          className="inline-flex h-10 items-center text-sm font-medium underline decoration-muted-foreground/50 decoration-dotted decoration-2 underline-offset-[6px] press hover:text-muted-foreground focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
           {email}
         </a>

@@ -11,10 +11,13 @@ export const about = [
   "Need a site no template covers? I’ll design and build it for you.",
 ];
 
+// The year I went solo is the year the ThemeForest account opened.
+const soloSince = author.since.slice(0, 4);
+
 /** Where I have worked and studied, newest first. */
 export const experience: [string, string][] = [
-  ["2021 – now", "Solo, designing and building templates as BooliiTheme"],
-  ["2016 – 2021", "Web developer in a website development team"],
+  [`${soloSince} – now`, "Solo, designing and building templates as BooliiTheme"],
+  [`2016 – ${soloSince}`, "Web developer in a website development team"],
   ["Education", "University degree in Information Technology"],
 ];
 

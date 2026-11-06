@@ -1,6 +1,7 @@
 import { Column } from "@/components/site/column";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { SectionHeading } from "@/components/site/section-heading";
+import { author } from "@/lib/data/projects";
 import { about, experience, figuresAsOf, figures, stack } from "@/lib/data/studio";
 
 // Two sections on one frame: the kicker and heading on the start side, what
@@ -20,7 +21,8 @@ function Split({
 }) {
   return (
     <Column as="section" id={id} aria-labelledby={`${id}-title`} innerClassName="lg:grid lg:grid-cols-10 lg:gap-x-8">
-      <div className="lg:col-span-4">
+      {/* The heading rides beside a text column longer than it. */}
+      <div className="lg:sticky lg:top-8 lg:col-span-4 lg:self-start">
         <Eyebrow>{kicker}</Eyebrow>
         <SectionHeading id={`${id}-title`} className="mt-3">
           {title}
@@ -33,7 +35,7 @@ function Split({
 
 export function About() {
   return (
-    <Split id="about" kicker="(02) About" title="A studio of one, since 2021">
+    <Split id="about" kicker="(02) About" title={`A studio of one, since ${author.since.slice(0, 4)}`}>
       <div className="flex flex-col gap-4 text-sm text-muted-foreground">
         {about.map((line, i) => (
           <p key={i} className={i === 0 ? "text-foreground" : undefined}>

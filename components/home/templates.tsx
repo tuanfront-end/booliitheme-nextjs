@@ -31,7 +31,7 @@ function ViewCursor({ ref }: { ref: React.Ref<HTMLSpanElement> }) {
       data-on="false"
       className="pointer-events-none fixed top-0 left-0 z-40 -mt-5 -ms-5 opacity-0 data-[on=true]:opacity-100"
     >
-      <span className="flex h-10 origin-top-left scale-50 items-center gap-1.5 rounded-full bg-foreground ps-4 pe-3 text-sm font-medium text-background shadow-soft-lg transition-[scale] duration-spring ease-spring [[data-on=true]>&]:scale-100 motion-reduce:transition-none">
+      <span className="flex h-10 origin-[20px_20px] scale-50 items-center gap-1.5 rounded-full bg-foreground ps-4 pe-3 text-sm font-medium text-background shadow-soft-lg transition-[scale] duration-spring ease-spring [[data-on=true]>&]:scale-100 motion-reduce:transition-none">
         View
         <ArrowsPointingOutIcon className="size-4" />
       </span>
@@ -42,7 +42,9 @@ function ViewCursor({ ref }: { ref: React.Ref<HTMLSpanElement> }) {
 function follow(cursor: HTMLSpanElement | null, e: React.PointerEvent, on?: boolean) {
   if (e.pointerType !== "mouse" || !cursor) return;
   cursor.style.translate = `${e.clientX}px ${e.clientY}px`;
-  if (on !== undefined) cursor.dataset.on = String(on);
+  // A move over a card turns it on too: closing the sheet over a card leaves
+  // the pointer there with no enter to wake the pill.
+  cursor.dataset.on = String(on ?? true);
 }
 
 // Every template I sell as a picture, its name and its price, two to a row,
@@ -70,7 +72,7 @@ export function Templates() {
       </SectionHeading>
 
       <ul className="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-16">
-        {shown.map((p) => (
+        {shown.map((p, i) => (
           <li key={p.slug}>
             <Link
               href={templateHref(p)}
@@ -82,8 +84,8 @@ export function Templates() {
               ref={p === rest[0] ? firstRest : undefined}
               className="group/shot block rounded-lg press focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring pointer-fine:cursor-none"
             >
-              <Shot p={p} sizes="(min-width: 640px) 30rem, 100vw" />
-              <span className="mt-4 flex items-baseline justify-between gap-4 px-1 text-sm">
+              <Shot p={p} sizes="(min-width: 640px) 30rem, 100vw" preload={i < 2} />
+              <span className="mt-4 flex items-baseline justify-between gap-4 text-sm">
                 <span className="font-medium">{p.name}</span>
                 <span className="text-muted-foreground tabular-nums">{price(p)}</span>
               </span>

@@ -103,7 +103,7 @@ function AccordionTrigger({
             // open row keeps its ground and answers through its disc, and its
             // press takes the rung under the row's own.
             tone === "tint" &&
-              (state.open ? "active:bg-muted" : "hover:bg-accent/60 active:bg-accent"),
+              "not-data-panel-open:hover:bg-accent/60 not-data-panel-open:active:bg-accent data-panel-open:active:bg-muted",
             typeof className === "function" ? className(state) : className,
           )
         }

@@ -6,6 +6,7 @@ import { Icons } from "@/components/design-system/icons";
 import { KitActions } from "@/components/design-system/kit-actions";
 import { KitChoice } from "@/components/design-system/kit-choice";
 import { KitDates } from "@/components/design-system/kit-dates";
+import { builtOn } from "@/lib/today";
 import { KitDisplay } from "@/components/design-system/kit-display";
 import { KitFields } from "@/components/design-system/kit-fields";
 import { Motion } from "@/components/design-system/motion";
@@ -194,7 +195,7 @@ export default function DesignSystem() {
               <KitDisplay />
             </DsSubgroup>
             <DsSubgroup id="kit-dates" title="Dates and maps">
-              <KitDates />
+              <KitDates built={builtOn()} />
             </DsSubgroup>
           </DsGroup>
           <DsGroup

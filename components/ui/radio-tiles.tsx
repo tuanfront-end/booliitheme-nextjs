@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 // so with the 2px pick frame every pick in the kit wears and, with `mark`, the
 // ticked disc — no tint under it, so the frame's ink alone carries the pick and
 // clears 3:1 on any brand.
-function tileClass({ picked, mark, invalid }: { picked: boolean; mark: boolean; invalid: boolean }) {
+function tileClass({ picked, invalid }: { picked: boolean; invalid: boolean }) {
   return cn(
     "group/tile relative flex w-full cursor-pointer items-start gap-3 rounded-sm p-4 text-start select-none",
     "transition-[background-color,box-shadow,color] duration-answer ease-answer motion-reduce:transition-none",
@@ -76,7 +76,7 @@ function Tile({
       // beside it; the line under them is its description.
       aria-labelledby={aside ? `${titleId} ${asideId}` : titleId}
       aria-describedby={description ? lineId : undefined}
-      className={tileClass({ picked, mark, invalid })}
+      className={tileClass({ picked, invalid })}
     >
       {mark ? (
         // At rest a quiet hollow circle; picked, a solid disc of the bright

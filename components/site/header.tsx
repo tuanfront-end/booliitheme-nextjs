@@ -89,8 +89,12 @@ export function SiteHeader() {
               }
             >
               <HugeiconsIcon icon={ShoppingBag01Icon} strokeWidth={1.5} data-icon="inline-start" className="size-5" />
-              <span className="tabular-nums">{sales}</span>
-              <span className="max-[379px]:sr-only">sales</span>
+              {/* One span, so the figure and its unit sit a word space apart
+                  rather than the pill's gap. */}
+              <span>
+                <span className="tabular-nums">{sales}</span>
+                <span className="max-[379px]:sr-only"> sales</span>
+              </span>
               <span className="sr-only">on ThemeForest (opens in a new tab)</span>
             </TooltipTrigger>
             <TooltipContent>{formatNumber(author.sales)} sales on ThemeForest</TooltipContent>

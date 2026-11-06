@@ -39,11 +39,11 @@ export function CvSheet({ className }: { className?: string }) {
   return (
     <article
       className={cn(
-        "mx-auto flex h-[297mm] w-[210mm] shrink-0 flex-col bg-card px-[14mm] pt-[12mm] pb-[10mm] text-foreground",
+        "mx-auto flex h-[297mm] w-[210mm] shrink-0 flex-col bg-card px-[14mm] pt-[10mm] pb-[9mm] text-foreground",
         className,
       )}
     >
-      <header className="flex items-start justify-between gap-8 pb-7">
+      <header className="flex items-start justify-between gap-8 pb-5">
         <div className="flex items-center gap-4">
           <span className="block size-14 shrink-0 overflow-hidden rounded-full">
             <LogoMark className="size-full scale-[1.3]" />

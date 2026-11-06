@@ -44,6 +44,8 @@ import waypointLiveDesktop from "@/images/live/waypoint-desktop.jpg";
 import waypointLiveMobile from "@/images/live/waypoint-mobile.jpg";
 import doorlistLiveDesktop from "@/images/live/doorlist-desktop.jpg";
 import doorlistLiveMobile from "@/images/live/doorlist-mobile.jpg";
+import ceepiiLiveDesktop from "@/images/live/ceepii-desktop.jpg";
+import ceepiiLiveMobile from "@/images/live/ceepii-mobile.jpg";
 import loopmereLiveDesktop from "@/images/live/loopmere-desktop.jpg";
 import loopmereLiveMobile from "@/images/live/loopmere-mobile.jpg";
 
@@ -54,7 +56,7 @@ import loopmereLiveMobile from "@/images/live/loopmere-mobile.jpg";
 
 export type Platform = "nextjs" | "wordpress" | "shopify";
 export type Industry = "ecommerce" | "booking" | "magazine" | "nft" | "real-estate" | "education" | "events" | "media";
-export type Family = "ciseco" | "ncmaz" | "bitpan" | "chisfis" | "ciscryp" | "ofen" | "saal" | "waypoint" | "doorlist" | "loopmere";
+export type Family = "ciseco" | "ncmaz" | "bitpan" | "chisfis" | "ciscryp" | "ofen" | "saal" | "waypoint" | "doorlist" | "loopmere" | "ceepii";
 
 export const platforms: Record<Platform, string> = {
   nextjs: "Next.js",
@@ -207,6 +209,26 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "ceepii",
+    name: "Ceepii",
+    family: "ceepii",
+    build: "Next.js",
+    platforms: ["nextjs"],
+    industry: "booking",
+    tagline: "Stays, cars and flights booking template",
+    about:
+      "Ceepii is for a booking site that rents stays, cars and experiences and sells flights. Each of the four has its own home, search, category and listing pages, with an add-listing flow, account pages and right-to-left support.",
+    demo: "https://ceepii-nextjs-template.vercel.app",
+    shots: [ceepiiLiveDesktop],
+    live: { desktop: ceepiiLiveDesktop, mobile: ceepiiLiveMobile },
+    stack: [{ name: "Next.js", version: "16.3" }, { name: "React", version: "19" }, { name: "Tailwind CSS", version: "4" }],
+    checkout: polar("polar_cl_r0L4rCW06jNlucvhgPVMIg1UiafyQbyuUKCmX4dFrOJ", 39),
+    market: {
+      url: "https://themeforest.net/user/booliitheme",
+      asOf: "2026-11-06",
+    },
+  },
+  {
     slug: "bitpan-woocommerce",
     name: "Bitpan WooCommerce",
     family: "bitpan",
@@ -306,9 +328,9 @@ export const projects: Project[] = [
     live: { desktop: ncmazHeadlessWordpressLiveDesktop, mobile: ncmazHeadlessWordpressLiveMobile },
     stack: [
       { name: "WordPress", version: "6.8" },
-      { name: "next", version: "14" },
-      { name: "tailwindcss", version: "3" },
-      { name: "typescript", version: "5" },
+      { name: "Next.js", version: "14" },
+      { name: "Tailwind CSS", version: "3" },
+      { name: "TypeScript", version: "5" },
     ],
     checkout: polar("polar_cl_WgG1OzbF7yUX8oq1dY2aZrA1B8uv99MClwq7b0DS472", 49),
     market: {
@@ -335,9 +357,9 @@ export const projects: Project[] = [
     shots: [cisecoH2, cisecoH22],
     stack: [
       { name: "Shopify Hydrogen" },
-      { name: "react", version: "18" },
-      { name: "tailwindcss", version: "3" },
-      { name: "typescript", version: "5" },
+      { name: "React", version: "18" },
+      { name: "Tailwind CSS", version: "3" },
+      { name: "TypeScript", version: "5" },
     ],
     checkout: polar("polar_cl_yz7wtrLEevKorf9wHXE6Q7SquNaL9CDIIQmPW1zP6Mj", 49),
     market: {
@@ -362,10 +384,10 @@ export const projects: Project[] = [
     shots: [ncmaz, ncmaz2],
     live: { desktop: ncmazLiveDesktop, mobile: ncmazLiveMobile },
     stack: [
-      { name: "next", version: "14" },
-      { name: "react", version: "18" },
-      { name: "tailwindcss", version: "3" },
-      { name: "typescript", version: "5" },
+      { name: "Next.js", version: "14" },
+      { name: "React", version: "18" },
+      { name: "Tailwind CSS", version: "3" },
+      { name: "TypeScript", version: "5" },
     ],
     checkout: polar("polar_cl_L70X4wesYPQCQFWcjfIg18CFWhGWvmN99HaqO0MMK5p", 39),
     market: {
@@ -392,10 +414,10 @@ export const projects: Project[] = [
     shots: [ciseco, ciseco2],
     live: { desktop: cisecoLiveDesktop, mobile: cisecoLiveMobile },
     stack: [
-      { name: "next", version: "15" },
-      { name: "react", version: "19" },
-      { name: "tailwindcss", version: "4" },
-      { name: "typescript", version: "5" },
+      { name: "Next.js", version: "15" },
+      { name: "React", version: "19" },
+      { name: "Tailwind CSS", version: "4" },
+      { name: "TypeScript", version: "5" },
     ],
     checkout: polar("polar_cl_9lk6dfw8VeQ8meZJnt4Xd23D5BokEUZHOolno2dzDZf", 39),
     market: {
@@ -422,10 +444,10 @@ export const projects: Project[] = [
     shots: [chisfis, chisfis2],
     live: { desktop: chisfisLiveDesktop, mobile: chisfisLiveMobile },
     stack: [
-      { name: "next", version: "15" },
-      { name: "react", version: "19" },
-      { name: "tailwindcss", version: "4" },
-      { name: "typescript", version: "5" },
+      { name: "Next.js", version: "15" },
+      { name: "React", version: "19" },
+      { name: "Tailwind CSS", version: "4" },
+      { name: "TypeScript", version: "5" },
     ],
     checkout: polar("polar_cl_OXvYo8NIarrH6Xl5RXktEPbL7S212cZbl9ByX05S1SA", 39),
     market: {
@@ -452,10 +474,10 @@ export const projects: Project[] = [
     shots: [bitpan, bitpan2],
     live: { desktop: bitpanLiveDesktop, mobile: bitpanLiveMobile },
     stack: [
-      { name: "next", version: "15" },
-      { name: "react", version: "19" },
-      { name: "tailwindcss", version: "4" },
-      { name: "typescript", version: "5" },
+      { name: "Next.js", version: "15" },
+      { name: "React", version: "19" },
+      { name: "Tailwind CSS", version: "4" },
+      { name: "TypeScript", version: "5" },
     ],
     checkout: polar("polar_cl_s2L3FaBAvpxrWOH1SMUobhbKUfUtqfzy9eiyA06o2fw", 39),
     market: {
@@ -479,10 +501,10 @@ export const projects: Project[] = [
     shots: [ciscryp, ciscryp2],
     live: { desktop: ciscrypLiveDesktop, mobile: ciscrypLiveMobile },
     stack: [
-      { name: "next", version: "14" },
-      { name: "react", version: "18" },
-      { name: "tailwindcss", version: "3" },
-      { name: "typescript", version: "5" },
+      { name: "Next.js", version: "14" },
+      { name: "React", version: "18" },
+      { name: "Tailwind CSS", version: "3" },
+      { name: "TypeScript", version: "5" },
     ],
     checkout: polar("polar_cl_LfmyzTro1CWZV5ZtBr03fbu8GLz6jRO7SNcLR4XBoAo", 39),
     market: {

@@ -15,19 +15,14 @@ import { DatePicker, formatDates, quickDates, type DatePreset } from "@/componen
 import { MapCard, MapCityMarker, MapPinPill, MapView, type MapArea, type MapPin } from "@/components/ui/map";
 import { SlotChip, SlotPicker, type SlotDay } from "@/components/ui/slot-picker";
 import { dateFormat } from "@/lib/format";
+import { useToday, type Day } from "@/lib/today";
 
 // Dates and maps: the month, the date field that opens on it, the times a day
-// offers, the map with its pins and with the world. Every demo reads the visitor's own
-// today, on the client — a month drawn from the server's clock is a day out
-// for half the world — so the parts that need it stand in a quiet tile for
-// the frame before it is known.
+// offers, the map with its pins and with the world. Every demo opens on the day
+// the page was built, drawn by the server, and moves to the visitor's own
+// today on the render after hydration — lib/today.ts.
 
 const never = () => () => {};
-
-function useToday() {
-  const key = React.useSyncExternalStore(never, () => new Date().toDateString(), () => null);
-  return React.useMemo(() => (key ? new Date(key) : null), [key]);
-}
 
 // The visitor's zone as a clock shows it, "GMT+7"; unknown on the server.
 function useZone() {
@@ -59,11 +54,6 @@ const wait = (ms: number) => new Promise<void>((done) => window.setTimeout(done,
 
 function Caption({ children }: { children: React.ReactNode }) {
   return <p className="mb-6 text-sm text-muted-foreground">{children}</p>;
-}
-
-// The tile a demo stands in while the visitor's today is not yet known.
-function Waiting({ className }: { className: string }) {
-  return <div aria-hidden className={`rounded-lg bg-accent ${className}`} />;
 }
 
 // ─── Calendar ────────────────────────────────────────────────────────────────
@@ -144,8 +134,8 @@ function CalendarDemos({ today }: { today: Date }) {
   );
 }
 
-function CalendarBlock() {
-  const today = useToday();
+function CalendarBlock({ built }: { built: Day }) {
+  const today = useToday(built);
   return (
     <DsBlock
       id="calendar"
@@ -169,7 +159,7 @@ function CalendarBlock() {
         />
       }
     >
-      {today ? <CalendarDemos today={today} /> : <Waiting className="h-[48rem]" />}
+      <CalendarDemos today={today} />
     </DsBlock>
   );
 }
@@ -212,8 +202,8 @@ function DateDemos({ today }: { today: Date }) {
   );
 }
 
-function DateBlock() {
-  const today = useToday();
+function DateBlock({ built }: { built: Day }) {
+  const today = useToday(built);
   const presets = today ? quickDates(today) : [];
   const sample = (variant: "card" | "field" | "bare", s: string) => (
     <DatePicker
@@ -249,7 +239,7 @@ function DateBlock() {
         </>
       }
     >
-      {today ? <DateDemos today={today} /> : <Waiting className="h-56" />}
+      <DateDemos today={today} />
     </DsBlock>
   );
 }
@@ -356,8 +346,8 @@ function SlotDemos({ today }: { today: Date }) {
   );
 }
 
-function SlotBlock() {
-  const today = useToday();
+function SlotBlock({ built }: { built: Day }) {
+  const today = useToday(built);
   const chip = (dense: boolean, picked: boolean, s: string) => (
     <RadioGroup value={picked ? "slot" : null} aria-label="Time" className="outline-none">
       <SlotChip dense={dense} value="slot" disabled={s === "disabled"} className={dense ? "w-20" : "w-24"}>
@@ -382,7 +372,7 @@ function SlotBlock() {
         />
       }
     >
-      {today ? <SlotDemos today={today} /> : <Waiting className="h-[56rem]" />}
+      <SlotDemos today={today} />
     </DsBlock>
   );
 }
@@ -530,8 +520,8 @@ function MapDemos({ today }: { today: Date }) {
   );
 }
 
-function MapBlock() {
-  const today = useToday();
+function MapBlock({ built }: { built: Day }) {
+  const today = useToday(built);
   const pin = (body: React.ReactNode) => <span className="group/pin inline-flex p-1 outline-none">{body}</span>;
   const city = (look: "pin" | "dot", picked: boolean) => (
     <MapCityMarker look={look} picked={picked} label="Lisbon" meta="3:03 PM" />
@@ -559,18 +549,19 @@ function MapBlock() {
         />
       }
     >
-      {today ? <MapDemos today={today} /> : <Waiting className="h-[52rem]" />}
+      <MapDemos today={today} />
     </DsBlock>
   );
 }
 
-export function KitDates() {
+/** `built` is `builtOn()`, called in the server page that mounts this. */
+export function KitDates({ built }: { built: Day }) {
   return (
     <>
-      <CalendarBlock />
-      <DateBlock />
-      <SlotBlock />
-      <MapBlock />
+      <CalendarBlock built={built} />
+      <DateBlock built={built} />
+      <SlotBlock built={built} />
+      <MapBlock built={built} />
     </>
   );
 }

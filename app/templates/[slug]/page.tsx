@@ -10,7 +10,7 @@ import { pageMeta } from "@/lib/seo";
 
 // A template's own page: what a shared link, a refresh or a search result
 // opens. The home page's cards open the same template in a sheet instead —
-// app/@modal/(.)templates/[slug].
+// app/(home)/@modal/(.)templates/[slug].
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<"/templates/[slug]"
   const { slug } = await params;
   const p = forSale.find((t) => t.slug === slug);
   if (!p) return {};
-  return pageMeta({ title: `${p.name}, ${p.tagline.toLowerCase()}`, description: p.about, path: templateHref(p) });
+  return pageMeta({ title: `${p.name}, ${p.tagline}`, description: p.about, path: templateHref(p) });
 }
 
 export default async function TemplatePage({ params }: PageProps<"/templates/[slug]">) {
