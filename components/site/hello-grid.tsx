@@ -1,8 +1,9 @@
-// A year of days in a green grid, the way a contribution graph draws one, with
+// Days in a green grid, the way a contribution graph draws one, with
 // "HELLO" set in its darkest squares. It claims no figure: the field is a
 // fixed scatter, there to be the greeting over the footer.
 
-const COLS = 52;
+// Enough weeks to run the column's whole width at a 16px pitch.
+const COLS = 63;
 const ROWS = 7;
 const PITCH = 16;
 const CELL = 12;

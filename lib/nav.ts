@@ -6,7 +6,7 @@ import { author } from "@/lib/data/projects";
 export const sections = [
   { label: "Home", href: "/" },
   { label: "Templates", href: "/#templates" },
-  { label: "Write to us", href: "/#contact" },
+  { label: "Write to me", href: "/#contact" },
 ] as const;
 
 export const marketplaces = [
@@ -15,8 +15,7 @@ export const marketplaces = [
 ];
 
 export const socials = [
-  { label: "Dribbble", href: "https://dribbble.com/booliitheme/" },
-  { label: "X", href: "https://x.com/BooliiT62007" },
+  { label: "X", href: "https://x.com/eden_tuan_teo" },
   { label: "Facebook", href: "https://www.facebook.com/people/Booliitheme/61577223687643/" },
 ];
 

@@ -11,10 +11,10 @@ const linkClass =
 export function SiteFooter() {
   return (
     <Column as="footer" id="contact" aria-labelledby="contact-title" className="mt-32 pb-10 sm:mt-40 print:hidden">
-      <HelloGrid className="h-auto w-full max-w-3xl" />
+      <HelloGrid className="h-auto w-full" />
 
       <Eyebrow as="h2" id="contact-title" className="mt-20 sm:mt-24">
-        Work with us
+        Work with me
       </Eyebrow>
       <a
         href={`mailto:${email}`}
@@ -23,7 +23,7 @@ export function SiteFooter() {
         {email}
       </a>
       <p className="mt-4 max-w-xl text-sm text-muted-foreground">
-        Ask for a template no one else has, or have the two of us build your site.
+        Ask for a template no one else has, or have me build your site.
       </p>
 
       <div className="mt-20 flex flex-col-reverse gap-x-8 gap-y-4 sm:mt-28 sm:flex-row sm:items-center sm:justify-between">

@@ -7,13 +7,13 @@ import { Templates } from "@/components/home/templates";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
-  title: "Website templates by a studio of two",
+  title: "Website templates by Tuan",
   description:
-    "BooliiTheme is two designers making website templates for Next.js, Shopify and WordPress, drafted with AI and finished by hand.",
+    "I'm Tuan, and BooliiTheme is me: website templates for Next.js, Shopify and WordPress, drafted with AI agents and finished by hand.",
   path: "/",
 });
 
-// Who we are, the templates, then the studio behind them and the CV. Where to
+// Who I am, the templates, then the studio of one behind them and the CV. Where to
 // write sits in the footer, under a greeting, on every page.
 export default function Home() {
   return (

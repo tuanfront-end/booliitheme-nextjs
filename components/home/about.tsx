@@ -33,7 +33,7 @@ function Split({
 
 export function About() {
   return (
-    <Split id="about" kicker="(02) About" title="A studio of two, since 2021">
+    <Split id="about" kicker="(02) About" title="A studio of one, since 2021">
       <div className="flex flex-col gap-4 text-sm text-muted-foreground">
         {about.map((line, i) => (
           <p key={i} className={i === 0 ? "text-foreground" : undefined}>
@@ -56,7 +56,7 @@ export function About() {
 
 export function Stack() {
   return (
-    <Split id="stack" kicker="(03) Stack & tools" title="What we build with">
+    <Split id="stack" kicker="(03) Stack & tools" title="What I build with">
       <dl className="divide-y divide-border border-y border-border text-sm">
         {stack.map(([part, tools]) => (
           <div key={part} className="grid grid-cols-[7rem_1fr] gap-4 py-3.5">

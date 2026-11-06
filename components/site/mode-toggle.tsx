@@ -8,12 +8,19 @@ import { useSyncExternalStore } from "react";
 import { IconButton } from "@/components/ui/icon-button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
-// The way into the dark half, as a disc beside the header's others. The site
-// opens light whatever the visitor's system says — the provider in
-// app/layout.tsx — and a press here is remembered. The glyph is the half you
-// are in: a sun by day, a moon by night. Both wait for the
-// page to mount, since the server cannot know which was stored.
+// The way into the dark half, as a disc beside the header's others. Both glyphs
+// sit in the disc and the half you are in decides which shows; the one that
+// appears turns in from a quarter turn and half its size, so a press reads as
+// the sun switching into the moon and back. The glyphs follow the `dark` class
+// next-themes writes before the first paint, so they are right from the server
+// render; only the label waits for mount.
+//
+// Keyframes rather than transitions: the provider's disableTransitionOnChange
+// strips every transition for the frame the mode flips.
 const subscribe = () => () => {};
+
+const glyph =
+  "size-5 motion-safe:animate-in motion-safe:fade-in motion-safe:spin-in-[-90deg] motion-safe:zoom-in-50 motion-safe:duration-spring motion-safe:ease-spring";
 
 export function ModeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -26,11 +33,8 @@ export function ModeToggle() {
       <TooltipTrigger
         render={<IconButton variant="secondary" aria-label={label} onClick={() => setTheme(dark ? "light" : "dark")} />}
       >
-        <HugeiconsIcon
-          icon={dark ? Moon02Icon : Sun03Icon}
-          strokeWidth={1.5}
-          className="size-5"
-        />
+        <HugeiconsIcon icon={Sun03Icon} strokeWidth={1.5} className={`${glyph} dark:hidden`} />
+        <HugeiconsIcon icon={Moon02Icon} strokeWidth={1.5} className={`${glyph} hidden dark:block`} />
       </TooltipTrigger>
       <TooltipContent>{label}</TooltipContent>
     </Tooltip>

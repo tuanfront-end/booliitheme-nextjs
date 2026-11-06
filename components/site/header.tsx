@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import {
-  DribbbleIcon,
   Home01Icon,
-  Layers01Icon,
   Mail01Icon,
   NewTwitterIcon,
   ShoppingBag01Icon,
+  WebDesign01Icon,
 } from "@hugeicons/core-free-icons";
 
 import { Column } from "@/components/site/column";
@@ -20,10 +19,9 @@ import { sections, socials } from "@/lib/nav";
 
 const glyphs: Record<string, IconSvgElement> = {
   Home: Home01Icon,
-  Templates: Layers01Icon,
-  "Write to us": Mail01Icon,
+  Templates: WebDesign01Icon,
+  "Write to me": Mail01Icon,
   X: NewTwitterIcon,
-  Dribbble: DribbbleIcon,
 };
 
 // One glyph in a tinted disc, named by a tooltip. A link inside the site is a
@@ -55,8 +53,8 @@ const sales = new Intl.NumberFormat("en-US", { notation: "compact", maximumFract
   .toLowerCase();
 
 // The way round the page as three discs on the start side; across from them
-// the mode, two places we post our work, and the one figure we let speak for
-// us — sales on ThemeForest — in a pill that goes there.
+// the mode, where I post, and the one figure I let speak for me — sales on
+// ThemeForest — in a pill that goes there.
 export function SiteHeader() {
   return (
     <TooltipProvider>

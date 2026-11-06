@@ -19,13 +19,13 @@ const contacts = [
 
 const services: [string, string][] = [
   ["A template of your own", "Designed for one niche and one buyer, and not sold to anyone else."],
-  ["A site built to order", "Designed and built start to finish on our stack, then handed over to you."],
+  ["A site built to order", "Designed and built start to finish on my stack, then handed over to you."],
 ];
 
 // One row of the sheet: its label in the narrow column, its matter beside it.
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="grid shrink-0 grid-cols-[34mm_1fr] gap-6 border-t border-border py-5">
+    <section className="grid shrink-0 grid-cols-[34mm_1fr] gap-6 border-t border-border py-5.5">
       <Eyebrow as="h2">{label}</Eyebrow>
       <div>{children}</div>
     </section>
@@ -39,18 +39,18 @@ export function CvSheet({ className }: { className?: string }) {
   return (
     <article
       className={cn(
-        "mx-auto flex h-[297mm] w-[210mm] shrink-0 flex-col bg-card px-[16mm] pt-[15mm] pb-[12mm] text-foreground",
+        "mx-auto flex h-[297mm] w-[210mm] shrink-0 flex-col bg-card px-[14mm] pt-[13mm] pb-[11mm] text-foreground",
         className,
       )}
     >
-      <header className="flex items-start justify-between gap-8 pb-6">
+      <header className="flex items-start justify-between gap-8 pb-7">
         <div className="flex items-center gap-4">
           <span className="block size-14 shrink-0 overflow-hidden rounded-full">
             <LogoMark className="size-full scale-[1.3]" />
           </span>
           <div>
             <h1 className="text-4xl tracking-tighter">BooliiTheme</h1>
-            <p className="mt-1.5 text-sm text-muted-foreground">Website template studio of two designers</p>
+            <p className="mt-1.5 text-sm text-muted-foreground">Tuan, designer and developer of website templates</p>
           </div>
         </div>
         <ul className="pt-1 text-end font-mono text-xs text-muted-foreground">
@@ -79,7 +79,6 @@ export function CvSheet({ className }: { className?: string }) {
             </div>
           ))}
         </dl>
-        <p className="mt-3 text-sm text-muted-foreground">As of {formatMonth(author.asOf)}</p>
       </Row>
 
       <Row label="Templates">
@@ -88,7 +87,7 @@ export function CvSheet({ className }: { className?: string }) {
             <li key={p.slug} className="grid grid-cols-[42mm_1fr_auto] gap-3">
               <span className="font-medium">{p.name}</span>
               <span className="text-muted-foreground">{industries[p.industry]}</span>
-              <span className="text-muted-foreground">{buildLabel(p)}</span>
+              <span className="text-muted-foreground">{buildLabel(p) === "Next.js" ? "Next.js & HTML" : buildLabel(p)}</span>
             </li>
           ))}
         </ul>
@@ -105,7 +104,7 @@ export function CvSheet({ className }: { className?: string }) {
         </dl>
       </Row>
 
-      <Row label="Work with us">
+      <Row label="Work with me">
         <dl className="grid grid-cols-2 gap-6 text-sm">
           {services.map(([term, line]) => (
             <div key={term}>
@@ -118,7 +117,7 @@ export function CvSheet({ className }: { className?: string }) {
 
       <footer className="mt-auto flex justify-between border-t border-border pt-4 text-sm text-muted-foreground">
         <span className="font-mono">{email}</span>
-        <span>Updated {formatMonth(new Date().toISOString())}</span>
+        <span>ThemeForest figures as of {formatMonth(author.asOf)} · Updated {formatMonth(new Date().toISOString())}</span>
       </footer>
     </article>
   );

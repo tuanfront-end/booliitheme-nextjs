@@ -16,10 +16,10 @@ export function CvCta() {
       <div className="relative grid overflow-hidden rounded-lg bg-accent md:grid-cols-[1fr_17rem] lg:grid-cols-[1fr_20rem]">
         <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
           <h2 id="cv-title" className="text-2xl tracking-tight">
-            The studio on one page
+            My work on one page
           </h2>
           <p className="mt-2 max-w-md text-sm text-muted-foreground">
-            Our templates, stack and figures as a PDF, to keep or to forward.
+            My templates, stack and figures as a PDF, to keep or to forward.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
             <Button render={<a href={cvFile} download />} nativeButton={false}>

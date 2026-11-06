@@ -32,17 +32,29 @@ const price = (p: Project) => {
 // in until a checkout is set.
 const buyHref = (p: Project) => p.checkout?.url ?? p.market.url;
 
-// A capture standing in a tinted panel, set high and cut by the panel's foot,
-// so a website reads as a shot of one rather than a screenshot pasted down.
-function Shot({ src, sizes, className }: { src: StaticImageData; sizes: string; className?: string }) {
+// The desktop capture standing in a tinted panel, set high and cut by the
+// panel's foot, and the phone capture over its end corner, cut the same way, so
+// a website reads as a shot of one on two screens. The phone sits lower than
+// the desktop and lifts further under a hover, so the two move apart a little.
+function Shot({ p, sizes, className }: { p: Project; sizes: string; className?: string }) {
   return (
     <span className={`relative block aspect-[5/3] overflow-hidden rounded-lg bg-muted ${className ?? ""}`}>
       <Image
-        src={src}
+        src={p.live?.desktop ?? p.shots[0]}
         alt=""
         sizes={sizes}
-        className="absolute inset-x-[6%] top-[13%] w-[88%] rounded-t-sm shadow-soft transition-transform duration-arrive ease-arrive group-hover/shot:-translate-y-1.5 motion-reduce:transition-none"
+        className={`absolute start-[5%] top-[14%] rounded-t-sm shadow-soft transition-transform duration-arrive ease-arrive group-hover/shot:-translate-y-1 motion-reduce:transition-none ${
+          p.live ? "w-[82%]" : "w-[90%]"
+        }`}
       />
+      {p.live && (
+        <Image
+          src={p.live.mobile}
+          alt=""
+          sizes="8rem"
+          className="absolute end-[5%] top-[26%] w-[22%] rounded-t-[12px] shadow-soft-lg ring-4 ring-background transition-transform duration-arrive ease-arrive group-hover/shot:-translate-y-2.5 motion-reduce:transition-none"
+        />
+      )}
     </span>
   );
 }
@@ -83,7 +95,7 @@ function Actions({ p }: { p: Project }) {
   );
 }
 
-// Every template we sell as a picture, its name and its price, two to a row.
+// Every template I sell as a picture, its name and its price, two to a row.
 // A press opens it over the page the way Dribbble opens a shot; the arrows and
 // the three at its foot walk on without closing.
 export function Templates() {
@@ -95,7 +107,7 @@ export function Templates() {
     <Column as="section" id="templates" aria-labelledby="templates-title">
       <Eyebrow>(01) Templates</Eyebrow>
       <SectionHeading id="templates-title" className="mt-3">
-        Every template we sell
+        Every template I sell
       </SectionHeading>
 
       <Dialog open={open !== null} onOpenChange={(o) => !o && setOpen(null)}>
@@ -104,9 +116,9 @@ export function Templates() {
             <li key={p.slug}>
               <DialogTrigger
                 onClick={() => setOpen(i)}
-                className="group/shot block w-full rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                className="group/shot block w-full cursor-zoom-in rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
               >
-                <Shot src={p.live?.desktop ?? p.shots[0]} sizes="(min-width: 640px) 30rem, 100vw" />
+                <Shot p={p} sizes="(min-width: 640px) 30rem, 100vw" />
                 <span className="mt-4 flex items-baseline justify-between gap-4 px-1 text-sm">
                   <span className="font-medium">{p.name}</span>
                   <span className="text-muted-foreground tabular-nums">{price(p)}</span>
@@ -187,9 +199,9 @@ export function Templates() {
                           <li key={next.slug}>
                             <DialogTrigger
                               onClick={() => setOpen(at)}
-                              className="group/shot block w-full rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                              className="group/shot block w-full cursor-zoom-in rounded-lg text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
                             >
-                              <Shot src={next.live?.desktop ?? next.shots[0]} sizes="20rem" />
+                              <Shot p={next} sizes="20rem" />
                               <span className="mt-3 flex justify-between gap-3 px-1 text-sm">
                                 <span className="font-medium">{next.name}</span>
                                 <span className="text-muted-foreground tabular-nums">{price(next)}</span>
