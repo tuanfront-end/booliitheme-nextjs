@@ -42,6 +42,13 @@ export function formatDay(date: Date, options: Intl.DateTimeFormatOptions = { mo
   return dateFormat(options).format(date);
 }
 
+/** Oct 9 – 11 — a span of days. Node's ICU sets the dash between thin spaces and
+ *  Chrome's between plain ones, so the server's markup and the browser's differ
+ *  and React client-renders the page (error #418); plain spaces on both sides. */
+export function formatRange(from: Date, to: Date, options: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" }) {
+  return dateFormat(options).formatRange(from, to).replace(/[\u2009\u202f]/g, " ");
+}
+
 /** 7:30 PM — a time of day on the locale's own clock. */
 export function formatTime(date: Date, options: Intl.DateTimeFormatOptions = {}) {
   return dateFormat({ hour: "numeric", minute: "2-digit", ...options }).format(date);

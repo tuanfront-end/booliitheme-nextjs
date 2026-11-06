@@ -12,7 +12,7 @@ import type { DateRange, Matcher } from "react-day-picker";
 import { Calendar } from "@/components/ui/calendar";
 import { frameInk } from "@/components/ui/filter-rail";
 import { cn } from "@/lib/utils";
-import { dateFormat } from "@/lib/format";
+import { dateFormat, formatRange } from "@/lib/format";
 
 // The "When" of a search bar, and any date a form asks for. The field is a
 // small label over the value it holds; pressed, it opens a column of presets,
@@ -31,11 +31,10 @@ export type DatePreset = { id: string; label: string; from: Date; to?: Date };
 const sameDay = (a?: Date, b?: Date) => Boolean(a && b) && a!.toDateString() === b!.toDateString();
 
 const dayFormat = dateFormat({ weekday: "short", month: "short", day: "numeric" });
-const spanFormat = dateFormat({ month: "short", day: "numeric" });
 
 /** "Fri, Oct 9" for a day, "Oct 9 – 11" or "Oct 30 – Nov 1" for a span. */
 export function formatDates({ from, to }: { from: Date; to?: Date }) {
-  return to && !sameDay(from, to) ? spanFormat.formatRange(from, to) : dayFormat.format(from);
+  return to && !sameDay(from, to) ? formatRange(from, to) : dayFormat.format(from);
 }
 
 const atDay = (from: Date, add: number) => {

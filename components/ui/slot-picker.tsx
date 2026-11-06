@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { frameInk } from "@/components/ui/filter-rail";
 import { railFade, useRailFade } from "@/components/ui/rail-fade";
 import { cn } from "@/lib/utils";
-import { dateFormat } from "@/lib/format";
+import { dateFormat, formatRange } from "@/lib/format";
 
 // Two layouts of one control. The default is a card's: a row of days, the
 // zone the times are in, the day's times in a grid with the taken ones shut,
@@ -33,7 +33,6 @@ export type SlotDay = { id: string; date: Date; slots: Slot[] };
 const weekday = dateFormat({ weekday: "short" });
 const longDay = dateFormat({ weekday: "short", month: "short", day: "numeric" });
 const spokenDay = dateFormat({ weekday: "long", month: "long", day: "numeric" });
-const span = dateFormat({ month: "short", day: "numeric" });
 
 const ring = "outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring";
 
@@ -281,7 +280,7 @@ function SlotPicker({
             <ChevronLeftIcon aria-hidden className="size-4 rtl:-scale-x-100" />
           </Button>
           <p aria-live="polite" className="min-w-32 text-center text-sm font-medium tabular-nums">
-            {shown.length ? span.formatRange(shown[0].date, shown[shown.length - 1].date) : ""}
+            {shown.length ? formatRange(shown[0].date, shown[shown.length - 1].date) : ""}
           </p>
           <Button
             variant="ghost"
