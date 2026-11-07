@@ -40,8 +40,9 @@ type PageMeta = {
    *  mid-flow, an account screen, somebody's own saved list. Keep `follow`
    *  true: the links out of those pages go to pages that should rank. */
   robots?: Metadata["robots"];
-  /** An absolute image URL for the card; the site's own card otherwise. */
-  image?: string;
+  /** The card's image: a URL, or one with its size when the caller knows it;
+   *  the site's own card otherwise. */
+  image?: string | { url: string; width: number; height: number; alt: string };
   /** `article` only. */
   published?: string;
   authors?: string[];
@@ -64,8 +65,8 @@ export function pageMeta({
   const social = `${title} · ${siteName}`;
   // A page's `openGraph` replaces its parent's whole, so the site's card in
   // app/opengraph-image.png reaches a route only when it is named here.
-  // The site's own card is 1200×630; a card named by `image` is the caller's,
-  // whose size this file does not know.
+  // The site's own card is 1200×630; a card named by `image` carries its own
+  // size, or none when the caller passed a bare URL.
   const images = image
     ? [image]
     : [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: `${siteName}: website templates by one person` }];

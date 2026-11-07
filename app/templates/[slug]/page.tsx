@@ -7,6 +7,7 @@ import { Column } from "@/components/site/column";
 import { listed, TemplateDetail, TemplateSteps, templateHref } from "@/components/templates/detail";
 import { Button } from "@/components/ui/button";
 import { clip, pageMeta } from "@/lib/seo";
+import { ogSize } from "@/lib/og/size";
 import { siteName } from "@/lib/site";
 
 // A template's own page: what a shared link, a refresh or a search result
@@ -27,7 +28,12 @@ export async function generateMetadata({ params }: PageProps<"/templates/[slug]"
   // alone. The description is cut to a result's 160, the page keeps its copy.
   const full = `${p.name}, ${p.tagline}`;
   const title = `${full} · ${siteName}`.length <= 60 ? full : p.name;
-  return pageMeta({ title, description: clip(p.about), path: templateHref(p) });
+  // The template's own card, drawn by ./opengraph-image off its live captures;
+  // without them that route answers with the site's card, so name it outright.
+  const image = p.live
+    ? { url: `${templateHref(p)}/opengraph-image`, ...ogSize, alt: `${p.name}, on a desktop and a phone` }
+    : undefined;
+  return pageMeta({ title, description: clip(p.about), path: templateHref(p), image });
 }
 
 export default async function TemplatePage({ params }: PageProps<"/templates/[slug]">) {
